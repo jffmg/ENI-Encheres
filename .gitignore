@@ -29,4 +29,4 @@ local.properties
 *.launch
 /bin/
 
-contexte.xml
+context.xml
