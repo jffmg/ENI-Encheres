@@ -1,4 +1,4 @@
-package fr.eni.ecole.trocencheres.servlets;
+package fr.eni.ecole.trocenchere.servlets;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
