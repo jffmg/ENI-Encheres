@@ -18,17 +18,6 @@ public class Article implements Serializable {
 	private int idCategory;
 	private int idUser;
 
-	/**
-<<<<<<< HEAD
-	 * @return the idArticle
-=======
-	 * Commentaire test commit 01/02/2021 11:30
-	 * 2eme commentaire
-	 * 3eme commentaire
-	 * 4eme commentaire
-	 * 5eme commentaire (on va y arriver à maîtriser le push)
->>>>>>> branch 'master' of https://github.com/LeroyErwan/ENI-Encheres
-	 */
 	public int getIdArticle() {
 		return idArticle;
 	}
