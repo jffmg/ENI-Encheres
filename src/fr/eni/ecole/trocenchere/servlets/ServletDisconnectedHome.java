@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/ServletConnexion")
-public class ServletConnexion extends HttpServlet {
+@WebServlet("/ServletDisconnectedHome")
+public class ServletDisconnectedHome extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Connexion.jsp");
+		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/DisconnectedHome.jsp");
 		rd.forward(request, response);
 	}
 
