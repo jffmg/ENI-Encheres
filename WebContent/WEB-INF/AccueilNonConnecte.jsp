@@ -1,15 +1,18 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/AccueilNonConnecte.css"
-	type="text/css" />
-<title>Accueil</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/css/AccueilNonConnecte.css"
+		type="text/css" />
+	
+	<title>Accueil</title>
 </head>
+
 <body>
 
 	<div id="login">
