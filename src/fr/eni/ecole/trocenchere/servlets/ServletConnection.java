@@ -20,31 +20,33 @@ import fr.eni.ecole.trocencheres.gestion.erreurs.CodesResultatServlets;
 public class ServletConnection extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Connection.jsp");
 		rd.forward(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Integer> listeCodesErreur=new ArrayList<>();
-		
+
 		// get the paramaters
-		String user = request.getParameter("user");
+		String userName = request.getParameter("user");
 		String password = request.getParameter("password");
 
 		// encrypt password
 		String passwordEncrypted = encrypt(password);
-		
+
 		// User - link to data base
 		UserManager userManager = new UserManager();
-		
+
 		// Compare password
-		 String passwordDataBase = userManager.getPasswordByUser(user);
+		String passwordDataBase = userManager.selectUser(userName).getPasswordEncrypted();
 		if(passwordEncrypted.equals(passwordDataBase)) {
 			// Save user for the session
-	        HttpSession session = request.getSession();
-	        session.setAttribute("user", user);
-			
+			HttpSession session = request.getSession();
+			session.setAttribute("user", userName);
+
 			//Dispatch connected home
 			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/ConnectedHome.jsp");
 			rd.forward(request, response);
@@ -52,7 +54,7 @@ public class ServletConnection extends HttpServlet {
 		else {
 			// Message error
 			listeCodesErreur.add(CodesResultatServlets.USER_PASSWORD_ERROR);
-			
+
 			// Dispatch connection page
 			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Connection.jsp");
 			rd.forward(request, response);
@@ -64,7 +66,7 @@ public class ServletConnection extends HttpServlet {
 	private String encrypt(String password) {
 		String passwordEncrypted="";
 		for (int i=0; i<password.length();i++)  {
-			int c=password.charAt(i)^48; 
+			int c=password.charAt(i)^48;
 			passwordEncrypted=passwordEncrypted+(char)c;
 		}
 

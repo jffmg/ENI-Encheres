@@ -4,12 +4,12 @@ import fr.eni.ecole.trocenchere.dal.jdbc.DAOJdbcImpl;
 
 public abstract class DAOFactory {
 
-	private static DAO Dao;
+	private static DAO dao;
 
-	public static DAO getUserDao() {
+	public static DAO getUser() {
 
-		Dao = new DAOJdbcImpl();
-		return Dao;
+		dao = new DAOJdbcImpl();
+		return dao;
 	}
 }
 

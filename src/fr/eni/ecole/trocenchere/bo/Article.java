@@ -12,8 +12,8 @@ public class Article implements Serializable {
 	private String description;
 	private LocalDate bidStartDate;
 	private LocalDate bidEndDate;
-	private float startingBid;
-	private float salePrice;
+	private int startingBid;
+	private int salePrice;
 	private String status;
 	private int idCategory;
 	private int idUser;
@@ -88,28 +88,28 @@ public class Article implements Serializable {
 	/**
 	 * @return the startingBid
 	 */
-	public float getStartingBid() {
+	public int getStartingBid() {
 		return startingBid;
 	}
 
 	/**
 	 * @param startingBid the startingBid to set
 	 */
-	public void setStartingBid(float startingBid) {
+	public void setStartingBid(int startingBid) {
 		this.startingBid = startingBid;
 	}
 
 	/**
 	 * @return the salePrice
 	 */
-	public float getSalePrice() {
+	public int getSalePrice() {
 		return salePrice;
 	}
 
 	/**
 	 * @param salePrice the salePrice to set
 	 */
-	public void setSalePrice(float salePrice) {
+	public void setSalePrice(int salePrice) {
 		this.salePrice = salePrice;
 	}
 

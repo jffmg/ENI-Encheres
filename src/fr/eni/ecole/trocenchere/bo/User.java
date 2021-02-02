@@ -7,10 +7,12 @@ public class User implements Serializable {
 	private static final long serialVersionUID = -8342994380206163309L;
 	private String user;
 	private int idUser;
+	private String name;
+	private String firstName;
 	private String email;
 	private String phone;
 	private String street;
-	private String postcode;
+	private String postCode;
 	private String city;
 	private String passwordEncrypted;
 	private int credit;
@@ -42,6 +44,34 @@ public class User implements Serializable {
 	 */
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the firstName
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
+
+	/**
+	 * @param firstName the firstName to set
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	/**
@@ -89,15 +119,15 @@ public class User implements Serializable {
 	/**
 	 * @return the postcode
 	 */
-	public String getPostcode() {
-		return postcode;
+	public String getPostCode() {
+		return postCode;
 	}
 
 	/**
 	 * @param postcode the postcode to set
 	 */
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
 	}
 
 	/**
