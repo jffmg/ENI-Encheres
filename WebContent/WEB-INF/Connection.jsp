@@ -9,26 +9,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="css/Style.css" type="text/css" />
 <title>Connexion</title>
-
-<c:if test="${param.submitted}">
-	<c:if test="${empty param.user}" var="noId" />
-	<c:if test="${empty param.password}" var="noPassword" />
-</c:if>
-
-	<c:if test="${not (noId or noPassword)}">
-		<c:set value="${param.id}" var="user" scope="request" />
-		<c:set value="${param.password}" var="password" scope="request" />
-		<jsp:forward page="${pageContext.request.contextPath}/Connection" />
-
-	</c:if>
-
 </head>
-
+<body>
 <body>
 
-	<header id="header">
-		<c:import url="HeaderNC.html" />
-	</header>
 
 	<div id="main">
 
@@ -36,7 +20,7 @@
 
 			<div class="MainContentTop">
 
-				<form id="idForm" action="" method="POST">
+				<form id="idForm" action="/" method="POST">
 					<input type="hidden" name="submitted" value="true" />
 
 					<ul class="connectionParameters">
@@ -44,13 +28,10 @@
 							<li><label for="userId" class="idLabel">Identifiant</label> 
 							<input
 								type="text" name="user" class="idField"
-								value="<c:out value="${param.user}"/>" /> 
+								value="id" /> 
 							<br> 
 							
-							<c:if test="${noId}">
-								<small><font color="red"> Veuillez entrer un
-											identifiant </font></small>
-							</c:if>
+							
 						</li>
 
 						<li class="pwLi"><label for="password" class="idLabel">Mot de
@@ -58,12 +39,8 @@
 						<li><label for="password" class="idLabel">Mot de
 								passe</label> 
 							<input type="password" name="password"
-							class="passwordField" value="<c:out value="${param.password}"/>" /><br>
+							class="passwordField" value="pw" /><br>
 							
-							<c:if test="${noPassword}">
-								<small><font color="red"> Veuillez entrer un mot
-										de passe </font></small>
-							</c:if>
 						</li>
 					</ul>
 
@@ -96,9 +73,9 @@
 		</div>
 
 	</div>
-
-	<footer id="footer">
-			<c:import url="Footer.html" />
+	
+	<footer>
+	
 	</footer>
 
 </body>
