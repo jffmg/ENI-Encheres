@@ -18,18 +18,19 @@
 		<c:import url="HeaderNC.html"></c:import>
 	</header>
 
-	<div id="main">
-	
-		<c:if test="${!empty listeCodesErreur}">
-			<div role="alert">
-			  <strong>Erreur!</strong>
+	<c:if test="${!empty listeCodesErreur}">
+			<div class="displayLine" role="alert">
+			  <strong class="messageError">Erreur!</strong>
+			  <br>
 			  <ul>
 			  	<c:forEach var="code" items="${listeCodesErreur}">
-			  		<li>${LecteurMessage.getMessageErreur(code)}</li>
+			  		<li class="messageError">${LecteurMessage.getMessageErreur(code)}</li>
 			  	</c:forEach>
 			  </ul>
 			</div>
-		</c:if>
+	</c:if>
+
+	<div id="main">
 
 		<div class="mainContent">
 
