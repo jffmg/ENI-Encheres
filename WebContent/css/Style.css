@@ -57,7 +57,7 @@ header {
 
 footer {
 	display: flex;
-	height: 1em;
+	height: 3em;
 	width: 100vw;
 	background-color: #d0dae4;
 	/*background-color: blue;*/
@@ -71,6 +71,7 @@ footer {
 	width: 100vw;
 	background-color: #84a4bc;
 	padding: 0.5em;
+	text-align: center;
 }
 
 a.link {
@@ -108,10 +109,6 @@ li {
 	padding-bottom: 1vh;
 	}
 	
-.passwordField {
-	height: 1, 5em;
-}
-
 input[type=text], input[type=password] {
 	width: 70%;
 	border: 1px solid #ccc;

@@ -13,9 +13,9 @@
 <body>
 <body>
 
-<header>
-<c:import url="HeaderNC.html"></c:import>
-</header>
+	<header>
+		<c:import url="HeaderNC.html"></c:import>
+	</header>
 
 	<div id="main">
 
@@ -23,25 +23,17 @@
 
 			<div class="MainContentTop">
 
-				<form id="idForm" action="/" method="POST">
+				<form id="idForm" action="ServletConnection" method="POST">
 					<input type="hidden" name="submitted" value="true" />
 
 					<ul class="connectionParameters">
 
-							<li><label for="userId" class="idLabel">Identifiant</label> 
-							<input
-								type="text" name="user" class="idField" /> 
-							<br> 
-							
-							
-						</li>
+						<li><label for="userId" class="idLabel">Identifiant</label> <input
+							type="text" name="user" class="idField" /> <br></li>
 
-												<li><label for="password" class="idLabel">Mot de
-								passe</label> 
-							<input type="password" name="password"
-							class="passwordField" /><br>
-							<br>
-						</li>
+						<li><label for="password" class="idLabel">Mot de
+								passe</label> <input type="password" name="password"
+							class="passwordField" /><br></li>
 					</ul>
 
 					<div class="nav">
@@ -53,9 +45,8 @@
 						<div class="passwordActions">
 							<input type="checkbox" name="rememberMe" class="remember"
 								value="false" /> <label>Se souvenir de moi</label> <br> <a
-								class="link"
-								href="mailto:${param.email}">Mot
-								de passe oublié</a>
+								class="link" href="mailto:${param.email}">Mot de passe
+								oublié</a>
 						</div>
 					</div>
 
@@ -73,11 +64,11 @@
 		</div>
 
 	</div>
-	
+
 	<footer>
-	
-	<c:import url="Footer.html"></c:import>
-	
+	<div id.footerCell">
+		<c:import url="Footer.html"></c:import>
+		</div>
 	</footer>
 
 </body>
