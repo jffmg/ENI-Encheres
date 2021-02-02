@@ -5,5 +5,6 @@ import fr.eni.ecole.trocenchere.bo.User;
 public interface DAO {
 
 	public abstract User selectUser(String username);
+	public abstract void createUser(User data);
 
 }

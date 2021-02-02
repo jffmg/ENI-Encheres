@@ -51,4 +51,10 @@ public class DAOJdbcImpl implements DAO{
 
 	}
 
+	@Override
+	public void createUser(User data) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
