@@ -29,7 +29,7 @@ public class ServletConnection extends HttpServlet {
 		List<Integer> listeCodesErreur=new ArrayList<>();
 		
 		// get the paramaters
-		String user = request.getParameter("user");
+		String userName = request.getParameter("user");
 		String password = request.getParameter("password");
 
 		// encrypt password
@@ -39,11 +39,11 @@ public class ServletConnection extends HttpServlet {
 		UserManager userManager = new UserManager();
 		
 		// Compare password
-		 String passwordDataBase = userManager.getPasswordByUser(user);
+		 String passwordDataBase = userManager.getUser(userName).getPasswordEncrypted();
 		if(passwordEncrypted.equals(passwordDataBase)) {
 			// Save user for the session
 	        HttpSession session = request.getSession();
-	        session.setAttribute("user", user);
+	        session.setAttribute("user", userName);
 			
 			//Dispatch connected home
 			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/ConnectedHome.jsp");
