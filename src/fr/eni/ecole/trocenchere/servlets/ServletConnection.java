@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.eni.ecole.trocenchere.bll.UserManager;
 import fr.eni.ecole.trocenchere.bo.User;
+import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 import fr.eni.ecole.trocenchere.gestion.erreurs.CodesResultatServlets;
 
 
@@ -35,19 +36,25 @@ public class ServletConnection extends HttpServlet {
 		String userName = request.getParameter("user");
 		String password = request.getParameter("password");
 		System.out.println("password :" + password);
-		
+
 
 		// encrypt password
 		//String passwordEncrypted = encrypt(password);
 		String passwordEncrypted=encrypt(password);
 		System.out.println("paswwordEncrypted: " + passwordEncrypted);
-		
+
 		// User - link to data base
 		UserManager userManager = new UserManager();
 		String passwordDataBase = null;
-		
+
 		// Test user null
-		User user = userManager.selectUser(userName);
+		User user=null;
+		try {
+			user = userManager.selectUser(userName);
+		}catch (BusinessException e) {
+			request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
+			e.printStackTrace();
+		}
 		if (user != null) {
 			passwordDataBase = user.getPasswordEncrypted();
 		}
@@ -58,7 +65,7 @@ public class ServletConnection extends HttpServlet {
 			// Save user for the session
 			HttpSession session = request.getSession();
 			session.setAttribute("user", userName);
-			
+
 			if(listeCodesErreur.size()>0)
 			{
 				request.setAttribute("listeCodesErreur",listeCodesErreur);
@@ -71,7 +78,7 @@ public class ServletConnection extends HttpServlet {
 		else {
 			// Message error
 			listeCodesErreur.add(CodesResultatServlets.USER_PASSWORD_ERROR);
-			
+
 			if(listeCodesErreur.size()>0)
 			{
 				request.setAttribute("listeCodesErreur",listeCodesErreur);

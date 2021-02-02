@@ -15,7 +15,7 @@ public class DAOJdbcImpl implements DAO{
 	private static final String SQL_SELECT_USER_BY_USER = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE pseudo=?";
 
 	@Override
-	public User selectUser(String userName) {
+	public User selectUser(String userName) throws BusinessException {
 		User user = null;
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
@@ -30,6 +30,7 @@ public class DAOJdbcImpl implements DAO{
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			e.printStackTrace();
+			throw businessException;
 		}
 		return user;
 	}
