@@ -2,6 +2,8 @@
 
 String		user				(pseudo)
 int			idUser 				(no_utilisateur)
+String		name				(nom)
+String		firstName			(prenom)
 String		email				(email)
 String		phone				(telephone)
 String		street				(rue)
