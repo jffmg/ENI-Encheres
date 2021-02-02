@@ -20,7 +20,7 @@
 		
 		<c:if test="${!empty listeCodesErreur}">
 			<div class="displayLine" role="alert">
-			  <strong class="messageError">Erreur!</strong>
+			 <!--   <strong class="messageError">Erreur!</strong> -->
 			  <br>
 			  <ul>
 			  	<c:forEach var="code" items="${listeCodesErreur}">
