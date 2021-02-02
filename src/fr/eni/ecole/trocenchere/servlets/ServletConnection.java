@@ -34,6 +34,7 @@ public class ServletConnection extends HttpServlet {
 		// get the paramaters
 		String userName = request.getParameter("user");
 		String password = request.getParameter("password");
+		
 
 		// encrypt password
 		String passwordEncrypted = encrypt(password);

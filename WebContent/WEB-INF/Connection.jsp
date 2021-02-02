@@ -65,10 +65,10 @@
 
 	</div>
 
-	<footer>
-	<div id.footerCell">
+	<footer id="footerCell">
+
 		<c:import url="Footer.html"></c:import>
-		</div>
+
 	</footer>
 
 </body>

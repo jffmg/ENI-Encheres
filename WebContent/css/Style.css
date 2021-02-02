@@ -56,21 +56,24 @@ header {
 }
 
 footer {
-	display: flex;
-	height: 3em;
+	display: inline;
+	height: 2em;
 	width: 100vw;
 	background-color: #d0dae4;
 	/*background-color: blue;*/
-	text-align: center;
 	font-size: 12px;
 	margin-top: 20vh;
-	align-items: flex-end;
+	text-align: center;
 }
 
 #footerCell {
 	width: 100vw;
 	background-color: #84a4bc;
 	padding: 0.5em;
+	text-align: center;
+}
+
+p {
 	text-align: center;
 }
 
