@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.eni.ecole.trocenchere.bll.UserManager;
 import fr.eni.ecole.trocenchere.bo.User;
-import fr.eni.ecole.trocencheres.gestion.erreurs.CodesResultatServlets;
+import fr.eni.ecole.trocenchere.gestion.erreurs.CodesResultatServlets;
 
 
 @WebServlet("/ServletConnection")

@@ -1,4 +1,4 @@
-package fr.eni.ecole.trocencheres.gestion.erreurs;
+package fr.eni.ecole.trocenchere.gestion.erreurs;
 
 /**
  * Les codes disponibles sont entre 10000 et 19999
