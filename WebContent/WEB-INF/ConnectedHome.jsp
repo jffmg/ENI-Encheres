@@ -8,6 +8,11 @@
 </head>
 
 <body>
+
+	<head>
+	
+	</head>
+	
 	<p> <c:out value="${sessionScope.user}"/> est connecté </p>
 </body>
 </html>

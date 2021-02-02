@@ -18,12 +18,23 @@
 	</header>
 
 	<div id="main">
+	
+		<c:if test="${!empty listeCodesErreur}">
+			<div role="alert">
+			  <strong>Erreur!</strong>
+			  <ul>
+			  	<c:forEach var="code" items="${listeCodesErreur}">
+			  		<li>${LecteurMessage.getMessageErreur(code)}</li>
+			  	</c:forEach>
+			  </ul>
+			</div>
+		</c:if>
 
 		<div class="mainContent">
 
 			<div class="MainContentTop">
 
-				<form id="idForm" action="ServletConnection" method="POST">
+				<form id="idForm" action="${pageContext.request.contextPath}/ServletConnection" method="POST">
 					<input type="hidden" name="submitted" value="true" />
 
 					<ul class="connectionParameters">
