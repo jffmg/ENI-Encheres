@@ -50,8 +50,7 @@ public class ServletSignUp extends HttpServlet {
 
 		// 3 - create user
 		UserManager userManager = new UserManager();
-		userManager.addUser(String user, String name, String firstName, String email, String phone, String street,
-				String postCode, String city, String passwordEncrypted);
+		userManager.addUser(user, name, firstName, email, phone, street, postCode, city, passwordEncrypted);
 
 		// 4 - if everything OK, redirect to Home
 		request.getServletContext().getRequestDispatcher("/ServletConnectedHome").forward(request, response);
