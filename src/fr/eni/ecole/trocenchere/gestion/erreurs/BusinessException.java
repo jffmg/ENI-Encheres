@@ -1,4 +1,4 @@
-package fr.eni.ecole.trocencheres.gestion.erreurs;
+package fr.eni.ecole.trocenchere.gestion.erreurs;
 
 import java.util.ArrayList;
 import java.util.List;

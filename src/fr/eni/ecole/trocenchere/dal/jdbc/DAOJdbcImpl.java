@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.dal.DAO;
-import fr.eni.ecole.trocencheres.gestion.erreurs.BusinessException;
-import fr.eni.ecole.trocencheres.gestion.erreurs.CodesResultatDAL;
+import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
+import fr.eni.ecole.trocenchere.gestion.erreurs.CodesResultatDAL;
 
 public class DAOJdbcImpl implements DAO{
 
