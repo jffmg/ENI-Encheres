@@ -14,7 +14,7 @@ public class LecteurMessage {
 	{
 		try
 		{
-			rb = ResourceBundle.getBundle("fr.eni.ecole.trocencheres.gestion.erreurs.messages_erreur");
+			rb = ResourceBundle.getBundle("fr.eni.ecole.trocenchere.gestion.erreurs.messages_erreur");
 		}
 		catch (Exception e) 
 		{

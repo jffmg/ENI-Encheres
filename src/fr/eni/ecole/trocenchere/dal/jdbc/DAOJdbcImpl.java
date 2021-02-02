@@ -5,9 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import fr.eni.ecole.trocenchere.BusinessException;
 import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.dal.DAO;
+import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 import fr.eni.ecole.trocenchere.gestion.erreurs.CodesResultatDAL;
 
 public class DAOJdbcImpl implements DAO{
@@ -16,7 +16,7 @@ public class DAOJdbcImpl implements DAO{
 	private static final String SQL_INSERT_USER = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 	@Override
-	public User selectUser(String userName) {
+	public User selectUser(String userName) throws BusinessException {
 		User user = null;
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
@@ -31,6 +31,7 @@ public class DAOJdbcImpl implements DAO{
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			e.printStackTrace();
+			throw businessException;
 		}
 		return user;
 	}
