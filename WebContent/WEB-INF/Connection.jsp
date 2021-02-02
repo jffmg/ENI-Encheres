@@ -6,6 +6,7 @@
 
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="css/Style.css" type="text/css" />
 <title>Connexion</title>
 
@@ -38,7 +39,7 @@
 					<input type="hidden" name="submitted" value="true" />
 
 					<ul class="connectionParameters">
-						<li><label for="userId" class="idLabel">Identifiant</label> <input
+						<li class="idLi"><label for="userId" class="idLabel">Identifiant</label> <input
 							type="text" name="user" class="idField"
 							value="<c:out value="${param.user}"/>" /> <br> <c:if
 								test="${noId}">
@@ -46,7 +47,7 @@
 										identifiant </font></small>
 							</c:if></li>
 
-						<li><label for="password" class="idLabel">Mot de
+						<li class="pwLi"><label for="password" class="idLabel">Mot de
 								passe</label> <input type="password" name="password"
 							class="passwordField" value="<c:out value="${param.password}"/>" /><br>
 							<c:if test="${noPassword}">
