@@ -9,5 +9,31 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <context-param>
+  <description>Category All</description>
+  <param-name>ALL</param-name>
+  <param-value>Toutes</param-value>
+  </context-param>
+  <context-param>
+  <description>Category Computer</description>
+  <param-name>COMPUTER</param-name>
+  <param-value>Informatique</param-value>
+  </context-param>
+  <context-param>
+  <description>Category Furnishings</description>
+  <param-name>FURNISHINGS</param-name>
+  <param-value>Ameublement</param-value>
+  </context-param>
+  <context-param>
+  <description>Category Clothing</description>
+  <param-name>CLOTHING</param-name>
+  <param-value>Vêtement</param-value>
+  </context-param>
+  <context-param>
+  <description>Category Sport &amp; Leisure</description>
+  <param-name>SPORT</param-name>
+  <param-value>Sport &amp; Loisirs</param-value>
+  </context-param>
  
 </web-app>
