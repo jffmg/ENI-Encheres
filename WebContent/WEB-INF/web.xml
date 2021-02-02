@@ -9,15 +9,5 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
-  <servlet>
-  <servlet-name>Connection</servlet-name>
-  <jsp-file>/WEB-INF/Connection.jsp</jsp-file>
-  </servlet>
-  
-  <servlet-mapping>
-  <servlet-name>Connection</servlet-name>
-  <url-pattern>/WEB-INF/*</url-pattern>
-  </servlet-mapping>
-  
+ 
 </web-app>

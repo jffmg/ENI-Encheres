@@ -13,6 +13,9 @@
 <body>
 <body>
 
+<header>
+<c:import url="HeaderNC.html"></c:import>
+</header>
 
 	<div id="main">
 
@@ -27,20 +30,17 @@
 
 							<li><label for="userId" class="idLabel">Identifiant</label> 
 							<input
-								type="text" name="user" class="idField"
-								value="id" /> 
+								type="text" name="user" class="idField" /> 
 							<br> 
 							
 							
 						</li>
 
-						<li class="pwLi"><label for="password" class="idLabel">Mot de
-								passe</label> <input type="password" name="password">
-						<li><label for="password" class="idLabel">Mot de
+												<li><label for="password" class="idLabel">Mot de
 								passe</label> 
 							<input type="password" name="password"
-							class="passwordField" value="pw" /><br>
-							
+							class="passwordField" /><br>
+							<br>
 						</li>
 					</ul>
 
@@ -75,6 +75,8 @@
 	</div>
 	
 	<footer>
+	
+	<c:import url="Footer.html"></c:import>
 	
 	</footer>
 
