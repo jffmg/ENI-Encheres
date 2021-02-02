@@ -57,6 +57,7 @@ public class ServletSignUp extends HttpServlet {
 		request.getServletContext().getRequestDispatcher("/ServletConnectedHome").forward(request, response);
 	}
 
+	// TODO move to somewhere else to avoid duplication
 	// function to encrypt password
 	private String encrypt(String password) {
 		String passwordEncrypted = "";
