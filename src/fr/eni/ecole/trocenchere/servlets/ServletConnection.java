@@ -34,26 +34,35 @@ public class ServletConnection extends HttpServlet {
 		// get the paramaters
 		String userName = request.getParameter("user");
 		String password = request.getParameter("password");
+		System.out.println("password :" + password);
 		
 
 		// encrypt password
-		String passwordEncrypted = encrypt(password);
-
+		//String passwordEncrypted = encrypt(password);
+		String passwordEncrypted=encrypt(password);
+		System.out.println("paswwordEncrypted: " + passwordEncrypted);
+		
 		// User - link to data base
 		UserManager userManager = new UserManager();
 		String passwordDataBase = null;
-
+		
 		// Test user null
 		User user = userManager.selectUser(userName);
 		if (user != null) {
 			passwordDataBase = user.getPasswordEncrypted();
 		}
+		System.out.println("paswwordDataBAse : " + passwordDataBase);
 
 		// Compare password
 		if (passwordDataBase != null && passwordDataBase.equals(passwordEncrypted)) {
 			// Save user for the session
 			HttpSession session = request.getSession();
 			session.setAttribute("user", userName);
+			
+			if(listeCodesErreur.size()>0)
+			{
+				request.setAttribute("listeCodesErreur",listeCodesErreur);
+			}
 
 			//Dispatch connected home
 			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/ConnectedHome.jsp");
@@ -62,6 +71,11 @@ public class ServletConnection extends HttpServlet {
 		else {
 			// Message error
 			listeCodesErreur.add(CodesResultatServlets.USER_PASSWORD_ERROR);
+			
+			if(listeCodesErreur.size()>0)
+			{
+				request.setAttribute("listeCodesErreur",listeCodesErreur);
+			}
 
 			// Dispatch connection page
 			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Connection.jsp");
