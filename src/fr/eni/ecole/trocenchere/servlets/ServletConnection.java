@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.ecole.trocenchere.bll.UserManager;
+import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocencheres.gestion.erreurs.CodesResultatServlets;
 
 
@@ -39,10 +40,16 @@ public class ServletConnection extends HttpServlet {
 
 		// User - link to data base
 		UserManager userManager = new UserManager();
+		String passwordDataBase = null;
+
+		// Test user null
+		User user = userManager.selectUser(userName);
+		if (user != null) {
+			passwordDataBase = user.getPasswordEncrypted();
+		}
 
 		// Compare password
-		String passwordDataBase = userManager.selectUser(userName).getPasswordEncrypted();
-		if(passwordEncrypted.equals(passwordDataBase)) {
+		if (passwordDataBase != null && passwordDataBase.equals(passwordEncrypted)) {
 			// Save user for the session
 			HttpSession session = request.getSession();
 			session.setAttribute("user", userName);
