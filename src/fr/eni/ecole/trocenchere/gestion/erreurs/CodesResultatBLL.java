@@ -6,5 +6,13 @@ package fr.eni.ecole.trocenchere.gestion.erreurs;
 public abstract class CodesResultatBLL {
 	
 	public static final int NAME_ERROR=20000;
+	public static final int USER_ERROR=20001;
+	public static final int FIRSTNAME_ERROR=20002;
+	public static final int EMAIL_ERROR=20003;
+	public static final int PHONE_ERROR=20004;
+	public static final int STREET_ERROR=20005;
+	public static final int POSTCODE_ERROR=20006;
+	public static final int CITY_ERROR=20007;
+	public static final int PASSWORD_ERROR=20008;
 	
 }

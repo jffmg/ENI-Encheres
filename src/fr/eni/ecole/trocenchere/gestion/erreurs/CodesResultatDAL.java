@@ -24,5 +24,6 @@ public abstract class CodesResultatDAL {
 	public static final int DELETE_ARTICLE_ECHEC=10003;
 
 	public static final int DELETE_LISTE_ECHEC=10004;
+	
 
 }

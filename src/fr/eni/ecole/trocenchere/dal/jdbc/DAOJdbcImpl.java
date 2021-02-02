@@ -5,14 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import fr.eni.ecole.trocenchere.BusinessException;
 import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.dal.DAO;
-import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 import fr.eni.ecole.trocenchere.gestion.erreurs.CodesResultatDAL;
 
 public class DAOJdbcImpl implements DAO{
 
 	private static final String SQL_SELECT_USER_BY_USER = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE pseudo=?";
+	private static final String SQL_INSERT_USER = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 	@Override
 	public User selectUser(String userName) {
@@ -53,7 +54,33 @@ public class DAOJdbcImpl implements DAO{
 
 	@Override
 	public void createUser(User data) {
-		// TODO Auto-generated method stub
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			prepStmt = cnx.prepareStatement(SQL_INSERT_USER);
+			prepStmt.setString(1, data.getUser());
+			prepStmt.setString(2, data.getName());
+			prepStmt.setString(3, data.getFirstName());
+			prepStmt.setString(4, data.getEmail());
+			prepStmt.setString(5, data.getPhone());
+			prepStmt.setString(6, data.getStreet());
+			prepStmt.setString(7, data.getPostCode());
+			prepStmt.setString(8, data.getCity());
+			prepStmt.setString(9, data.getPasswordEncrypted());
+			prepStmt.setInt(10, 100);
+			prepStmt.setInt(11, 0);
+			prepStmt.executeUpdate();
+			rs = prepStmt.getGeneratedKeys();
+			if(rs.next())
+			{
+				data.setIdUser(rs.getInt(1));
+			}
+			
+		} catch (SQLException e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
+			e.printStackTrace();
+		}
 		
 	}
 
