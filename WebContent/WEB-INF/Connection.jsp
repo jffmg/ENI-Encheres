@@ -5,20 +5,20 @@
 <html>
 
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="css/Style.css" type="text/css" />
-<title>Connexion</title>
-
-<c:if test="${param.submitted}">
-	<c:if test="${empty param.user}" var="noId" />
-	<c:if test="${empty param.password}" var="noPassword" />
-
-	<c:if test="${not (noId or noPassword)}">
-		<c:set value="${param.id}" var="user" scope="request" />
-		<c:set value="${param.password}" var="password" scope="request" />
-		<jsp:forward page="${pageContext.request.contextPath}/Connection" />
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/Style.css" type="text/css" />
+	<title>Connexion</title>
+	
+	<c:if test="${param.submitted}">
+		<c:if test="${empty param.user}" var="noId" />
+		<c:if test="${empty param.password}" var="noPassword" />
+	
+		<c:if test="${not (noId or noPassword)}">
+			<c:set value="${param.id}" var="user" scope="request" />
+			<c:set value="${param.password}" var="password" scope="request" />
+			<jsp:forward page="${pageContext.request.contextPath}/Connection" />
+		</c:if>
 	</c:if>
-</c:if>
 
 </head>
 
@@ -38,21 +38,28 @@
 					<input type="hidden" name="submitted" value="true" />
 
 					<ul class="connectionParameters">
-						<li><label for="userId" class="idLabel">Identifiant</label> <input
-							type="text" name="user" class="idField"
-							value="<c:out value="${param.user}"/>" /> <br> <c:if
-								test="${noId}">
+						<li><label for="userId" class="idLabel">Identifiant</label> 
+							<input
+								type="text" name="user" class="idField"
+								value="<c:out value="${param.user}"/>" /> 
+							<br> 
+							
+							<c:if test="${noId}">
 								<small><font color="red"> Veuillez entrer un
-										identifiant </font></small>
-							</c:if></li>
+											identifiant </font></small>
+							</c:if>
+						</li>
 
 						<li><label for="password" class="idLabel">Mot de
-								passe</label> <input type="password" name="password"
+								passe</label> 
+							<input type="password" name="password"
 							class="passwordField" value="<c:out value="${param.password}"/>" /><br>
+							
 							<c:if test="${noPassword}">
 								<small><font color="red"> Veuillez entrer un mot
 										de passe </font></small>
-							</c:if></li>
+							</c:if>
+						</li>
 					</ul>
 
 					<div class="nav">
@@ -86,9 +93,7 @@
 	</div>
 
 	<footer id="footer">
-		<div id="footerCell">
 			<c:import url="Footer.html" />
-		</div>
 	</footer>
 
 </body>
