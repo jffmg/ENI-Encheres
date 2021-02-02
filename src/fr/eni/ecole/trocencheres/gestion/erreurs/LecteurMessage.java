@@ -7,14 +7,14 @@ import java.util.ResourceBundle;
  * @author Administrator
  *
  */
-public abstract class LecteurMessage {
+public class LecteurMessage {
 	private static ResourceBundle rb;
 	
 	static
 	{
 		try
 		{
-			rb = ResourceBundle.getBundle("fr.eni.TPCourses.GestionDesErreurs.messages_erreur");
+			rb = ResourceBundle.getBundle("fr.eni.ecole.trocencheres.gestion.erreurs.messages_erreur");
 		}
 		catch (Exception e) 
 		{
@@ -37,7 +37,7 @@ public abstract class LecteurMessage {
 			}
 			else
 			{
-				message="ProblÃ¨me Ã  la lecture du fichier contenant les messages";
+				message="Problème à la lecture du fichier contenant les messages";
 			}
 		}
 		catch (Exception e) {
