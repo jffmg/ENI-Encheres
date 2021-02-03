@@ -11,5 +11,11 @@ public abstract class DAOFactory {
 		dao = new DAOJdbcImpl();
 		return dao;
 	}
+	
+	public static DAO getArticle() {
+		dao = new DAOJdbcImpl();
+		return dao;
+	}
+	
 }
 
