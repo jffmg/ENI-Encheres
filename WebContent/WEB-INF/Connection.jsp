@@ -72,7 +72,7 @@
 			</div>
 
 			<div class="MainContentBottom">
-				<form action="ConnectedHome.jsp" method="GET">
+				<form action="<%=request.getContextPath()%>/ServletSignUp" method="GET">
 					<input type="submit" name="createAccountButton"
 						value="Créer un compte" class="createAccountButton" />
 				</form>

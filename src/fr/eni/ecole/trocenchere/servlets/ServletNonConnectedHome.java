@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
-
 import fr.eni.ecole.trocenchere.bll.ArticleManager;
 import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
@@ -57,7 +55,6 @@ public class ServletNonConnectedHome extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// TODO trouver pourquoi ça marche pas !
 
 		// getting the parameters : category selected by user
 		String categorySelectedString = request.getParameter("categories");

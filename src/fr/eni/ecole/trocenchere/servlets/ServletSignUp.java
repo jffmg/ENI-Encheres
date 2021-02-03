@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -75,7 +76,12 @@ public class ServletSignUp extends HttpServlet {
 		}
 
 		// 4 - if everything OK, redirect to Home
-		request.getServletContext().getRequestDispatcher("/ServletConnectedHome").forward(request, response);
+		request.getServletContext().getRequestDispatcher("/ServletConnectedHome?foo=get").forward(request, response);
+		//request.getServletContext().getRequestDispatcher("/WEB-INF/ConnectedHome.jsp").forward(request, response);
+				
+		//response.sendRedirect("/ServletConnectedHome");
+		//response.sendRedirect("/WEB-INF/ConnectedHome.jsp");
+		
 	}
 
 	// TODO move to somewhere else to avoid duplication
