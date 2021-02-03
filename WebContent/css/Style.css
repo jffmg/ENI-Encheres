@@ -12,10 +12,9 @@
 	padding: 0;
 }
 
-body {
+.body {
 	display: flex;
 	flex-direction: column;
-	background-size: 100%;
 	background-color: #d0dae4;
 }
 
@@ -71,7 +70,7 @@ body {
 	border-radius: 5%;
 }
 
-footer {
+.footer {
 	display: inline;
 	height: 2em;
 	width: 100vw;
@@ -274,6 +273,10 @@ a.link {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
+}
+
+.welcome{
+	align-content: right;
 }
 
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
