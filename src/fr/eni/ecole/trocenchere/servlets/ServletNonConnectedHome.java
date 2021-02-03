@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,8 +48,7 @@ public class ServletNonConnectedHome extends HttpServlet {
 
 		request.getServletContext().setAttribute("articlesSelected", articlesSelected);
 
-		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/NonConnectedHome.jsp");
-		rd.forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/NonConnectedHome.jsp").forward(request, response);
 	}
 
 	@Override
@@ -95,6 +93,8 @@ public class ServletNonConnectedHome extends HttpServlet {
 		}
 
 		request.getServletContext().setAttribute("articlesSelected", articlesSelected);
+
+		this.getServletContext().getRequestDispatcher("/WEB-INF/NonConnectedHome.jsp").forward(request, response);
 
 	}
 

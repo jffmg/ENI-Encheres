@@ -34,7 +34,7 @@
 		<div class="welcome"><br></div>
 		<h1 class="title">Liste des enchères</h1>
 			
-		<form action="/ServletConnectedHome" method="post">
+		<form action="<%=request.getContextPath()%>/ServletNonConnectedHome" method="post">
 		<div class="checkBoxesNC">
 			<div class="container">
 			
@@ -44,12 +44,9 @@
 				
 					<label class="lookForLabel">Catégories : </label> 
 					<select name="categories" id="category">
-						<!-- faire for each pour recuperer categorie-->
-						<option value="Toutes">${initParam.ALL}</option>
-						<option value="Informatique">${initParam.COMPUTER}</option>
-						<option value="Ameublement">${initParam.FURNISHINGS}</option>
-						<option value="Vêtement">${initParam.CLOTHING}</option>
-						<option value="SportLoisirs">${initParam.SPORT}</option>
+						<c:forEach var="cat" items="${categories}">
+							<option value="${cat}">${cat}</option>
+						</c:forEach>
 					</select> 
 				</div>
 			

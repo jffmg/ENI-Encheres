@@ -47,13 +47,10 @@
 				
 					<label class="lookForLabel">Catégories : </label> 
 					<select name="categories" id="category">
-						<!-- faire for each pour recuperer categorie-->
-						<option value="Toutes">${initParam.ALL}</option>
-						<option value="Informatique">${initParam.COMPUTER}</option>
-						<option value="Ameublement">${initParam.FURNISHINGS}</option>
-						<option value="Vêtement">${initParam.CLOTHING}</option>
-						<option value="SportLoisirs">${initParam.SPORT}</option>
-					</select> 
+						<c:forEach var="cat" items="${categories}">
+							<option value="${cat}">${cat}</option>
+						</c:forEach>
+					</select>  
 				</div>
 			
 				<div class="container2">
