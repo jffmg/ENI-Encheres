@@ -1,6 +1,7 @@
 package fr.eni.ecole.trocenchere.servlets;
 
 import java.io.IOException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
 
 import fr.eni.ecole.trocenchere.bll.ArticleManager;
 import fr.eni.ecole.trocenchere.bo.Article;
@@ -58,20 +61,21 @@ public class ServletNonConnectedHome extends HttpServlet {
 
 		// getting the parameters : category selected by user
 		String categorySelectedString = request.getParameter("categories");
+		String categorySelectedStringStripAccents = stripAccents(categorySelectedString);
 		int categorySelected = 0;
 
 		// changing labels to int
-		switch (categorySelectedString.toLowerCase().trim()) {
+		switch (categorySelectedStringStripAccents.toLowerCase().trim()) {
 		case "informatique":
 			categorySelected = 1;
 			break;
 		case "ameublement":
 			categorySelected = 2;
 			break;
-		case "vêtement":
+		case "vatement":
 			categorySelected = 3;
 			break;
-		case "sport &amp; loisirs":
+		case "sport & loisirs":
 			categorySelected = 4;
 			break;
 			// default = all selected
@@ -99,6 +103,12 @@ public class ServletNonConnectedHome extends HttpServlet {
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/NonConnectedHome.jsp").forward(request, response);
 
+	}
+
+	private String stripAccents(String s) {
+		 s = Normalizer.normalize(s, Normalizer.Form.NFD);
+		    s = s.replaceAll("[^\\p{ASCII}]", "");
+		return s;
 	}
 
 	// function to select the articles to display according to user's choices
