@@ -22,6 +22,7 @@ import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 public class ServletConnectedHome extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static List<Integer> listeCodesErreur = new ArrayList<>();
+	private static String test = "test";
 
 	@Override
 	public void init() throws ServletException {
