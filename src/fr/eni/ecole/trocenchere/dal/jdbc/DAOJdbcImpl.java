@@ -23,10 +23,10 @@ public class DAOJdbcImpl implements DAO {
 	private static final String SQL_SELECT_ARTICLE_BY_KEYWORD = "SELECT * FROM articles_vendus WHERE nom_article LIKE ?;";
 	private static final String SQL_SELECT_ARTICLE_BY_STATUS = "SELECT * FROM articles_vendus WHERE etat_vente = ?;";
 
-	private static final String SQL_SELECT_ALL_EC_ARTICLES = "SELECT * FROM articles_vendus WHERE etat_vente = ?;";
-	private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD = "SELECT * FROM articles_vendus WHERE etat_vente = ? AND nom_article LIKE %?%;";
-	private static final String SQL_SELECT_EC_ARTICLES_BY_CATEGORY = "SELECT * FROM articles_vendus WHERE etat_vente = ? AND no_categorie = ?;";
-	private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus WHERE etat_vente = ? AND no_categorie = ? AND nom_article LIKE %?%;";
+	private static final String SQL_SELECT_ALL_EC_ARTICLES = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC';";
+	private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC' AND nom_article LIKE %?%;";
+	private static final String SQL_SELECT_EC_ARTICLES_BY_CATEGORY = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC' AND no_categorie = ?;";
+	private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC' AND no_categorie = ? AND nom_article LIKE %?%;";
 
 	@Override
 	public User selectUser(String userName) throws BusinessException {
@@ -146,13 +146,13 @@ public class DAOJdbcImpl implements DAO {
 
 	@Override
 	public List<Article> selectArticlesEC(String keyWord, int category) throws BusinessException {
-		
-		
+
+
 		String kw=keyWord;
 		int cat=category;
-		
+
 		System.out.println(kw + " " + cat);
-		
+
 		List<Article> listeArticles = new ArrayList<>();
 		PreparedStatement pstmt = null;
 
