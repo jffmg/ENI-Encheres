@@ -1,29 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page import="fr.eni.ecole.trocenchere.gestion.erreurs.LecteurMessage" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Connected Home</title>
+<link rel="stylesheet" href="css/Style.css" type="text/css" />
 </head>
 
 <body>
-	<header>
-		<c:import url="HeaderNC.html">
-		
-		<div id="title">
-			<h1>Liste des enchères</h1>
-		</div>
-
-		<div id="navbar">
-			<a href="">Enchères</a> <a href="">Vendre un article</a> <a href="">Mon
-				Profil</a> <a href="">Déconnexion</a>
-		</div>
-		
-		</c:import>
-
-		
-
+	<header>		
+		<%@include file="HeaderConnected.jspf" %>
+		<h1>Liste des enchères</h1>
 	</header>
 
 	<p>
@@ -33,12 +24,13 @@
 
 	<div id="main">
 
-		<div class="filters">
+		<div>
 
-			<div class="selecters">
-				<input type="text" name="articleContains" class="field" placeholder="Le nom de l'article contient..." />
+			<div>
+				<input type="text" name="articleContains" placeholder="Le nom de l'article contient..." />
 				
-				<label>Catégories : </label> <select name="Categories" id="category">
+				<label>Catégories : </label> 
+				<select name="Categories" id="category">
 					<option value="Toutes">${initParam.ALL}</option>
 					<option value="Informatique">${initParam.COMPUTER}</option>
 					<option value="Ameublement">${initParam.FURNISHINGS}</option>

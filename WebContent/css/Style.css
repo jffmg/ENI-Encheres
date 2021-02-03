@@ -19,7 +19,7 @@ body {
 	background-color: #d0dae4;
 }
 
-header {
+.header {
 	height: 16vh;
 	width: 100vw;
 	background-color: #d0dae4;
@@ -71,11 +71,6 @@ header {
 	border-radius: 5%;
 }
 
-.mainContent {
-	padding-top: 3vw;
-	/*background-color: orange;*/
-}
-
 footer {
 	display: inline;
 	height: 2em;
@@ -94,8 +89,74 @@ footer {
 	text-align: center;
 }
 
+ul {
+	display: flex;
+	height: 9vh;
+	flex-direction: column;
+	/*background-color: salmon;*/
+	flex-wrap: inherit;
+}
+
+li {
+	display: flex;
+	flex-direction:row;
+	list-style-type: none;
+	/*padding: 1em;*/
+	padding-top: 1vh;
+	padding-bottom: 1vh;
+	}
+	
+input[type=text], input[type=password] {
+	width: 70%;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	resize: none;
+}
+
+a{
+	text-decoration:none;
+}
+
+
 p {
 	text-align: center;
+}
+
+.mainContent {
+	padding-top: 3vw;
+	/*background-color: orange;*/
+}
+
+
+.navbar{
+	background-color: #84a4bc;
+	display: flex;
+	flex-direction: row;
+	position:fixed;
+	width:100%;
+}
+
+.navbarLogo{
+	padding: 1em;
+	height: 5em;
+	justify-content:space-between;	
+}
+
+.navbarLabelDiv{
+	display:flex;
+	flex-direction: row;
+}
+
+.navbarLabel{
+	color:#144a7f;
+	padding-left:1em;
+	padding-right:1em;
+	padding-top:2em;
+	justify-content: flex-end;
+}
+
+.navbarLabel:hover{
+     color:grey;
 }
 
 a.link {
@@ -124,30 +185,6 @@ a.link {
 	/*background-color: pink;*/
 	flex-wrap: wrap;
 	margin-top: 55vh;
-}
-
-ul {
-	display: flex;
-	height: 9vh;
-	flex-direction: column;
-	/*background-color: salmon;*/
-	flex-wrap: inherit;
-}
-
-li {
-	display: flex;
-	flex-direction:row;
-	list-style-type: none;
-	/*padding: 1em;*/
-	padding-top: 1vh;
-	padding-bottom: 1vh;
-	}
-	
-input[type=text], input[type=password] {
-	width: 70%;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	resize: none;
 }
 
 .validationButton {

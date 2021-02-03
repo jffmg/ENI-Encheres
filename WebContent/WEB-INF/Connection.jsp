@@ -14,7 +14,7 @@
 <body>
 <body>
 
-	<header>
+	<header class="header">
 		<c:import url="HeaderNC.html"></c:import>
 	</header>
 
