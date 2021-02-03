@@ -88,6 +88,7 @@ public class ServletNonConnectedHome extends HttpServlet {
 		String keyWord = null;
 
 		keyWord = request.getParameter("keyWord");
+		System.out.println(keyWord);
 		
 
 		// displaying articles
