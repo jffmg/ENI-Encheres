@@ -1,33 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ page import="fr.eni.ecole.trocenchere.gestion.erreurs.LecteurMessage" %>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Header Connected Home</title>
-	<link rel="stylesheet" href="css/Style.css" type="text/css" />
-</head>
-
-<body>
-
-		<div class="navbar">
-			<div Style="width:10%">
-				<a href="<%=request.getContextPath()%>/ServletConnectedHome">
-					<img class="navbarLogo" src="<%=request.getContextPath()%>/images/logoENIEncheres.png"/>
-				</a>
-			</div>
-			<div Style="width:50%"></div>
-			<div Style="width:40%" class="navbarLabelDiv">
-				<a class="navbarLabel" href="">Enchères</a> 
-				<a class="navbarLabel" href="">Vendre un article</a>
-				<a class="navbarLabel" href="">Mon Profil</a> 
-				<a class="navbarLabel" href="">Déconnexion</a>
-			</div>
-		</div>
-	
-
-</body>
-</html>
+<div class="navbar">
+	<div Style="width:10%">
+		<a href="<%=request.getContextPath()%>/ServletConnectedHome">
+			<img class="navbarLogo" src="<%=request.getContextPath()%>/images/logoENIEncheres.png"/>
+		</a>
+	</div>
+	<div Style="width:50%"></div>
+	<div Style="width:40%" class="navbarLabelDiv">
+		<a class="navbarLabel" href="">Ench&egrave;res</a> 
+		<a class="navbarLabel" href="">Vendre un article</a>
+		<a class="navbarLabel" href="">Mon Profil</a> 
+		<a class="navbarLabel" href="">D&eacute;connexion</a>
+	</div>
+</div>

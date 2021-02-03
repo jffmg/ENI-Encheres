@@ -11,8 +11,8 @@
 <link rel="stylesheet" href="css/Style.css" type="text/css" />
 <title>Connexion</title>
 </head>
-<body>
-<body>
+
+<body class="body">
 
 	<header class="header">
 		<c:import url="HeaderNC.html"></c:import>
@@ -78,9 +78,9 @@
 
 	</div>
 
-	<footer id="footerCell">
+	<footer class="footer" id="footerCell">
 
-		<c:import url="Footer.html"></c:import>
+		<%@include file="Footer.jspf" %>
 
 	</footer>
 

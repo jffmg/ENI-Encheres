@@ -12,7 +12,7 @@
 		<title>Inscription</title>
 	</head>
 
-	<body>
+	<body class="body">
 	
 		<header class="header">
 			<c:import url="HeaderNC.html"></c:import>
@@ -84,8 +84,8 @@
 			</div>
 		</div>
 
-		<footer id="footerCell">
-			<c:import url="Footer.html"></c:import>
+		<footer class="footer" id="footerCell">
+				<%@include file="Footer.jspf" %>
 		</footer>
 
 	</body>
