@@ -19,5 +19,16 @@ private DAO articleDao;
 	public List<Article> selectArticlesEC(String keyWord, int category) throws BusinessException {
 		return this.articleDao.selectArticlesEC(keyWord, category);
 	}
+	
+	//method in order to get articles when connected
+	public List<Article> selectPurchases(String keyWord, int category, boolean openBids, boolean myBids, boolean myWonBids) throws BusinessException {
+		return this.articleDao.selectPurchases(keyWord, category, openBids, myBids, myWonBids);
+	}
+	public List<Article> selectSales(String keyWord, int category, boolean currentSales, boolean notStartedSales, boolean endedSales) throws BusinessException {
+		return this.articleDao.selectSales(keyWord, category, currentSales, notStartedSales, endedSales);
+		
+	}
+	
+	
 
 }

@@ -202,4 +202,18 @@ public class DAOJdbcImpl implements DAO {
 		return article;
 	}
 
+	@Override
+	public List<Article> selectPurchases(String keyWord, int category, boolean openBids, boolean myBids,
+			boolean myWonBids) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Article> selectSales(String keyWord, int category, boolean currentSales, boolean notStartedSales,
+			boolean endedSales) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

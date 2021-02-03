@@ -16,5 +16,9 @@ public interface DAO {
 	
 	//articleDAO methods
 	public abstract List<Article> selectArticlesEC(String keyWord, int category) throws BusinessException;
+	public abstract List<Article> selectPurchases(String keyWord, int category, boolean openBids, boolean myBids,
+			boolean myWonBids) throws BusinessException ;
+	public abstract List<Article> selectSales(String keyWord, int category, boolean currentSales,
+			boolean notStartedSales, boolean endedSales) throws BusinessException ;
 
 }
