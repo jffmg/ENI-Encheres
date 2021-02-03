@@ -31,60 +31,70 @@
 	
 	<body class="body">
 		<div class="welcome">
-		Bienvenue 
 		<c:out value="${sessionScope.user}" />
+		est connecté.
 		</div>
 	
-		<h1>Liste des enchères</h1>
-		
-	
-	
-		<div>
-	
-			<div>
-	
-				<div>
-					<input type="text" name="articleContains" placeholder="Le nom de l'article contient..." />
-					
-					<label>Catégories : </label> 
-					<select name="Categories" id="category">
-						<option value="Toutes">${initParam.ALL}</option>
-						<option value="Informatique">${initParam.COMPUTER}</option>
-						<option value="Ameublement">${initParam.FURNISHINGS}</option>
-						<option value="Vêtement">${initParam.CLOTHING}</option>
-						<option value="SportLoisirs">${initParam.SPORT}</option>
-					</select> 
-					
-				</div>
-	
-				<div class="checkBoxes"></div>
-				<ul>
-				<label>Achats</label>
-				<li><input type="checkbox" name="openBids" class="checkBox"
-									value="false" /> <label>enchères ouvertes</label></li>
-				<li><input type="checkbox" name="myBids" class="checkBox"
-									value="false" /> <label>mes enchères</label></li>
-				<li><input type="checkbox" name="myWonBids" class="checkBox"
-									value="false" /> <label>mes enchères remportées</label></li>
-				</ul>
+		<h1 class="title">Liste des enchères</h1>
+			
+			<div class="checkBoxes">
+				<div class="container">
 				
-				<ul>
-				<label>Mes ventes</label>
-				<li><input type="checkbox" name="currentSales" class="checkBox"
-									value="false" /> <label>ventes en cours</label></li>
-				<li><input type="checkbox" name="notStartedSales" class="checkBox"
-									value="false" /> <label>ventes non débutées</label></li>
-				<li><input type="checkbox" name="endedSales" class="checkBox"
-									value="false" /> <label>ventes terminées</label></li>
-				</ul>
+					<div class="lookFor">
+						<label class="lookForLabel">Filtre : </label>
+						<input class="inputSelect" type="text" name="articleContains" placeholder="Le nom de l'article contient..." />
+					
+						<label class="lookForLabel">Catégories : </label> 
+						<select name="Categories" id="category">
+							<option value="Toutes">${initParam.ALL}</option>
+							<option value="Informatique">${initParam.COMPUTER}</option>
+							<option value="Ameublement">${initParam.FURNISHINGS}</option>
+							<option value="Vêtement">${initParam.CLOTHING}</option>
+							<option value="SportLoisirs">${initParam.SPORT}</option>
+						</select> 
+					</div>
+				
+					<div class="container2">
+						<div>
+							<ul>
+								<label class="selectBoxTitle">Achats</label>
+								<li><input type="checkbox" name="openBids" class="checkBox" value="false" /> 
+									<label class="selectBoxLabel">enchères ouvertes</label>
+								</li>
+								<li><input type="checkbox" name="myBids" class="checkBox" value="false" /> 
+									<label class="selectBoxLabel">mes enchères</label>
+								</li>
+								<li><input type="checkbox" name="myWonBids" class="checkBox" value="false" /> 
+									<label class="selectBoxLabel">mes enchères remportées</label>
+								</li>
+							</ul>
+					
+						</div>
+						<div>
+							<ul>
+								<label class="selectBoxTitle">Mes ventes</label>
+								<li><input type="checkbox" name="currentSales" class="checkBox" value="false" /> 
+									<label class="selectBoxLabel">ventes en cours</label>
+								</li>
+								<li><input type="checkbox" name="notStartedSales" class="checkBox" value="false" /> 
+									<label class="selectBoxLabel">ventes non débutées</label>
+								</li>
+								<li><input type="checkbox" name="endedSales" class="checkBox" value="false" /> 
+									<label class="selectBoxLabel">ventes terminées</label>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+					<input class="searchButton" type="submit" name="search" value="Rechercher"/>
+				</div>
+			
 	
-			</div>
 	
-			<div class="searchButton"><input type="submit" name="search" value="Rechercher"/></div>
+	
+			
 	
 			<div class="ArticlesDisplay"></div>
-	
-		</div>
 
 	</body>
 

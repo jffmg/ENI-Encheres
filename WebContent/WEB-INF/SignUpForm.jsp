@@ -40,39 +40,39 @@
 						<ul>
 							<li>
 								<label class="labelSignForm" for="userName">Nom d'utilisateur* : </label>
-								<input type="text" pattern="[a-zA-Z0-9]*" name="userName" placeholder="Nom d'utilisateur (caractères alphanumériques seulement)" autofocus="autofocus">
+								<input class="inputText" type="text" pattern="[a-zA-Z0-9]*" name="userName" placeholder="Nom d'utilisateur (caractères alphanumériques seulement)" autofocus="autofocus">
 							</li>
 							<li>
 								<label class="labelSignForm" for="password">Mot de passe* : </label>
-								<input type="password" name="password" placeholder="Mot de passe">
+								<input class="inputText" type="password" name="password" placeholder="Mot de passe">
 							</li>
 							<li>
 								<label class="labelSignForm" for="name">Nom* : </label>
-								<input type="text" name="name" placeholder="Nom">
+								<input class="inputText" type="text" name="name" placeholder="Nom">
 							</li>
 							<li>
 								<label class="labelSignForm" for="firstName">Prénom* : </label>
-								<input type="text" name="firstName" placeholder="Prénom">
+								<input class="inputText" type="text" name="firstName" placeholder="Prénom">
 							</li>
 							<li>
 								<label class="labelSignForm" for="email">Email* : </label>
-								<input type="email" name="email" placeholder="adresse@exemple.fr">
+								<input class="inputText" type="email" name="email" placeholder="adresse@exemple.fr">
 							</li>
 							<li>
 								<label class="labelSignForm" for="phone">Téléphone : </label>
-								<input type="tel" pattern="0[1-9]([0-9]{2}){4}" name="phone" placeholder="0123456789">
+								<input class="inputText" type="tel" pattern="0[1-9]([0-9]{2}){4}" name="phone" placeholder="0123456789">
 							</li>
 							<li>
 								<label class="labelSignForm" for="street">Adresse* : </label>
-								<input type="text" name="street" placeholder="1 allée de l'Univers">
+								<input class="inputText" type="text" name="street" placeholder="1 allée de l'Univers">
 							</li>
 							<li>
 								<label class="labelSignForm" for="postCode">Code postal* : </label>
-								<input type="text" name="postCode" placeholder="01234">
+								<input class="inputText" type="text" name="postCode" placeholder="01234">
 							</li>
 							<li>
 								<label class="labelSignForm" for="city">Ville* : </label>
-								<input type="text" name="city" placeholder="Ville">
+								<input class="inputText" type="text" name="city" placeholder="Ville">
 							</li>
 						</ul>
 

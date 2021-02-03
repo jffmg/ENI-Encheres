@@ -37,16 +37,19 @@
 			<div class="MainContentTop">
 
 				<form id="idForm" action="${pageContext.request.contextPath}/ServletConnection" method="POST">
-					<input type="hidden" name="submitted" value="true" />
+					<input class="inputText" type="hidden" name="submitted" value="true" />
 
 					<ul class="connectionParameters">
 
-						<li><label for="userId" class="idLabel">Identifiant</label> <input
-							type="text" name="user" class="idField" required/> <br></li>
+						<li><label for="userId" class="idLabel">Identifiant :</label> 
+							<input class="inputText" type="text" name="user" class="idField" required/> 
+							<br>
+						</li>
 
-						<li><label for="password" class="idLabel">Mot de
-								passe</label> <input type="password" name="password"
-							class="passwordField" required/><br></li>
+						<li><label for="password" class="idLabel">Mot de passe :</label> 
+							<input class="inputText" type="password" name="password" class="passwordField" required/>
+							<br>
+						</li>
 					</ul>
 
 					<div class="nav">
