@@ -2,38 +2,25 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
   <display-name>ENI-Encheres</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>encheres</welcome-file>
   </welcome-file-list>
   
+<servlet>
+	<servlet-name>ServletNonConnectedHome</servlet-name>
+	<servlet-class>fr.eni.ecole.trocenchere.servlets.ServletNonConnectedHome</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>ServletNonConnectedHome</servlet-name>
+	<url-pattern>/encheres</url-pattern>
+</servlet-mapping>
+  
+  
+  
   <context-param>
-  <description>Category All</description>
-  <param-name>ALL</param-name>
-  <param-value>Toutes</param-value>
-  </context-param>
-  <context-param>
-  <description>Category Computer</description>
-  <param-name>COMPUTER</param-name>
-  <param-value>Informatique</param-value>
-  </context-param>
-  <context-param>
-  <description>Category Furnishings</description>
-  <param-name>FURNISHINGS</param-name>
-  <param-value>Ameublement</param-value>
-  </context-param>
-  <context-param>
-  <description>Category Clothing</description>
-  <param-name>CLOTHING</param-name>
-  <param-value>Vêtement</param-value>
-  </context-param>
-  <context-param>
-  <description>Category Sport &amp; Leisure</description>
-  <param-name>SPORT</param-name>
-  <param-value>Sport &amp; Loisirs</param-value>
+  <description>Categories</description>
+  <param-name>CATEGORIES</param-name>
+  <param-value>Toutes, Informatique, Ameublement, Vêtement, Sport &amp; Loisirs</param-value>
   </context-param>
  
 </web-app>
