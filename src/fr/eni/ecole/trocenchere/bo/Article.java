@@ -155,4 +155,19 @@ public class Article implements Serializable {
 		this.idUser = idUser;
 	}
 
+	public Article(String name, String description, LocalDate bidStartDate, LocalDate bidEndDate, int startingBid,
+			String status, int idCategory, int idUser) {
+		this.name = name;
+		this.description = description;
+		this.bidStartDate = bidStartDate;
+		this.bidEndDate = bidEndDate;
+		this.startingBid = startingBid;
+		this.status = status;
+		this.idCategory = idCategory;
+		this.idUser = idUser;
+	}
+
+	public Article() {
+	}
+
 }
