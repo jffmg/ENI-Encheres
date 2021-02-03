@@ -98,8 +98,9 @@
 							<div class="articleInfo">
 								Prix : ${element.getSalePrice()} point(s) <br>
 								Meilleure enchère : 0 point(s)<br>
-								Fin de l'enchère : ${element.getStartingBid()} <br>
+								Mise à prix : ${element.getStartingBid()} point(s) <br>
 								Vendeur : ${element.getIdUser()} <br>
+								Fin de l'enchère : ${element.getBidEndDate()}<br>
 							</div>
 						</div>
 					</div>

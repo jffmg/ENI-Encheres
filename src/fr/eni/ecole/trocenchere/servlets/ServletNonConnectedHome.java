@@ -61,17 +61,17 @@ public class ServletNonConnectedHome extends HttpServlet {
 		int categorySelected = 0;
 
 		// changing labels to int
-		switch (categorySelectedString) {
-		case "Informatique":
+		switch (categorySelectedString.toLowerCase().trim()) {
+		case "informatique":
 			categorySelected = 1;
 			break;
-		case "Ameublement":
+		case "ameublement":
 			categorySelected = 2;
 			break;
-		case "Vêtement":
+		case "vêtement":
 			categorySelected = 3;
 			break;
-		case "Sport &amp; Loisirs":
+		case "sport &amp; loisirs":
 			categorySelected = 4;
 			break;
 			// default = all selected
@@ -83,7 +83,8 @@ public class ServletNonConnectedHome extends HttpServlet {
 		// getting the keyword typed by user
 		String keyWord = null;
 
-		request.getParameter("keyWord");
+		keyWord = request.getParameter("keyWord");
+		
 
 		// displaying articles
 		List<Article> articlesSelected = null;
