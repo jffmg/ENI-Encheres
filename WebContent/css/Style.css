@@ -389,16 +389,18 @@ a.link {
 	margin-right: 2vw;
 	margin-left:2vw;
 	display: flex;
+	flex-wrap:wrap;
 	flex-direction:row;
 	justify-content: space-around;
 }
 
 .divArticle{
-	width:30%;
+	width:45%;
 	border-width : 1px;
 	border-color:  #144a7f;
 	border-style: solid;
 	padding:1em;
+	margin-bottom: 2em;
 }
 
 .articleName{
