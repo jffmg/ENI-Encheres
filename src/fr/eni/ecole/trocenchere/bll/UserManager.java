@@ -23,9 +23,25 @@ public class UserManager {
 			String postCode, String city, String passwordEncrypted) throws BusinessException {
 
 		BusinessException be = new BusinessException();
+		boolean userExists = false;
+		boolean emailExists = false;
+		userExists = checkUser(user);
+		emailExists = checkEmail(email);
+		
+		if (userExists==true) {
+			be.ajouterErreur(CodesResultatBLL.USER_EXISTS);
+			System.out.println(CodesResultatBLL.USER_EXISTS);
+		}
+		
+		if (emailExists==true) {
+			be.ajouterErreur(CodesResultatBLL.EMAIL_EXISTS);
+			System.out.println(CodesResultatBLL.EMAIL_EXISTS);
+		}
+		
 
 		User currentUser = new User(user, name, firstName, email, phone, street, postCode, city, passwordEncrypted);
 		this.validateUser(currentUser, be);
+		
 
 		if (!be.hasErreurs()) {
 			this.userDao.createUser(currentUser);
@@ -36,8 +52,10 @@ public class UserManager {
 		}
 	}
 
+
 	// User validation before insertion in database
 	private void validateUser(User currentUser, BusinessException be) {
+		
 		if (currentUser.getUser() == null || currentUser.getUser() == "" || currentUser.getUser().length() > 30) {
 			be.ajouterErreur(CodesResultatBLL.USER_ERROR);
 		}
@@ -70,9 +88,17 @@ public class UserManager {
 				|| currentUser.getPasswordEncrypted().length() > 30) {
 			be.ajouterErreur(CodesResultatBLL.PASSWORD_ERROR);
 		}
-
 	}
 
+	private boolean checkUser(String user) throws BusinessException {
+		boolean userExists = this.userDao.checkUser(user);
+		return userExists;
+	}
+	
+	private boolean checkEmail(String email) throws BusinessException {
+		boolean emailExists = this.userDao.checkEmail(email);
+		return emailExists;
+	}
 	
 
 }

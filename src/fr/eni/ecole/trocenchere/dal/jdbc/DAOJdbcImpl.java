@@ -12,8 +12,9 @@ import fr.eni.ecole.trocenchere.gestion.erreurs.CodesResultatDAL;
 
 public class DAOJdbcImpl implements DAO{
 
-	private static final String SQL_SELECT_USER_BY_USER = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE pseudo=?";
+	private static final String SQL_SELECT_USER_BY_USER = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE pseudo=?;";
 	private static final String SQL_INSERT_USER = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	private static final String SQL_SELECT_USER_BY_EMAIL = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE email=?;";
 
 	@Override
 	public User selectUser(String userName) throws BusinessException {
@@ -85,4 +86,50 @@ public class DAOJdbcImpl implements DAO{
 		
 	}
 
+	@Override
+	public boolean checkUser(String user) throws BusinessException {
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		boolean userExists = false;
+			try (Connection cnx = ConnectionProvider.getConnection()) {
+			prepStmt = cnx.prepareStatement(SQL_SELECT_USER_BY_USER);
+			prepStmt.setString(1, user);
+			rs = prepStmt.executeQuery();
+			if (rs.next()) {
+				userExists = true;
+			}
+							
+		return userExists;
+		
+	} catch (SQLException e) {
+		BusinessException businessException = new BusinessException();
+		businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
+		e.printStackTrace();
+		throw businessException;
+	}
+
+}
+
+	@Override
+	public boolean checkEmail(String email) throws BusinessException {
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		boolean emailExists = false;
+			try (Connection cnx = ConnectionProvider.getConnection()) {
+			prepStmt = cnx.prepareStatement(SQL_SELECT_USER_BY_EMAIL);
+			prepStmt.setString(1, email);
+			rs = prepStmt.executeQuery();
+			if (rs.next()) {
+				emailExists = true;
+			}
+							
+		return emailExists;
+		
+	} catch (SQLException e) {
+		BusinessException businessException = new BusinessException();
+		businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
+		e.printStackTrace();
+		throw businessException;
+	}
+	}
 }
