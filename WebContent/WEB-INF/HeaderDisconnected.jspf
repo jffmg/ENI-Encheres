@@ -1,0 +1,11 @@
+<div class="navbar">
+	<div Style="width:10%">
+		<a href="<%=request.getContextPath()%>/ServletConnectedHome">
+			<img class="navbarLogo" src="<%=request.getContextPath()%>/images/logoENIEncheres.png"/>
+		</a>
+	</div>
+	<div Style="width:80%"></div>
+	<div Style="width:20%" class="navbarLabelDiv">
+		<a class="navbarLabel" href="">Cr&eacuteer un compte / connexion</a>
+	</div>
+</div>

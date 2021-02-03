@@ -37,64 +37,120 @@
 	
 		<h1 class="title">Liste des enchères</h1>
 			
-			<div class="checkBoxes">
-				<div class="container">
+		<form action="/ServletConnectedHome" method="post">
+		<div class="checkBoxes">
+			<div class="container">
+			
+				<div class="lookFor">
+					<label class="lookForLabel">Filtre : </label>
+					<input class="inputSelect" type="text" name="keyWord" placeholder="Le nom de l'article contient..." />
 				
-					<div class="lookFor">
-						<label class="lookForLabel">Filtre : </label>
-						<input class="inputSelect" type="text" name="articleContains" placeholder="Le nom de l'article contient..." />
-					
-						<label class="lookForLabel">Catégories : </label> 
-						<select name="Categories" id="category">
-							<option value="Toutes">${initParam.ALL}</option>
-							<option value="Informatique">${initParam.COMPUTER}</option>
-							<option value="Ameublement">${initParam.FURNISHINGS}</option>
-							<option value="Vêtement">${initParam.CLOTHING}</option>
-							<option value="SportLoisirs">${initParam.SPORT}</option>
-						</select> 
+					<label class="lookForLabel">Catégories : </label> 
+					<select name="categories" id="category">
+						<!-- faire for each pour recuperer categorie-->
+						<option value="Toutes">${initParam.ALL}</option>
+						<option value="Informatique">${initParam.COMPUTER}</option>
+						<option value="Ameublement">${initParam.FURNISHINGS}</option>
+						<option value="Vêtement">${initParam.CLOTHING}</option>
+						<option value="SportLoisirs">${initParam.SPORT}</option>
+					</select> 
+				</div>
+			
+				<div class="container2">
+					<div>
+						<ul>
+							<label class="selectBoxTitle">
+								<input type="radio" name="buyOrSell" value="buy" checked>
+								Achats
+							</label>
+							<li><input type="checkbox" name="openBids" class="checkBox" value="false" /> 
+								<label class="selectBoxLabel">enchères ouvertes</label>
+							</li>
+							<li><input type="checkbox" name="myBids" class="checkBox" value="false" /> 
+								<label class="selectBoxLabel">mes enchères</label>
+							</li>
+							<li><input type="checkbox" name="myWonBids" class="checkBox" value="false" /> 
+								<label class="selectBoxLabel">mes enchères remportées</label>
+							</li>
+						</ul>
+				
 					</div>
-				
+					<div>
+						<ul>
+							
+							<label class="selectBoxTitle">
+								<input type="radio" name="buyOrSell" value="sell">
+								Mes ventes
+							</label>
+							<li><input type="checkbox" name="currentSales" class="checkBox" value="false" /> 
+								<label class="selectBoxLabel">ventes en cours</label>
+							</li>
+							<li><input type="checkbox" name="notStartedSales" class="checkBox" value="false" /> 
+								<label class="selectBoxLabel">ventes non débutées</label>
+							</li>
+							<li><input type="checkbox" name="endedSales" class="checkBox" value="false" /> 
+								<label class="selectBoxLabel">ventes terminées</label>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+				<input class="searchButton" type="submit" name="search" value="Rechercher"/>
+			</div>
+			</form>
+			
+			<div class="ArticlesDisplay">
+				<div class="divArticle">
+					<div class="articleName">
+						Article Test en dur dans Html
+					</div>
 					<div class="container2">
-						<div>
-							<ul>
-								<label class="selectBoxTitle">Achats</label>
-								<li><input type="checkbox" name="openBids" class="checkBox" value="false" /> 
-									<label class="selectBoxLabel">enchères ouvertes</label>
-								</li>
-								<li><input type="checkbox" name="myBids" class="checkBox" value="false" /> 
-									<label class="selectBoxLabel">mes enchères</label>
-								</li>
-								<li><input type="checkbox" name="myWonBids" class="checkBox" value="false" /> 
-									<label class="selectBoxLabel">mes enchères remportées</label>
-								</li>
-							</ul>
+						<img  class="articleImg" alt="Object" src="images/objet_à_vendre.jpg">
+						<div class="articleInfo">
+							Prix : 0 point(s) <br>
+							Meilleure enchère : 0 point(s)<br>
+							Fin de l'enchère : dd-MM-yyyy HH:mm <br>
+							Vendeur : xxxxxxxxx <br>
+						</div>
 					
-						</div>
-						<div>
-							<ul>
-								<label class="selectBoxTitle">Mes ventes</label>
-								<li><input type="checkbox" name="currentSales" class="checkBox" value="false" /> 
-									<label class="selectBoxLabel">ventes en cours</label>
-								</li>
-								<li><input type="checkbox" name="notStartedSales" class="checkBox" value="false" /> 
-									<label class="selectBoxLabel">ventes non débutées</label>
-								</li>
-								<li><input type="checkbox" name="endedSales" class="checkBox" value="false" /> 
-									<label class="selectBoxLabel">ventes terminées</label>
-								</li>
-							</ul>
-						</div>
 					</div>
 				</div>
-					<input class="searchButton" type="submit" name="search" value="Rechercher"/>
+				
+				<div class="divArticle">
+					<div class="articleName">
+						Article Test en dur dans Html
+					</div>
+					<div class="container2">
+						<img  class="articleImg" alt="Object" src="images/objet_à_vendre.jpg">
+						<div class="articleInfo">
+							Prix : 0 point(s) <br>
+							Meilleure enchère : 0 point(s)<br>
+							Fin de l'enchère : dd-MM-yyyy HH:mm <br>
+							Vendeur : xxxxxxxxx <br>
+						</div>
+					
+					</div>
 				</div>
+				
+				<c:forEach var="element" items="${articlesSelected}">
+					<div class="divArticle">
+						<div class="articleName">
+							${element.getName()}
+						</div>
+						<div class="container2">
+							<img  class="articleImg" alt="Object" src="images/objet_à_vendre.jpg">
+							<div class="articleInfo">
+								Prix : ${element.getSalePrice()} point(s) <br>
+								Meilleure enchère : 0 point(s)<br>
+								Fin de l'enchère : ${element.getStartingBid()} <br>
+								Vendeur : ${element.getIdUser()} <br>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
 			
-	
-	
-	
 			
-	
-			<div class="ArticlesDisplay"></div>
+			</div>
 
 	</body>
 

@@ -5,62 +5,117 @@
 <%@ page import="fr.eni.ecole.trocenchere.gestion.erreurs.LecteurMessage" %>
 <!DOCTYPE html>
 <html>
-
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet"
-		href="${pageContext.request.contextPath}/css/AccueilNonConnecte.css"
-		type="text/css" />
-	
-	<title>Accueil</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/Style.css" type="text/css" />
+<title>Disconnected Home</title>
+
 </head>
 
 <body>
-
-	<div id="login">
-		<h1><img width="250" src="images/logo.png" alt="logo"/></h1>
-		
-
-
-		<a class="link" href="${pageContext.request.contextPath}/Connexion">S'inscrire
-			- Se connecter</a>
-	</div>
-
-	<h2>Liste des Enchères</h2>
-
-	<form action="${pageContext.request.contextPath}/AccueilNonConnecte"
-		method="POST">
-		
-		<div id="filtres">
-
-			<div>
-				<label>Filtres : </label>
+	<header>
+		<%@include file="HeaderDisconnected.jspf" %>
+	</header>
+	
+	<c:if test="${!empty listeCodesErreur}">
+			<div class="displayLine" role="alert">
+			 <!--   <strong class="messageError">Erreur!</strong> -->
+			  <br>
+			  <ul>
+			  	<c:forEach var="code" items="${listeCodesErreur}">
+			  		<li class="messageError">${LecteurMessage.getMessageErreur(code)}</li>
+			  	</c:forEach>
+			  </ul>
 			</div>
+	</c:if>
+	
+	<body class="body">
+		
+		<div class="welcome"><br></div>
+		<h1 class="title">Liste des enchères</h1>
 			
-			<div>
-				<input class="search" type="search"
-					placeholder="Le nom de l'article contient..." id="search" size="30"
-					multiple>
-				<button type="button" class="search-button">
-					<img src="images/loupe.png"> 
-				</button>
-			</div>
+		<form action="/ServletConnectedHome" method="post">
+		<div class="checkBoxesNC">
+			<div class="container">
 			
-			<div>
-				<label>Catégories : </label> <select name="Categories" id="category">
-					<option value="Toutes">Toutes</option>
-					<option value="Informatique">Informatique</option>
-					<option value="Ameublement">Ameublement</option>
-					<option value="Vêtement">Vêtement</option>
-					<option value="SportLoisirs">Sport & Loisirs</option>
-				</select> 
-				<input type="submit" name="delete" value="Rechercher" />
+				<div class="lookFor">
+					<label class="lookForLabel">Filtre : </label>
+					<input class="inputSelect" type="text" name="keyWord" placeholder="Le nom de l'article contient..." />
+				
+					<label class="lookForLabel">Catégories : </label> 
+					<select name="categories" id="category">
+						<!-- faire for each pour recuperer categorie-->
+						<option value="Toutes">${initParam.ALL}</option>
+						<option value="Informatique">${initParam.COMPUTER}</option>
+						<option value="Ameublement">${initParam.FURNISHINGS}</option>
+						<option value="Vêtement">${initParam.CLOTHING}</option>
+						<option value="SportLoisirs">${initParam.SPORT}</option>
+					</select> 
+				</div>
+			
+			</div>
+				<input class="searchButtonNC" type="submit" name="search" value="Rechercher"/>
+			</div>
+			</form>
+			
+			<div class="ArticlesDisplay">
+				<div class="divArticle">
+					<div class="articleName">
+						Article Test en dur dans Html
+					</div>
+					<div class="container2">
+						<img  class="articleImg" alt="Object" src="images/objet_à_vendre.jpg">
+						<div class="articleInfo">
+							Prix : 0 point(s) <br>
+							Meilleure enchère : 0 point(s)<br>
+							Fin de l'enchère : dd-MM-yyyy HH:mm <br>
+							Vendeur : xxxxxxxxx <br>
+						</div>
+					
+					</div>
+				</div>
+				
+				<div class="divArticle">
+					<div class="articleName">
+						Article Test en dur dans Html
+					</div>
+					<div class="container2">
+						<img  class="articleImg" alt="Object" src="images/objet_à_vendre.jpg">
+						<div class="articleInfo">
+							Prix : 0 point(s) <br>
+							Meilleure enchère : 0 point(s)<br>
+							Fin de l'enchère : dd-MM-yyyy HH:mm <br>
+							Vendeur : xxxxxxxxx <br>
+						</div>
+					
+					</div>
+				</div>
+				
+				<c:forEach var="element" items="${articlesSelected}">
+					<div class="divArticle">
+						<div class="articleName">
+							${element.getName()}
+						</div>
+						<div class="container2">
+							<img  class="articleImg" alt="Object" src="images/objet_à_vendre.jpg">
+							<div class="articleInfo">
+								Prix : ${element.getSalePrice()} point(s) <br>
+								Meilleure enchère : 0 point(s)<br>
+								Fin de l'enchère : ${element.getStartingBid()} <br>
+								Vendeur : ${element.getIdUser()} <br>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+			
+			
 			</div>
 
+	</body>
 
-		</div>
-		
-	</form>
+	<footer class="footer" id="footerCell">
+			<%@include file="Footer.jspf" %>
+	</footer>
 
 </body>
 </html>
