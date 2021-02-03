@@ -54,6 +54,8 @@ public class ServletNonConnectedHome extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		// TODO trouver pourquoi ça marche pas !
+
 		// getting the parameters : category selected by user
 		String categorySelectedString = request.getParameter("categories");
 		int categorySelected = 0;

@@ -37,7 +37,7 @@
 	
 		<h1 class="title">Liste des enchères</h1>
 			
-		<form action="/ServletConnectedHome" method="post">
+		<form action="<%=request.getContextPath()%>/ServletConnectedHome" method="post">
 		<div class="checkBoxes">
 			<div class="container">
 			
