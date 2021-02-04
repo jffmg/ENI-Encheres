@@ -37,8 +37,7 @@ public class ServletProfile extends HttpServlet {
 		}
 		
 		request.getServletContext().setAttribute("profile", profile);
-		System.out.println("Ville du profile : " + profile.getCity());
-		System.out.println("prénom du profile : " + profile.getFirstName());
+		//System.out.println("Ville du profile : " + profile.getCity());
 
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Profile.jsp");
 		rd.forward(request, response);

@@ -70,6 +70,39 @@
 			<p class= "infoProfil"> ${profile.getCity()}</p>
 		
 		</div>
+
+		<c:if test="${profile.getUser().equals(sessionScope.user)}">
+			<div class="container3">
+				<a href="<%=request.getContextPath()%>/ServletConnectedHome"> <!-- ServletUpdateProfile  -->
+					<input type="button" name="modify" value="Modifier mon profil" class="profileButton"/>
+				</a>
+				
+				<a onclick="showPopUp();">
+					<input type="button" name="delete" value="Supprimer mon profil" class="profileButton"/>
+				</a>	
+			</div>
+		</c:if>
+		
+		<div id="confirmationPopUp" class="confirmationPopUp">
+			<p class="textConfirmationPopUp"> Etes vous sûre de vouloir supprimer votre profil ?</p>
+			<a onclick="hidePopUp();">
+				<input type="button" name="cancel" value="Annuler" class="buttonPopUp"/>
+			</a>
+				
+			<a href="<%=request.getContextPath()%>/ServletDeleteProfile">
+				<input type="button" name="validate" value="Supprimer mon profil" class="buttonPopUp"/>
+			</a>		
+		</div>
+		
+		<script type="text/javascript">
+			function hidePopUp(){
+				document.getElementById("confirmationPopUp").style.display = 'none';
+			}
+			
+			function showPopUp(){
+				document.getElementById("confirmationPopUp").style.display = 'block';
+			}
+		</script>
 		
 		
 	<footer class="footer" id="footerCell">

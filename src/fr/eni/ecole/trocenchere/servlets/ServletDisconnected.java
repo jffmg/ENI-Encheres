@@ -18,7 +18,7 @@ import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 
 
 @WebServlet("/ServletDeconnected")
-public class ServletDeconnected extends HttpServlet {
+public class ServletDisconnected extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static List<Integer> listeCodesErreur = new ArrayList<>();
 

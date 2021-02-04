@@ -91,6 +91,7 @@
 					</div>
 				</div>
 			</div>
+<<<<<<< HEAD
 			<input class="searchButton" type="submit" name="search"
 				value="Rechercher" />
 		</div>
@@ -98,7 +99,7 @@
 
 	<div class="ArticlesDisplay">
 
-		<c:forEach var="element" items="${articlesSelected}">
+		<c:forEach var="element" items="${articlesSelected}"/>
 			<div class="divArticle">
 				<div class="articleName">${element.getName()}</div>
 				<div class="container2">
@@ -110,6 +111,27 @@
 						${element.getBidEndDate()} <br> <a
 							href="<%=request.getContextPath()%>/ServletProfile?profile=${element.getUser().getUser()}"
 							class="seller"> Vendeur : ${element.getUser().getUser()}</a><br>
+=======
+			</form>
+			
+			<div class="ArticlesDisplay">
+				
+				<c:forEach var="element" items="${articlesSelected}">
+					<div class="divArticle">
+						<div class="articleName">
+							${element.getName()}
+						</div>
+						<div class="container2">
+							<img  class="articleImg" alt="Object" src="images/objet_à_vendre.jpg">
+							<div class="articleInfo">
+								Prix : ${element.getSalePrice()} point(s) <br>
+								Meilleure enchère : 0 point(s)<br>
+								Fin de l'enchère : ${element.getBidEndDate()} <br>
+								<a href="<%=request.getContextPath()%>/ServletProfile?profile=${element.getUser().getUser()}" class="seller">
+								Vendeur : ${element.getUser().getUser()}</a><br>
+							</div>
+						</div>
+>>>>>>> branch 'master' of https://github.com/LeroyErwan/ENI-Encheres.git
 					</div>
 				</div>
 			</div>
