@@ -33,24 +33,31 @@ public class ServletNonConnectedHome extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// displaying the NonConnectedHome, with the object CATEGORIES
+		// check: if user is connected, dispatch to ConnectedHome
+		String userName = request.getParameter("user");
+		if (userName != null) {
+			this.getServletContext().getRequestDispatcher("/ServletConnectedHome").forward(request, response);
+		} else {
 
-		// displaying articles (default: no keyword, category Toutes)
-		int categorySelected = 0;
-		String keyWord = "";
+			// displaying the NonConnectedHome, with the object CATEGORIES
 
-		List<Article> articlesSelected = null;
-		try {
-			articlesSelected = displayArticles(keyWord, categorySelected, request);
-		} catch (BusinessException e) {
-			request.setAttribute("listeCodesErreur", listeCodesErreur);
-			e.printStackTrace();
+			// displaying articles (default: no keyword, category Toutes)
+			int categorySelected = 0;
+			String keyWord = "";
+
+			List<Article> articlesSelected = null;
+			try {
+				articlesSelected = displayArticles(keyWord, categorySelected, request);
+			} catch (BusinessException e) {
+				request.setAttribute("listeCodesErreur", listeCodesErreur);
+				e.printStackTrace();
+			}
+
+			request.getServletContext().setAttribute("articlesSelected", articlesSelected);
+
+			this.getServletContext().getRequestDispatcher("/WEB-INF/NonConnectedHome.jsp").forward(request, response);
 		}
-
-		request.getServletContext().setAttribute("articlesSelected", articlesSelected);
-
-		this.getServletContext().getRequestDispatcher("/WEB-INF/NonConnectedHome.jsp").forward(request, response);
-	}
+}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -86,7 +93,7 @@ public class ServletNonConnectedHome extends HttpServlet {
 
 		keyWord = request.getParameter("keyWord");
 		System.out.println(keyWord);
-		
+
 
 		// displaying articles
 		List<Article> articlesSelected = null;
@@ -104,8 +111,8 @@ public class ServletNonConnectedHome extends HttpServlet {
 	}
 
 	private String stripAccents(String s) {
-		 s = Normalizer.normalize(s, Normalizer.Form.NFD);
-		    s = s.replaceAll("[^\\p{ASCII}]", "");
+		s = Normalizer.normalize(s, Normalizer.Form.NFD);
+		s = s.replaceAll("[^\\p{ASCII}]", "");
 		return s;
 	}
 

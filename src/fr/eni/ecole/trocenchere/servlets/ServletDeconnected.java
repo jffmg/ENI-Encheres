@@ -38,31 +38,17 @@ public class ServletDeconnected extends HttpServlet {
 		// delete session attribute user
 		HttpSession session = request.getSession();
 		session.removeAttribute("user");
-		
-		// displaying the NonConnectedHome, with the object CATEGORIES
 
-		// displaying articles (default: no keyword, category Toutes)
-		int categorySelected = 0;
-		String keyWord = "";
-
-		List<Article> articlesSelected = null;
-		try {
-			articlesSelected = displayArticles(keyWord, categorySelected, request);
-		} catch (BusinessException e) {
-			request.setAttribute("listeCodesErreur", listeCodesErreur);
-			e.printStackTrace();
-		}
-
-		request.getServletContext().setAttribute("articlesSelected", articlesSelected);
-
-		this.getServletContext().getRequestDispatcher("/WEB-INF/NonConnectedHome.jsp").forward(request, response);
+		// dispatch to NonConnectedHome, with the object CATEGORIES
+		this.getServletContext().getRequestDispatcher("/ServletNonConnectedHome").forward(request, response);
 	}
 
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-	
+
 	// function to select the articles to display according to user's choices
 	public static List<Article> displayArticles(String keyWord, int categorySelected, HttpServletRequest request)
 			throws BusinessException {

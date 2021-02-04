@@ -19,14 +19,10 @@ public class DAOJdbcImpl implements DAO {
 	private static final String SQL_INSERT_USER = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	private static final String SQL_SELECT_USER_BY_EMAIL = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE email=?;";
 
-	private static final String SQL_SELECT_ARTICLE_BY_CATEGORY = "SELECT * FROM articles_vendus WHERE no_categorie = ?";
-	private static final String SQL_SELECT_ARTICLE_BY_KEYWORD = "SELECT * FROM articles_vendus WHERE nom_article LIKE ?;";
-	private static final String SQL_SELECT_ARTICLE_BY_STATUS = "SELECT * FROM articles_vendus WHERE etat_vente = ?;";
-
 	private static final String SQL_SELECT_ALL_EC_ARTICLES = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC';";
-	private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC' AND nom_article LIKE %?%;";
+	private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC' AND nom_article LIKE CONCAT( '%',?,'%');";
 	private static final String SQL_SELECT_EC_ARTICLES_BY_CATEGORY = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC' AND no_categorie = ?;";
-	private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC' AND no_categorie = ? AND nom_article LIKE %?%;";
+	private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC' AND no_categorie = ? AND nom_article LIKE CONCAT( '%',?,'%');";
 
 	@Override
 	public User selectUser(String userName) throws BusinessException {
@@ -69,7 +65,6 @@ public class DAOJdbcImpl implements DAO {
 	@Override
 	public void createUser(User data) {
 		PreparedStatement prepStmt = null;
-		ResultSet rs = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			prepStmt = cnx.prepareStatement(SQL_INSERT_USER);
 			prepStmt.setString(1, data.getUser());
@@ -84,10 +79,11 @@ public class DAOJdbcImpl implements DAO {
 			prepStmt.setInt(10, 100);
 			prepStmt.setInt(11, 0);
 			prepStmt.executeUpdate();
-			rs = prepStmt.getGeneratedKeys();
+			/*ResultSet rs = prepStmt.getGeneratedKeys();
 			if (rs.next()) {
 				data.setIdUser(rs.getInt(1));
-			}
+				
+			}*/
 
 		} catch (SQLException e) {
 			BusinessException businessException = new BusinessException();
@@ -144,6 +140,7 @@ public class DAOJdbcImpl implements DAO {
 		}
 	}
 
+	//select all articles EC
 	@Override
 	public List<Article> selectArticlesEC(String keyWord, int category) throws BusinessException {
 
@@ -159,7 +156,7 @@ public class DAOJdbcImpl implements DAO {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
 			if (category == 0) {
-				if (keyWord == "" || keyWord == null) {
+				if (keyWord == null || keyWord == "") {
 					pstmt = cnx.prepareStatement(SQL_SELECT_ALL_EC_ARTICLES);
 				} else {
 					pstmt = cnx.prepareStatement(SQL_SELECT_EC_ARTICLES_BY_KEYWORD);
@@ -203,16 +200,14 @@ public class DAOJdbcImpl implements DAO {
 	}
 
 	@Override
-	public List<Article> selectPurchases(String keyWord, int category, boolean openBids, boolean myBids,
+	public List<Article> selectPurchases(String keyword, int category, boolean openBids, boolean myBids,
 			boolean myWonBids) throws BusinessException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Article> selectSales(String keyWord, int category, boolean currentSales, boolean notStartedSales,
+	public List<Article> selectSales(String keyword, int category, boolean currentSales, boolean notStartedSales,
 			boolean endedSales) throws BusinessException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
