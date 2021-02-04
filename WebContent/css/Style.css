@@ -266,9 +266,9 @@ a.link {
 	border-radius: 4px;
 	width: 20%;;
 	height:2em;
-	margin-top:11vh;
 	margin-right:40%;
 	margin-left: 40%;
+	margin-top:3vh;
 }
 
 .searchButton:hover{

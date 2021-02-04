@@ -38,96 +38,69 @@
 		<h1 class="title">Liste des enchères</h1>
 			
 		<form action="<%=request.getContextPath()%>/ServletConnectedHome" method="post">
-		<div class="checkBoxes">
-			<div class="container">
-			
-				<div class="lookFor">
-					<label class="lookForLabel">Filtre : </label>
-					<input class="inputSelect" type="text" name="keyWord" placeholder="Le nom de l'article contient..." />
+			<div class="checkBoxes">
+				<div class="container">
 				
-					<label class="lookForLabel">Catégories : </label> 
-					<select name="categories" id="category">
-						<c:forEach var="cat" items="${categories}">
-							<option value="${cat}">${cat}</option>
-						</c:forEach>
-					</select>  
-				</div>
-			
-				<div class="container2">
-					<div>
-						<ul>
+					<div class="lookFor">
+						<label class="lookForLabel">Filtre : </label>
+						<input class="inputSelect" type="text" name="keyWord" placeholder="Le nom de l'article contient..." />
+					
+						<label class="lookForLabel">Catégories : </label> 
+						<select name="categories" id="category">
+							<c:forEach var="cat" items="${categories}">
+								<option value="${cat}">${cat}</option>
+							</c:forEach>
+						</select>  
+					</div>
+				
+					<div class="container2">
+						<div>
+						
 							<label class="selectBoxTitle">
-								<input type="radio" name="buyOrSell" value="buy" checked>
+								<input type="radio" name="buyOrSell" value="buy1" onClick="checkBoxes()">
 								Achats
 							</label>
-							<li><input type="checkbox" name="openBids" class="checkBox" value="false" /> 
-								<label class="selectBoxLabel">enchères ouvertes</label>
-							</li>
-							<li><input type="checkbox" name="myBids" class="checkBox" value="false" /> 
-								<label class="selectBoxLabel">mes enchères</label>
-							</li>
-							<li><input type="checkbox" name="myWonBids" class="checkBox" value="false" /> 
-								<label class="selectBoxLabel">mes enchères remportées</label>
-							</li>
-						</ul>
-				
-					</div>
-					<div>
-						<ul>
+							<br><br>
 							
+							<input type="radio" name="buy2" class="checkBox" id="openBids" value="openBids"> 
+							<label class="selectBoxLabel">enchères ouvertes</label>
+							<br><br>
+							
+							<input type="radio" name="buy2" class="checkBox" id="myBids" value="myBids"> 
+							<label class="selectBoxLabel">mes enchères</label>
+							<br><br>
+							
+							<input type="radio" name="buy2" class="checkBox" id="myWonBids" value="myWonBids"> 
+							<label class="selectBoxLabel">mes enchères remportées</label>	
+					
+						</div>
+						<div>
+								
 							<label class="selectBoxTitle">
-								<input type="radio" name="buyOrSell" value="sell">
+								<input type="radio" name="buyOrSell" value="sell1" onClick="checkBoxes()">
 								Mes ventes
 							</label>
-							<li><input type="checkbox" name="currentSales" class="checkBox" value="false" /> 
-								<label class="selectBoxLabel">ventes en cours</label>
-							</li>
-							<li><input type="checkbox" name="notStartedSales" class="checkBox" value="false" /> 
-								<label class="selectBoxLabel">ventes non débutées</label>
-							</li>
-							<li><input type="checkbox" name="endedSales" class="checkBox" value="false" /> 
-								<label class="selectBoxLabel">ventes terminées</label>
-							</li>
-						</ul>
+							<br><br>
+							
+							<input type="radio" name="sell2" class="checkBox" id="currentSales" value="currentSales"> 
+							<label class="selectBoxLabel">ventes en cours</label>
+							<br><br>
+							
+							<input type="radio" name="sell2" class="checkBox" id="notStartedSales" value="notStartedSales"> 
+							<label class="selectBoxLabel">ventes non débutées</label>
+							<br><br>
+							
+							<input type="radio" name="sell2" class="checkBox" id="endedSales" value="endedSales"> 
+							<label class="selectBoxLabel">ventes terminées</label>
+		
+						</div>
 					</div>
 				</div>
-			</div>
 				<input class="searchButton" type="submit" name="search" value="Rechercher"/>
 			</div>
 			</form>
 			
 			<div class="ArticlesDisplay">
-				<div class="divArticle">
-					<div class="articleName">
-						Article Test en dur dans Html
-					</div>
-					<div class="container2">
-						<img  class="articleImg" alt="Object" src="images/objet_à_vendre.jpg">
-						<div class="articleInfo">
-							Prix : 0 point(s) <br>
-							Meilleure enchère : 0 point(s)<br>
-							Fin de l'enchère : dd-MM-yyyy HH:mm <br>
-							Vendeur : xxxxxxxxx <br>
-						</div>
-					
-					</div>
-				</div>
-				
-				<div class="divArticle">
-					<div class="articleName">
-						Article Test en dur dans Html
-					</div>
-					<div class="container2">
-						<img  class="articleImg" alt="Object" src="images/objet_à_vendre.jpg">
-						<div class="articleInfo">
-							Prix : 0 point(s) <br>
-							Meilleure enchère : 0 point(s)<br>
-							Fin de l'enchère : dd-MM-yyyy HH:mm <br>
-							Vendeur : xxxxxxxxx <br>
-						</div>
-					
-					</div>
-				</div>
 				
 				<c:forEach var="element" items="${articlesSelected}">
 					<div class="divArticle">
@@ -139,15 +112,59 @@
 							<div class="articleInfo">
 								Prix : ${element.getSalePrice()} point(s) <br>
 								Meilleure enchère : 0 point(s)<br>
-								Fin de l'enchère : ${element.getStartingBid()} <br>
+								Fin de l'enchère : ${element.getBidEndDate()} <br>
 								Vendeur : ${element.getIdUser()} <br>
 							</div>
 						</div>
 					</div>
-				</c:forEach>
-			
+				</c:forEach>		
 			
 			</div>
+			
+		<script type="text/javascript">
+	    function checkBoxes() {
+	    	console.log('checkBoxes', document.forms[0]);
+	    	
+	    	if (document.forms[0].buyOrSell[0].checked) {
+		    	console.log('achats is checked');
+		    	
+		    	disableCheckBox("currentSales");
+		    	disableCheckBox("notStartedSales");
+		    	disableCheckBox("endedSales");  
+		    	
+		    	enableCheckBox("openBids", true);
+		    	enableCheckBox("myBids", false);
+		    	enableCheckBox("myWonBids", false);  
+	        }
+	        else if (document.forms[0].buyOrSell[1].checked) {
+		    	console.log('ventes is checked');
+
+		    	disableCheckBox("openBids");
+		    	disableCheckBox("myBids");
+		    	disableCheckBox("myWonBids");   
+		    	
+		    	enableCheckBox("currentSales", true);
+		    	enableCheckBox("notStartedSales", false);
+		    	enableCheckBox("endedSales", false);     
+	        }
+	    }
+	    
+	    function disableCheckBox(id) {
+	    	var element = document.getElementById(id);
+	    	if (element) {
+		    	element.checked = false;
+	            element.disabled = true;
+	    	}
+	    }
+	    
+	    function enableCheckBox(id, checked) {
+	    	var element = document.getElementById(id);
+	    	if (element) {
+		    	element.checked = checked;
+	            element.disabled = false;
+	    	}
+	    }
+	    </script>
 
 	</body>
 

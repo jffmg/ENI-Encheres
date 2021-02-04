@@ -56,37 +56,6 @@
 			</form>
 			
 			<div class="ArticlesDisplay">
-				<div class="divArticle">
-					<div class="articleName">
-						Article Test en dur dans Html
-					</div>
-					<div class="container2">
-						<img  class="articleImg" alt="Object" src="images/objet_à_vendre.jpg">
-						<div class="articleInfo">
-							Prix : 0 point(s) <br>
-							Meilleure enchère : 0 point(s)<br>
-							Fin de l'enchère : dd-MM-yyyy HH:mm <br>
-							Vendeur : xxxxxxxxx <br>
-						</div>
-					
-					</div>
-				</div>
-				
-				<div class="divArticle">
-					<div class="articleName">
-						Article Test en dur dans Html
-					</div>
-					<div class="container2">
-						<img  class="articleImg" alt="Object" src="images/objet_à_vendre.jpg">
-						<div class="articleInfo">
-							Prix : 0 point(s) <br>
-							Meilleure enchère : 0 point(s)<br>
-							Fin de l'enchère : dd-MM-yyyy HH:mm <br>
-							Vendeur : xxxxxxxxx <br>
-						</div>
-					
-					</div>
-				</div>
 				
 				<c:forEach var="element" items="${articlesSelected}">
 					<div class="divArticle">
