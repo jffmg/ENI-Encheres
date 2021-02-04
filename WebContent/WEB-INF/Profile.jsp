@@ -70,6 +70,12 @@
 			<p class= "infoProfil"> ${profile.getCity()}</p>
 		
 		</div>
+
+		<c:if test="${profile.getUser()==sessionScope.user}">
+			<a href="<%=request.getContextPath()%>/ServletConnectedHome"> <!-- ServletUpdateProfile  -->
+				<input type="button" name="modifier" value="Modifier mon profil" class="searchButtonNC"/>
+			</a>	
+		</c:if>
 		
 		
 	<footer class="footer" id="footerCell">
