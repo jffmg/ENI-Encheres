@@ -365,6 +365,7 @@ a.link {
 	flex-direction:row;
 	justify-content: space-around;
 	margin-top:1em;
+	flex-wrap:wrap;
 }
 
 .selectBoxTitle{
@@ -427,11 +428,21 @@ a.link {
 
 .divProfile{
 	padding:2em;
-	height: 100vh;
-	width:60vw;
-	margin-right:20vw;
-	margin-left:20vw;
-	background-color: #84a4bc;
+	height: 60vh;
+	width:40vw;
+	margin-right:30vw;
+	margin-left:30vw;
+	/*background-color: #84a4bc;*/
+}
+
+.labelProfil{
+	width:40%;
+	text-align: right;
+}
+
+.infoProfil{
+	width:40%;
+	text-align: left;
 }
 
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */

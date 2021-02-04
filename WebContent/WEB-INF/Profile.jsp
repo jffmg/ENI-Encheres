@@ -43,9 +43,31 @@
 		
 		<h1 class="title">Profil</h1>
 		
-		<div class="divProfile">
+		<div class="divProfile container2">
+			
+			<p class="labelProfil"> Pseudo : </p>
+			<p class= "infoProfil"> ${profile.getUser()}</p>
+			
+			<p class="labelProfil"> Nom : </p>
+			<p class= "infoProfil"> ${profile.getName()}</p>
 
-		
+			<p class="labelProfil"> Prénom : </p>
+			<p class= "infoProfil"> ${profile.getFirstName()}</p>
+			
+			<p class="labelProfil"> Email : </p>
+			<p class= "infoProfil"> ${profile.getEmail()}</p>
+
+			<p class="labelProfil"> Téléphone </p>
+			<p class= "infoProfil"> ${profile.getPhone()}</p>
+			
+			<p class="labelProfil"> Rue : </p>
+			<p class= "infoProfil"> ${profile.getStreet()}</p>
+
+			<p class="labelProfil"> Code Postale : </p>
+			<p class= "infoProfil"> ${profile.getPostCode()}</p>
+
+			<p class="labelProfil"> Code Ville : </p>
+			<p class= "infoProfil"> ${profile.getCity()}</p>
 		
 		</div>
 		

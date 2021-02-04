@@ -69,7 +69,7 @@
 								Prix : ${element.getSalePrice()} point(s) <br>
 								Meilleure enchère : 0 point(s)<br>
 								Mise à prix : ${element.getStartingBid()} point(s) <br>
-								<a href="<%=request.getContextPath()%>/ServletProfile" class="seller" name="profile">
+								<a href="<%=request.getContextPath()%>/ServletProfile?profile=${element.getUser().getUser()}" class="seller">
 								Vendeur : ${element.getUser().getUser()}</a><br>
 								Fin de l'enchère : ${element.getBidEndDate()}<br>
 							</div>

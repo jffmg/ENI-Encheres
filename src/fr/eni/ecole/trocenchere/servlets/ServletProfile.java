@@ -23,18 +23,22 @@ public class ServletProfile extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-//		String userName = request.getParameter("user");
-//		
-//		// User - link to data base
-//		UserManager userManager = new UserManager();
-//		User user=null;
-//		
-//		try {
-//			user = userManager.selectUser(userName);
-//		}catch (BusinessException e) {
-//			request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
-//			e.printStackTrace();
-//		}
+		String profileName = request.getParameter("profile");
+		
+		// User - link to data base
+		UserManager userManager = new UserManager();
+		User profile=null;
+		
+		try {
+			profile = userManager.selectUser(profileName);
+		}catch (BusinessException e) {
+			request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
+			e.printStackTrace();
+		}
+		
+		request.getServletContext().setAttribute("profile", profile);
+		System.out.println("Ville du profile : " + profile.getCity());
+		System.out.println("prénom du profile : " + profile.getFirstName());
 
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Profile.jsp");
 		rd.forward(request, response);
