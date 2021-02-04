@@ -15,6 +15,8 @@ public interface DAO {
 
 	public abstract void createUser(User data) throws BusinessException;
 
+	public abstract void updateUser(User data) throws BusinessException;
+
 	public abstract boolean checkUser(String user) throws BusinessException;
 
 	public abstract boolean checkEmail(String email) throws BusinessException;
