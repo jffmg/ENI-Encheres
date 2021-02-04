@@ -69,7 +69,7 @@
 								Prix : ${element.getSalePrice()} point(s) <br>
 								Meilleure enchère : 0 point(s)<br>
 								Mise à prix : ${element.getStartingBid()} point(s) <br>
-								Vendeur : ${element.getIdUser()} <br>
+								Vendeur : ${element.getUser().getUser()} <br>
 								Fin de l'enchère : ${element.getBidEndDate()}<br>
 							</div>
 						</div>

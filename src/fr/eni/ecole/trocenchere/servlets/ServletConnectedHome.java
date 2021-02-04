@@ -50,18 +50,18 @@ public class ServletConnectedHome extends HttpServlet {
 
 			// display Connected Home screen
 
-			// displaying articles (default: no keyword, category Toutes)
-			int categorySelected = 0;
-			String keyWord = "";
+		// displaying articles (default: no keyword, category Toutes)
+		String categorySelected = "";
+		String keyWord = "";
+		ArticleManager am = new ArticleManager();
 
-			List<Article> articlesSelected = null;
-			try {
-				articlesSelected = displayArticles(keyWord, categorySelected, request);
-			} catch (BusinessException e) {
-				request.setAttribute("listeCodesErreur", listeCodesErreur);
-				e.printStackTrace();
-			}
-
+		List<Article> articlesSelected = null;
+		try {
+			articlesSelected = am.displayArticles(keyWord, categorySelected, request);
+		} catch (BusinessException e) {
+			request.setAttribute("listeCodesErreur", listeCodesErreur);
+			e.printStackTrace();
+		}
 			request.getServletContext().setAttribute("articlesSelected", articlesSelected);
 
 			this.getServletContext().getRequestDispatcher("/WEB-INF/ConnectedHome.jsp").forward(request, response);
@@ -87,32 +87,12 @@ public class ServletConnectedHome extends HttpServlet {
 		} else {
 
 			// getting the parameters : category selected by user
-			String categorySelectedString = request.getParameter("categories");
-			String categorySelectedStringStripAccents = stripAccents(categorySelectedString);
-			int categorySelected = 0;
+			String categorySelected = request.getParameter("categories");
 
-			// changing labels to int
-			switch (categorySelectedStringStripAccents.toLowerCase().trim()) {
-			case "informatique":
-				categorySelected = 1;
-				break;
-			case "ameublement":
-				categorySelected = 2;
-				break;
-			case "vatement":
-				categorySelected = 3;
-				break;
-			case "sport & loisirs":
-				categorySelected = 4;
-				break;
-				// default = all selected
-			default:
-				categorySelected = 0;
-				break;
-			}
-
-			// getting the keyword typed by user
+						// getting the keyword typed by user
 			String keyWord = null;
+			
+			ArticleManager am = new ArticleManager();
 
 			request.getParameter("keyWord");
 			System.out.println(keyWord);
@@ -120,7 +100,7 @@ public class ServletConnectedHome extends HttpServlet {
 			// displaying selected articles
 			List<Article> articlesSelected = null;
 			try {
-				articlesSelected = displayArticles(keyWord, categorySelected, request);
+				articlesSelected = am.displayArticles(keyWord, categorySelected, request);
 			} catch (BusinessException e) {
 				request.setAttribute("listeCodesErreur", listeCodesErreur);
 				e.printStackTrace();
@@ -133,19 +113,4 @@ public class ServletConnectedHome extends HttpServlet {
 		}
 	}
 
-	private String stripAccents(String s) {
-		s = Normalizer.normalize(s, Normalizer.Form.NFD);
-		s = s.replaceAll("[^\\p{ASCII}]", "");
-		return s;
 	}
-
-	// function to select the articles to display according to user's choices
-	public static List<Article> displayArticles(String keyWord, int categorySelected, HttpServletRequest request)
-			throws BusinessException {
-		ArticleManager articleManager = new ArticleManager();
-		List<Article> articlesSelected = null;
-
-		articlesSelected = articleManager.selectArticlesEC(keyWord, categorySelected);
-		return articlesSelected;
-	}
-}
