@@ -22,6 +22,7 @@ import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 @WebServlet("/ServletSignUp")
 public class ServletSignUp extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	List<Integer> listeCodesErreur=new ArrayList<>();
 
 
 	@Override
@@ -35,7 +36,6 @@ public class ServletSignUp extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Integer> listeCodesErreur=new ArrayList<>();
 
 		// 1 - get the parameters
 		String user = request.getParameter("userName");
@@ -57,32 +57,27 @@ public class ServletSignUp extends HttpServlet {
 			userManager.addUser(user, name, firstName, email, phone, street, postCode, city, passwordEncrypted);
 		} catch (BusinessException e) {
 			request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
+			System.out.println("erreur lors de la saisie du formulaire");
+			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/SignUpForm.jsp");
+			rd.forward(request, response);
 			e.printStackTrace();
 		}
 
-		// 4 - if error dispatch on sign form again with error message
-		if(listeCodesErreur.size()>0)
-		{
-			request.setAttribute("listeCodesErreur",listeCodesErreur);
-			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/SignUpForm.jsp");
-			rd.forward(request, response);
-		}
-		
 		// 4 - if signing form OK
-		else {
-			// Save user for the session
-			HttpSession session = request.getSession();
-			session.setAttribute("user", user);
 
-			//Redirect to Home
-			request.getServletContext().getRequestDispatcher("/ServletConnectedHome?foo=get").forward(request, response);
-			//request.getServletContext().getRequestDispatcher("/WEB-INF/ConnectedHome.jsp").forward(request, response);
+		// Save user for the session
+		HttpSession session = request.getSession();
+		session.setAttribute("user", user);
+		System.out.println("saisie du formulaire OK");
 
-			//response.sendRedirect("/ServletConnectedHome");
-			//response.sendRedirect("/WEB-INF/ConnectedHome.jsp");
-		}
+		//Redirect to Home
+		request.getServletContext().getRequestDispatcher("/ServletConnectedHome?foo=get").forward(request, response);
+		//request.getServletContext().getRequestDispatcher("/WEB-INF/ConnectedHome.jsp").forward(request, response);
 
+		//response.sendRedirect("/ServletConnectedHome");
+		//response.sendRedirect("/WEB-INF/ConnectedHome.jsp");
 	}
+
 
 	// TODO move to somewhere else to avoid duplication
 	// function to encrypt password
