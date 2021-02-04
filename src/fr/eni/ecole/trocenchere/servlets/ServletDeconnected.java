@@ -50,12 +50,12 @@ public class ServletDeconnected extends HttpServlet {
 	}
 
 	// function to select the articles to display according to user's choices
-	public static List<Article> displayArticles(String keyWord, int categorySelected, HttpServletRequest request)
+	public static List<Article> displayArticles(String keyWord, String categorySelected, HttpServletRequest request)
 			throws BusinessException {
 		ArticleManager articleManager = new ArticleManager();
 		List<Article> articlesSelected = null;
 
-		articlesSelected = articleManager.selectArticlesEC(keyWord, categorySelected);
+		articlesSelected = articleManager.displayArticles(keyWord, categorySelected, request);
 		return articlesSelected;
 	}
 

@@ -94,13 +94,16 @@ public class ServletConnectedHome extends HttpServlet {
 			
 			ArticleManager am = new ArticleManager();
 
-			request.getParameter("keyWord");
+			keyWord = request.getParameter("keyWord");
 			System.out.println(keyWord);
 
+			HttpSession session = request.getSession();
+			String userName = (String) session.getAttribute("user");
+			
 			// displaying selected articles
 			List<Article> articlesSelected = null;
 			try {
-				articlesSelected = am.displayArticles(keyWord, categorySelected, request);
+				articlesSelected = am.displayArticlesConnected(userName, keyWord, categorySelected, categorySelected, keyWord, request);
 			} catch (BusinessException e) {
 				request.setAttribute("listeCodesErreur", listeCodesErreur);
 				e.printStackTrace();

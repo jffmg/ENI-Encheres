@@ -66,8 +66,7 @@ public class ServletNonConnectedHome extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// getting the parameters : category selected by user
-		String categorySelectedString = request.getParameter("categories");
-		String categorySelected = categorySelectedString;
+		String categorySelected = request.getParameter("categories");
 		ArticleManager am = new ArticleManager();
 
 		// getting the keyword typed by user
