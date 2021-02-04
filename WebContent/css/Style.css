@@ -421,6 +421,15 @@ a.link {
 	padding:2em;	
 }
 
+.divProfile{
+	padding:2em;
+	height: 100vh;
+	width:60vw;
+	margin-right:20vw;
+	margin-left:20vw;
+	background-color: #84a4bc;
+}
+
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 1500px) {
 	li {flex-direction: column; padding-top:0; padding-bottom:0}
