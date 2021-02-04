@@ -17,23 +17,23 @@
 		<%@include file="HeaderConnected.jspf" %>
 	</header>
 	
-	<c:if test="${!empty listeCodesErreur}">
-			<div class="displayLine" role="alert">
-			 <!--   <strong class="messageError">Erreur!</strong> -->
-			  <br>
-			  <ul>
-			  	<c:forEach var="code" items="${listeCodesErreur}">
-			  		<li class="messageError">${LecteurMessage.getMessageErreur(code)}</li>
-			  	</c:forEach>
-			  </ul>
-			</div>
-	</c:if>
-	
 	<body class="body">
 		<div class="welcome">
 		<c:out value="${sessionScope.user}" />
 		est connecté.
 		</div>
+		
+		<c:if test="${!empty listeCodesErreur}">
+				<div class="displayLine" role="alert">
+				 <!--   <strong class="messageError">Erreur!</strong> -->
+				  <br>
+				  <ul>
+				  	<c:forEach var="code" items="${listeCodesErreur}">
+				  		<li class="messageError">${LecteurMessage.getMessageErreur(code)}</li>
+				  	</c:forEach>
+				  </ul>
+				</div>
+		</c:if>
 	
 		<h1 class="title">Liste des enchères</h1>
 			
@@ -113,7 +113,8 @@
 								Prix : ${element.getSalePrice()} point(s) <br>
 								Meilleure enchère : 0 point(s)<br>
 								Fin de l'enchère : ${element.getBidEndDate()} <br>
-								Vendeur : ${element.getUser().getUser()} <br>
+								<a href="<%=request.getContextPath()%>/ServletProfile?profile=${element.getUser().getUser()" class="seller">
+								Vendeur : ${element.getUser().getUser()}</a><br>
 							</div>
 						</div>
 					</div>
@@ -173,4 +174,3 @@
 	</footer>
 
 </body>
-</html>

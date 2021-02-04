@@ -17,7 +17,11 @@
 		<%@include file="HeaderDisconnected.jspf" %>
 	</header>
 	
-	<c:if test="${!empty listeCodesErreur}">
+	<body class="body">
+		
+		<div class="welcome"><br></div>
+			
+		<c:if test="${!empty listeCodesErreur}">
 			<div class="displayLine" role="alert">
 			 <!--   <strong class="messageError">Erreur!</strong> -->
 			  <br>
@@ -27,11 +31,8 @@
 			  	</c:forEach>
 			  </ul>
 			</div>
-	</c:if>
-	
-	<body class="body">
+		</c:if>
 		
-		<div class="welcome"><br></div>
 		<h1 class="title">Liste des enchères</h1>
 			
 		<form action="<%=request.getContextPath()%>/ServletNonConnectedHome" method="post">
@@ -68,7 +69,8 @@
 								Prix : ${element.getSalePrice()} point(s) <br>
 								Meilleure enchère : 0 point(s)<br>
 								Mise à prix : ${element.getStartingBid()} point(s) <br>
-								Vendeur : ${element.getUser().getUser()} <br>
+								<a href="<%=request.getContextPath()%>/ServletProfile?profile=${element.getUser().getUser()}" class="seller">
+								Vendeur : ${element.getUser().getUser()}</a><br>
 								Fin de l'enchère : ${element.getBidEndDate()}<br>
 							</div>
 						</div>
