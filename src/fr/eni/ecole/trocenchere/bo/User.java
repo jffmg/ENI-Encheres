@@ -198,8 +198,30 @@ public class User implements Serializable {
 		this.city = city;
 		this.passwordEncrypted = passwordEncrypted;
 	}
+	
+	public User(int id, String user, String name, String firstName, String email, String phone, String street, String postCode,
+			String city) {
+		this.idUser = id;
+		this.user = user;
+		this.name = name;
+		this.firstName = firstName;
+		this.email = email;
+		this.phone = phone;
+		this.street = street;
+		this.postCode = postCode;
+		this.city = city;
+	}
 
 	public User() {
 	}
+
+	@Override
+	public String toString() {
+		return "User [user=" + user + ", idUser=" + idUser + ", name=" + name + ", firstName=" + firstName + ", email="
+				+ email + ", phone=" + phone + ", street=" + street + ", postCode=" + postCode + ", city=" + city
+				+ ", passwordEncrypted=" + passwordEncrypted + ", credit=" + credit + ", isAdmin=" + isAdmin + "]";
+	}
+	
+	
 
 }

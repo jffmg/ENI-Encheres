@@ -4,9 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import fr.eni.ecole.trocenchere.bll.ArticleManager;
 import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.dal.DAO;
@@ -19,10 +23,27 @@ public class DAOJdbcImpl implements DAO {
 	private static final String SQL_INSERT_USER = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	private static final String SQL_SELECT_USER_BY_EMAIL = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE email=?;";
 
-	private static final String SQL_SELECT_ALL_EC_ARTICLES = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC';";
-	private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC' AND nom_article LIKE CONCAT( '%',?,'%');";
-	private static final String SQL_SELECT_EC_ARTICLES_BY_CATEGORY = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC' AND no_categorie = ?;";
-	private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC' AND no_categorie = ? AND nom_article LIKE CONCAT( '%',?,'%');";
+	private static final String SQL_SELECT_ALL_EC_ARTICLES = "SELECT * FROM articles_vendus as a\r\n"
+			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
+			+ "WHERE a.etat_vente = 'EC'";
+	
+	private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD = "SELECT * FROM articles_vendus as a\r\n"
+			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
+			+ "WHERE a.etat_vente = 'EC' AND nom_article LIKE CONCAT( '%',?,'%');";
+	
+	private static final String SQL_SELECT_EC_ARTICLES_BY_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
+			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
+			+ "WHERE a.etat_vente = 'EC' AND no_categorie = ?;";
+	
+	private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
+			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
+			+ "WHERE a.etat_vente = 'EC' AND no_categorie = ? AND nom_article LIKE CONCAT( '%',?,'%');";
+
+	// private static final String SQL_SELECT_ALL_EC_ARTICLES = "SELECT * FROM
+	// articles_vendus WHERE etat_vente = 'EC';";
+	//private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC' AND nom_article LIKE CONCAT( '%',?,'%');";
+	//private static final String SQL_SELECT_EC_ARTICLES_BY_CATEGORY = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC' AND no_categorie = ?;";
+	//private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC' AND no_categorie = ? AND nom_article LIKE CONCAT( '%',?,'%');";
 
 	@Override
 	public User selectUser(String userName) throws BusinessException {
@@ -79,11 +100,12 @@ public class DAOJdbcImpl implements DAO {
 			prepStmt.setInt(10, 100);
 			prepStmt.setInt(11, 0);
 			prepStmt.executeUpdate();
-			/*ResultSet rs = prepStmt.getGeneratedKeys();
-			if (rs.next()) {
-				data.setIdUser(rs.getInt(1));
-				
-			}*/
+			/*
+			 * ResultSet rs = prepStmt.getGeneratedKeys(); if (rs.next()) {
+			 * data.setIdUser(rs.getInt(1));
+			 * 
+			 * }
+			 */
 
 		} catch (SQLException e) {
 			BusinessException businessException = new BusinessException();
@@ -140,13 +162,12 @@ public class DAOJdbcImpl implements DAO {
 		}
 	}
 
-	//select all articles EC
+	// select all articles EC
 	@Override
 	public List<Article> selectArticlesEC(String keyWord, int category) throws BusinessException {
 
-
-		String kw=keyWord;
-		int cat=category;
+		String kw = keyWord;
+		int cat = category;
 
 		System.out.println(kw + " " + cat);
 
@@ -179,6 +200,8 @@ public class DAOJdbcImpl implements DAO {
 				if (rs.getInt("no_article") != currentArticle.getIdArticle()) {
 					currentArticle = articleBuilder(rs);
 					listeArticles.add(currentArticle);
+					
+					System.out.println(currentArticle.getUser().getUser());
 				}
 			}
 		} catch (SQLException e) {
@@ -191,24 +214,117 @@ public class DAOJdbcImpl implements DAO {
 		return listeArticles;
 	}
 
+	/*
+	 * private Article articleBuilder(ResultSet rs) throws SQLException { Article
+	 * article = new Article(rs.getString("nom_article"),
+	 * rs.getString("description"), rs.getDate("date_debut_enchere").toLocalDate(),
+	 * rs.getDate("date_fin_enchere").toLocalDate(), rs.getInt("prix_initial"),
+	 * rs.getString("etat_vente"), rs.getInt("no_categorie"),
+	 * rs.getInt("no_utilisateur")); return article; }
+	 */
 	private Article articleBuilder(ResultSet rs) throws SQLException {
+		User user = new User(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"));
 		Article article = new Article(rs.getString("nom_article"), rs.getString("description"),
 				rs.getDate("date_debut_enchere").toLocalDate(), rs.getDate("date_fin_enchere").toLocalDate(),
-				rs.getInt("prix_initial"), rs.getString("etat_vente"), rs.getInt("no_categorie"),
-				rs.getInt("no_utilisateur"));
+				rs.getInt("prix_initial"), rs.getString("etat_vente"), rs.getInt("no_categorie"), user, rs.getInt("no_utilisateur"));
+		
+		System.out.println(rs.getString("pseudo"));
+		
+		
+		
 		return article;
 	}
 
+	// method to display articles with filters (Non Connected)
 	@Override
-	public List<Article> selectPurchases(String keyword, int category, boolean openBids, boolean myBids,
-			boolean myWonBids) throws BusinessException {
-		return null;
+	public List<Article> displayArticles(String keyword, String category, HttpServletRequest request) throws BusinessException {
+
+		List<Article> articlesSelected = new ArrayList<>();
+		int categorySelected = 0;
+		String catStrimAccents = stripAccents(category);
+
+		// changing labels to int
+		switch (catStrimAccents.toLowerCase().trim()) {
+		case "informatique":
+			categorySelected = 1;
+			break;
+		case "ameublement":
+			categorySelected = 2;
+			break;
+		case "vatement":
+			categorySelected = 3;
+			break;
+		case "sport & loisirs":
+			categorySelected = 4;
+			break;
+		// default = all selected
+		default:
+			categorySelected = 0;
+			break;
+		}
+
+		PreparedStatement pstmt = null;
+
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+
+			if (categorySelected == 0) {
+				if (keyword == null || keyword == "") {
+					pstmt = cnx.prepareStatement(SQL_SELECT_ALL_EC_ARTICLES);
+				} else {
+					pstmt = cnx.prepareStatement(SQL_SELECT_EC_ARTICLES_BY_KEYWORD);
+					pstmt.setString(1, keyword);
+				}
+			} else {
+				if (keyword == "" || keyword == null) {
+					pstmt = cnx.prepareStatement(SQL_SELECT_EC_ARTICLES_BY_CATEGORY);
+					pstmt.setInt(1, categorySelected);
+				} else {
+					pstmt = cnx.prepareStatement(SQL_SELECT_EC_ARTICLES_BY_KEYWORD_AND_CATEGORY);
+					pstmt.setInt(1, categorySelected);
+					pstmt.setString(2, keyword);
+				}
+			}
+			ResultSet rs = pstmt.executeQuery();
+			Article currentArticle = new Article();
+
+			while (rs.next()) {
+				if (rs.getInt("no_article") != currentArticle.getIdArticle()) {
+					currentArticle = articleBuilder(rs);
+					articlesSelected.add(currentArticle);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
+			throw businessException;
+		}
+		System.out.println(articlesSelected);
+
+		return articlesSelected;
 	}
 
-	@Override
-	public List<Article> selectSales(String keyword, int category, boolean currentSales, boolean notStartedSales,
-			boolean endedSales) throws BusinessException {
-		return null;
+	// method for getting rid of frenchy accents
+	private String stripAccents(String s) {
+		s = Normalizer.normalize(s, Normalizer.Form.NFD);
+		s = s.replaceAll("[^\\p{ASCII}]", "");
+		return s;
 	}
+/*
+	// method to display articles with filters (Connected)
+	public List<Article> displayArticlesConnected(String keyword, String category, String buyOrSell, String openBids,
+			String myBids, String myWonBids, String currentSales, String notStartedSales, String endedSales)
+			throws BusinessException {
+		List<Article> articlesSelected = new ArrayList<>();
 
+		if (buyOrSell == "buy" && myBids == null && myWonBids == null) {
+			articlesSelected = displayArticles(keyword, category);
+		} else if (buyOrSell == "buy" && myBids == "checked") {
+
+		}
+
+		return articlesSelected;
+
+	}
+*/
 }
