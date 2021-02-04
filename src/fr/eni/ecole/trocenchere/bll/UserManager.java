@@ -51,6 +51,11 @@ public class UserManager {
 			throw be;
 		}
 	}
+	
+	// Methode to delete User from base
+	public void deleteUser(String userName) throws BusinessException {
+		this.userDao.deleteUser(userName);		
+	}
 
 
 	// User validation before insertion in database
@@ -99,6 +104,6 @@ public class UserManager {
 		boolean emailExists = this.userDao.checkEmail(email);
 		return emailExists;
 	}
-	
+		
 
 }

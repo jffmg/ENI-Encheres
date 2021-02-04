@@ -87,6 +87,7 @@ public class DAOJdbcImpl implements DAO {
 			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
 			+ "WHERE u.pseudo = ? AND a.etat_vente = ? AND no_categorie = ? AND a.nom_article LIKE CONCAT( '%',?,'%')";
 
+	private static final String SQL_DELETE_USER ="DELETE FROM UTILISATEURS WHERE pseudo=?";
 
 	@Override
 	public User selectUser(String userName) throws BusinessException {
@@ -156,6 +157,21 @@ public class DAOJdbcImpl implements DAO {
 			e.printStackTrace();
 		}
 
+	}
+	
+	@Override
+	public void deleteUser(String userName) throws BusinessException {
+		PreparedStatement prepStmt = null;
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			prepStmt = cnx.prepareStatement(SQL_DELETE_USER);
+			prepStmt.setString(1, userName);
+			prepStmt.executeUpdate();
+		} catch (SQLException e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.DELETE_USER_ECHEC);
+			e.printStackTrace();
+			throw businessException;
+		}	
 	}
 
 	@Override
@@ -483,5 +499,6 @@ public class DAOJdbcImpl implements DAO {
 
 			return articlesSelected;
 		}
+
 
 }
