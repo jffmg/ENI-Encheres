@@ -41,24 +41,32 @@ public class ServletConnectedHome extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// display Connected Home screen
+		// check if user is connected
+		String userName = request.getParameter("user");
+		if (userName != null) {
 
-		// displaying articles (default: no keyword, category Toutes)
-		int categorySelected = 0;
-		String keyWord = "";
+			// display Connected Home screen
 
-		List<Article> articlesSelected = null;
-		try {
-			articlesSelected = displayArticles(keyWord, categorySelected, request);
-		} catch (BusinessException e) {
-			request.setAttribute("listeCodesErreur", listeCodesErreur);
-			e.printStackTrace();
+			// displaying articles (default: no keyword, category Toutes)
+			int categorySelected = 0;
+			String keyWord = "";
+
+			List<Article> articlesSelected = null;
+			try {
+				articlesSelected = displayArticles(keyWord, categorySelected, request);
+			} catch (BusinessException e) {
+				request.setAttribute("listeCodesErreur", listeCodesErreur);
+				e.printStackTrace();
+			}
+
+			request.getServletContext().setAttribute("articlesSelected", articlesSelected);
+
+			this.getServletContext().getRequestDispatcher("/WEB-INF/ConnectedHome.jsp").forward(request, response);
+
+			// if user is not connected, dispatch to NonConnectedHome
+		} else {
+			this.getServletContext().getRequestDispatcher("/ServletNonConnectedHome").forward(request, response);
 		}
-
-		request.getServletContext().setAttribute("articlesSelected", articlesSelected);
-
-		this.getServletContext().getRequestDispatcher("/WEB-INF/ConnectedHome.jsp").forward(request, response);
-
 	}
 
 	/**
@@ -94,7 +102,7 @@ public class ServletConnectedHome extends HttpServlet {
 			case "sport & loisirs":
 				categorySelected = 4;
 				break;
-			// default = all selected
+				// default = all selected
 			default:
 				categorySelected = 0;
 				break;
@@ -106,7 +114,7 @@ public class ServletConnectedHome extends HttpServlet {
 			request.getParameter("keyWord");
 			System.out.println(keyWord);
 
-			// displaying articles
+			// displaying selected articles
 			List<Article> articlesSelected = null;
 			try {
 				articlesSelected = displayArticles(keyWord, categorySelected, request);
