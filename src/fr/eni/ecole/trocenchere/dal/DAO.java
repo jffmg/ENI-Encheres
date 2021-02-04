@@ -33,7 +33,7 @@ public interface DAO {
 	public abstract List<Article> displayArticles(String keyword, String category, HttpServletRequest request)
 			throws BusinessException;
 
-	public abstract List<Article> displayArticlesConnected(String userName, String keyword, String category, String buyOrSell, String checkBox, HttpServletRequest request)
-			throws BusinessException;
+	public abstract List<Article> displayArticlesConnected(String userName, String keyword, String category,
+			String buyOrSell, String checkBox, HttpServletRequest request) throws BusinessException;
 
 }

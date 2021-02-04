@@ -50,18 +50,18 @@ public class ServletConnectedHome extends HttpServlet {
 
 			// display Connected Home screen
 
-		// displaying articles (default: no keyword, category Toutes)
-		String categorySelected = "";
-		String keyWord = "";
-		ArticleManager am = new ArticleManager();
+			// displaying articles (default: no keyword, category Toutes)
+			String categorySelected = "";
+			String keyWord = "";
+			ArticleManager am = new ArticleManager();
 
-		List<Article> articlesSelected = null;
-		try {
-			articlesSelected = am.displayArticles(keyWord, categorySelected, request);
-		} catch (BusinessException e) {
-			request.setAttribute("listeCodesErreur", listeCodesErreur);
-			e.printStackTrace();
-		}
+			List<Article> articlesSelected = null;
+			try {
+				articlesSelected = am.displayArticles(keyWord, categorySelected, request);
+			} catch (BusinessException e) {
+				request.setAttribute("listeCodesErreur", listeCodesErreur);
+				e.printStackTrace();
+			}
 			request.getServletContext().setAttribute("articlesSelected", articlesSelected);
 
 			this.getServletContext().getRequestDispatcher("/WEB-INF/ConnectedHome.jsp").forward(request, response);
@@ -82,16 +82,16 @@ public class ServletConnectedHome extends HttpServlet {
 		String foo = null;
 		foo = request.getParameter("foo");
 		if (foo != null) {
-			foo=null;
+			foo = null;
 			this.doGet(request, response);
 		} else {
 
 			// getting the parameters : category selected by user
 			String categorySelected = request.getParameter("categories");
 
-						// getting the keyword typed by user
+			// getting the keyword typed by user
 			String keyWord = null;
-			
+
 			ArticleManager am = new ArticleManager();
 
 			keyWord = request.getParameter("keyWord");
@@ -99,11 +99,20 @@ public class ServletConnectedHome extends HttpServlet {
 
 			HttpSession session = request.getSession();
 			String userName = (String) session.getAttribute("user");
-			
+
+			String buyOrSell = request.getParameter("buyOrSell");
+			String checkBox = "";
+			if (buyOrSell.equalsIgnoreCase("buy1")) {
+				checkBox = request.getParameter("buy2");
+			} else {
+				checkBox = request.getParameter("sell2");
+			}
+
 			// displaying selected articles
 			List<Article> articlesSelected = null;
 			try {
-				articlesSelected = am.displayArticlesConnected(userName, keyWord, categorySelected, categorySelected, keyWord, request);
+				articlesSelected = am.displayArticlesConnected(userName, keyWord, categorySelected, buyOrSell, checkBox,
+						request);
 			} catch (BusinessException e) {
 				request.setAttribute("listeCodesErreur", listeCodesErreur);
 				e.printStackTrace();
@@ -116,4 +125,4 @@ public class ServletConnectedHome extends HttpServlet {
 		}
 	}
 
-	}
+}
