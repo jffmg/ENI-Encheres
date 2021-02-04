@@ -38,12 +38,55 @@ public class DAOJdbcImpl implements DAO {
 	private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
 			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
 			+ "WHERE a.etat_vente = 'EC' AND no_categorie = ? AND nom_article LIKE CONCAT( '%',?,'%');";
+	
+	private static final String SQL_SELECT_USER_BIDS_ARTICLES = "SELECT * FROM articles_vendus as a\r\n"
+			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
+			+ "WHERE a.etat_vente = 'EC' AND e.no_utilisateur = ?;";
+	
+	private static final String SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD = "SELECT * FROM articles_vendus as a\r\n"
+			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
+			+ "WHERE a.etat_vente = 'EC' AND e.no_utilisateur = ? AND a.nom_article LIKE CONCAT( '%',?,'%');";
+	
+	private static final String SQL_SELECT_USER_BIDS_ARTICLES_BY_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
+			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
+			+ "WHERE a.etat_vente = 'EC' AND e.no_utilisateur = ? AND a.no_categorie = ?;";
+	
+	private static final String SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
+			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
+			+ "WHERE a.etat_vente = 'EC' AND e.no_utilisateur = ? AND a.no_categorie = ? AND a.nom_article LIKE CONCAT( '%',?,'%');";
+	
+	private static final String SQL_SELECT_WON_BIDS_ARTICLES = "SELECT * FROM articles_vendus as a\r\n"
+			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
+			+ "WHERE (a.etat_vente = 'VD' OR a.etat_vente = 'RT') AND e.no_utilisateur = ?;";
+	
+	private static final String SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD = "SELECT * FROM articles_vendus as a\r\n"
+			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
+			+ "WHERE (a.etat_vente = 'VD' OR a.etat_vente = 'RT') AND e.no_utilisateur = ? AND a.nom_article LIKE CONCAT( '%',?,'%');";
+	
+	private static final String SQL_SELECT_WON_BIDS_ARTICLES_BY_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
+			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
+			+ "WHERE (a.etat_vente = 'VD' OR a.etat_vente = 'RT') AND e.no_utilisateur = ? AND a.no_categorie = ?;";
+	
+	private static final String SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
+			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
+			+ "WHERE (a.etat_vente = 'VD' OR a.etat_vente = 'RT') AND e.no_utilisateur = ? AND a.no_categorie = ? AND a.nom_article LIKE CONCAT( '%',?,'%');";
 
-	// private static final String SQL_SELECT_ALL_EC_ARTICLES = "SELECT * FROM
-	// articles_vendus WHERE etat_vente = 'EC';";
-	//private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC' AND nom_article LIKE CONCAT( '%',?,'%');";
-	//private static final String SQL_SELECT_EC_ARTICLES_BY_CATEGORY = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC' AND no_categorie = ?;";
-	//private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus WHERE etat_vente = 'EC' AND no_categorie = ? AND nom_article LIKE CONCAT( '%',?,'%');";
+	private static final String SQL_SELECT_USER_SALES = "SELECT * FROM articles_vendus as a\r\n"
+			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
+			+ "WHERE u.pseudo = ? AND a.etat_vente = ?";
+	
+	private static final String SQL_SELECT_USER_SALES_BY_KEYWORD = "SELECT * FROM articles_vendus as a\r\n"
+			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
+			+ "WHERE u.pseudo = ? AND a.etat_vente = ? AND a.nom_article LIKE CONCAT( '%',?,'%')";
+	
+	private static final String SQL_SELECT_USER_SALES_BY_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
+			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
+			+ "WHERE u.pseudo = ? AND a.etat_vente = ? AND no_categorie = ?";
+	
+	private static final String SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
+			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
+			+ "WHERE u.pseudo = ? AND a.etat_vente = ? AND no_categorie = ? AND a.nom_article LIKE CONCAT( '%',?,'%')";
+
 
 	@Override
 	public User selectUser(String userName) throws BusinessException {
@@ -162,66 +205,6 @@ public class DAOJdbcImpl implements DAO {
 		}
 	}
 
-	// select all articles EC
-	@Override
-	public List<Article> selectArticlesEC(String keyWord, int category) throws BusinessException {
-
-		String kw = keyWord;
-		int cat = category;
-
-		System.out.println(kw + " " + cat);
-
-		List<Article> listeArticles = new ArrayList<>();
-		PreparedStatement pstmt = null;
-
-		try (Connection cnx = ConnectionProvider.getConnection()) {
-
-			if (category == 0) {
-				if (keyWord == null || keyWord == "") {
-					pstmt = cnx.prepareStatement(SQL_SELECT_ALL_EC_ARTICLES);
-				} else {
-					pstmt = cnx.prepareStatement(SQL_SELECT_EC_ARTICLES_BY_KEYWORD);
-					pstmt.setString(1, keyWord);
-				}
-			} else {
-				if (keyWord == "" || keyWord == null) {
-					pstmt = cnx.prepareStatement(SQL_SELECT_EC_ARTICLES_BY_CATEGORY);
-					pstmt.setInt(1, category);
-				} else {
-					pstmt = cnx.prepareStatement(SQL_SELECT_EC_ARTICLES_BY_KEYWORD_AND_CATEGORY);
-					pstmt.setInt(1, category);
-					pstmt.setString(2, keyWord);
-				}
-			}
-			ResultSet rs = pstmt.executeQuery();
-			Article currentArticle = new Article();
-
-			while (rs.next()) {
-				if (rs.getInt("no_article") != currentArticle.getIdArticle()) {
-					currentArticle = articleBuilder(rs);
-					listeArticles.add(currentArticle);
-					
-					System.out.println(currentArticle.getUser().getUser());
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			BusinessException businessException = new BusinessException();
-			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
-			throw businessException;
-		}
-		System.out.println(listeArticles);
-		return listeArticles;
-	}
-
-	/*
-	 * private Article articleBuilder(ResultSet rs) throws SQLException { Article
-	 * article = new Article(rs.getString("nom_article"),
-	 * rs.getString("description"), rs.getDate("date_debut_enchere").toLocalDate(),
-	 * rs.getDate("date_fin_enchere").toLocalDate(), rs.getInt("prix_initial"),
-	 * rs.getString("etat_vente"), rs.getInt("no_categorie"),
-	 * rs.getInt("no_utilisateur")); return article; }
-	 */
 	private Article articleBuilder(ResultSet rs) throws SQLException {
 		User user = new User(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"));
 		Article article = new Article(rs.getString("nom_article"), rs.getString("description"),
@@ -310,21 +293,195 @@ public class DAOJdbcImpl implements DAO {
 		s = s.replaceAll("[^\\p{ASCII}]", "");
 		return s;
 	}
-/*
-	// method to display articles with filters (Connected)
-	public List<Article> displayArticlesConnected(String keyword, String category, String buyOrSell, String openBids,
-			String myBids, String myWonBids, String currentSales, String notStartedSales, String endedSales)
-			throws BusinessException {
-		List<Article> articlesSelected = new ArrayList<>();
+	
+	// method to display articles with filters (Non Connected)
+		@Override
+		public List<Article> displayArticlesConnected(String userName, String keyword, String category, String buyOrSell, String checkBox, HttpServletRequest request) throws BusinessException {
 
-		if (buyOrSell == "buy" && myBids == null && myWonBids == null) {
-			articlesSelected = displayArticles(keyword, category);
-		} else if (buyOrSell == "buy" && myBids == "checked") {
+			List<Article> articlesSelected = new ArrayList<>();
+			int categorySelected = 0;
+			String catStrimAccents = stripAccents(category);
 
+			// changing labels to int
+			switch (catStrimAccents.toLowerCase().trim()) {
+			case "informatique":
+				categorySelected = 1;
+				break;
+			case "ameublement":
+				categorySelected = 2;
+				break;
+			case "vatement":
+				categorySelected = 3;
+				break;
+			case "sport & loisirs":
+				categorySelected = 4;
+				break;
+			// default = all selected
+			default:
+				categorySelected = 0;
+				break;
+			}
+
+			PreparedStatement pstmt = null;
+
+			try (Connection cnx = ConnectionProvider.getConnection()) {
+				
+				if (buyOrSell=="buy") {
+					switch (checkBox) {
+					case "myBids" : 
+						if (categorySelected == 0) {
+							if (keyword == null || keyword == "") {
+								pstmt = cnx.prepareStatement(SQL_SELECT_USER_BIDS_ARTICLES);
+								pstmt.setString(1, userName);
+							} else {
+								pstmt = cnx.prepareStatement(SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD);
+								pstmt.setString(1, userName);
+								pstmt.setString(2, keyword);
+							}
+						} else {
+							if (keyword == "" || keyword == null) {
+								pstmt = cnx.prepareStatement(SQL_SELECT_USER_BIDS_ARTICLES_BY_CATEGORY);
+								pstmt.setString(1, userName);
+								pstmt.setInt(2, categorySelected);
+							} else {
+								pstmt = cnx.prepareStatement(SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY);
+								pstmt.setString(1, userName);
+								pstmt.setInt(2, categorySelected);
+								pstmt.setString(3, keyword);
+							}
+						}
+						;break;
+					case "myWonBids" : 
+						if (categorySelected == 0) {
+							if (keyword == null || keyword == "") {
+								pstmt = cnx.prepareStatement(SQL_SELECT_WON_BIDS_ARTICLES);
+								pstmt.setString(1, userName);
+							} else {
+								pstmt = cnx.prepareStatement(SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD);
+								pstmt.setString(1, userName);
+								pstmt.setString(2, keyword);
+							}
+						} else {
+							if (keyword == "" || keyword == null) {
+								pstmt = cnx.prepareStatement(SQL_SELECT_WON_BIDS_ARTICLES_BY_CATEGORY);
+								pstmt.setString(1, userName);
+								pstmt.setInt(2, categorySelected);
+							} else {
+								pstmt = cnx.prepareStatement(SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY);
+								pstmt.setString(1, userName);
+								pstmt.setInt(2, categorySelected);
+								pstmt.setString(3, keyword);
+							}
+						}
+						;break;
+					default : 
+						articlesSelected = displayArticles(keyword, category, request);
+						; break;
+					}
+					
+				} else {
+					switch (checkBox) {
+					case "notStartedSales" : 
+						if (categorySelected == 0) {
+							if (keyword == null || keyword == "") {
+								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES);
+								pstmt.setString(1, userName);
+								pstmt.setString(2, "CR");
+							} else {
+								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_KEYWORD);
+								pstmt.setString(1, userName);
+								pstmt.setString(2, "CR");
+								pstmt.setString(3, keyword);
+							}
+						} else {
+							if (keyword == "" || keyword == null) {
+								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_CATEGORY);
+								pstmt.setString(1, userName);
+								pstmt.setString(2, "CR");
+								pstmt.setInt(3, categorySelected);
+							} else {
+								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
+								pstmt.setString(1, userName);
+								pstmt.setString(2, "CR");
+								pstmt.setInt(3, categorySelected);
+								pstmt.setString(4, keyword);
+							}
+						}
+						;break;
+					case "endedSales" : 
+						if (categorySelected == 0) {
+							if (keyword == null || keyword == "") {
+								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES);
+								pstmt.setString(1, userName);
+								pstmt.setString(2, "VD");
+							} else {
+								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_KEYWORD);
+								pstmt.setString(1, userName);
+								pstmt.setString(2, "VD");
+								pstmt.setString(3, keyword);
+							}
+						} else {
+							if (keyword == "" || keyword == null) {
+								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_CATEGORY);
+								pstmt.setString(1, userName);
+								pstmt.setString(2, "VD");
+								pstmt.setInt(3, categorySelected);
+							} else {
+								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
+								pstmt.setString(1, userName);
+								pstmt.setString(2, "VD");
+								pstmt.setInt(3, categorySelected);
+								pstmt.setString(4, keyword);
+							}
+						}
+						;break;
+					default : 
+						if (categorySelected == 0) {
+							if (keyword == null || keyword == "") {
+								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES);
+								pstmt.setString(1, userName);
+								pstmt.setString(2, "CR");
+							} else {
+								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_KEYWORD);
+								pstmt.setString(1, userName);
+								pstmt.setString(2, "CR");
+								pstmt.setString(3, keyword);
+							}
+						} else {
+							if (keyword == "" || keyword == null) {
+								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_CATEGORY);
+								pstmt.setString(1, userName);
+								pstmt.setString(2, "CR");
+								pstmt.setInt(3, categorySelected);
+							} else {
+								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
+								pstmt.setString(1, userName);
+								pstmt.setString(2, "CR");
+								pstmt.setInt(3, categorySelected);
+								pstmt.setString(4, keyword);
+							}
+						}
+						; break;
+					}
+				}
+				ResultSet rs = pstmt.executeQuery();
+				Article currentArticle = new Article();
+
+				while (rs.next()) {
+					if (rs.getInt("no_article") != currentArticle.getIdArticle()) {
+						currentArticle = articleBuilder(rs);
+						articlesSelected.add(currentArticle);
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				BusinessException businessException = new BusinessException();
+				businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
+				throw businessException;
+			}
+			System.out.println(articlesSelected);
+
+			return articlesSelected;
 		}
 
-		return articlesSelected;
-
-	}
-*/
 }
