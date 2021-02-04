@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.ecole.trocenchere.bll.ArticleManager;
 import fr.eni.ecole.trocenchere.bo.Article;
@@ -42,7 +43,9 @@ public class ServletConnectedHome extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// check if user is connected
-		String userName = request.getParameter("user");
+		HttpSession session = request.getSession();
+		String userName = (String) session.getAttribute("user");
+		System.out.println("Session of " + userName);
 		if (userName != null) {
 
 			// display Connected Home screen
