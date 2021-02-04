@@ -23,10 +23,7 @@ import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 public class ServletSignUp extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -35,12 +32,9 @@ public class ServletSignUp extends HttpServlet {
 		rd.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+
 	@Override
-		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Integer> listeCodesErreur=new ArrayList<>();
 
 		// 1 - get the parameters
@@ -66,22 +60,28 @@ public class ServletSignUp extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		// Save user for the session
-		HttpSession session = request.getSession();
-		session.setAttribute("user", user);
-
+		// 4 - if error dispatch on sign form again with error message
 		if(listeCodesErreur.size()>0)
 		{
 			request.setAttribute("listeCodesErreur",listeCodesErreur);
+			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/SignUpForm.jsp");
+			rd.forward(request, response);
+		}
+		
+		// 4 - if signing form OK
+		else {
+			// Save user for the session
+			HttpSession session = request.getSession();
+			session.setAttribute("user", user);
+
+			//Redirect to Home
+			request.getServletContext().getRequestDispatcher("/ServletConnectedHome?foo=get").forward(request, response);
+			//request.getServletContext().getRequestDispatcher("/WEB-INF/ConnectedHome.jsp").forward(request, response);
+
+			//response.sendRedirect("/ServletConnectedHome");
+			//response.sendRedirect("/WEB-INF/ConnectedHome.jsp");
 		}
 
-		// 4 - if everything OK, redirect to Home
-		request.getServletContext().getRequestDispatcher("/ServletConnectedHome?foo=get").forward(request, response);
-		//request.getServletContext().getRequestDispatcher("/WEB-INF/ConnectedHome.jsp").forward(request, response);
-				
-		//response.sendRedirect("/ServletConnectedHome");
-		//response.sendRedirect("/WEB-INF/ConnectedHome.jsp");
-		
 	}
 
 	// TODO move to somewhere else to avoid duplication
