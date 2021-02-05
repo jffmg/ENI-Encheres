@@ -28,20 +28,18 @@ public class UserManager {
 		userExists = checkUser(user);
 		emailExists = checkEmail(email);
 
-		if (userExists==true) {
+		if (userExists == true) {
 			be.ajouterErreur(CodesResultatBLL.USER_EXISTS);
 			System.out.println(CodesResultatBLL.USER_EXISTS);
 		}
 
-		if (emailExists==true) {
+		if (emailExists == true) {
 			be.ajouterErreur(CodesResultatBLL.EMAIL_EXISTS);
 			System.out.println(CodesResultatBLL.EMAIL_EXISTS);
 		}
 
-
 		User currentUser = new User(user, name, firstName, email, phone, street, postCode, city, passwordEncrypted);
 		this.validateUser(currentUser, be);
-
 
 		if (!be.hasErreurs()) {
 			this.userDao.createUser(currentUser);
@@ -51,10 +49,10 @@ public class UserManager {
 			throw be;
 		}
 	}
-	
+
 	// Methode to delete User from base
 	public void disableUser(String userName) throws BusinessException {
-		this.userDao.disableUser(userName);		
+		this.userDao.disableUser(userName);
 	}
 
 	// method to update user infos
@@ -88,7 +86,6 @@ public class UserManager {
 			throw be;
 		}
 	}
-
 
 	// User validation before insertion in database
 	private void validateUser(User currentUser, BusinessException be) {
@@ -146,6 +143,12 @@ public class UserManager {
 		}
 
 		return passwordEncrypted;
+	}
+
+	public void updateUser(String user, String name, String firstName, String email, String phone, String street,
+			String postCode, String city, String passwordEncrypted, String userNameSession, String userEmailSession, int sessionID)
+			throws BusinessException {
+
 	}
 
 }
