@@ -35,7 +35,7 @@
 		
 		<h1 class="title"> Modifier votre profil</h1>
 		
-		<form action="<%=request.getContextPath()%>/ServletUpdateprofile" method="POST">
+		<form action="<%=request.getContextPath()%>/ServletUpdateProfile?profile=${sessionScope.user}" method="POST">
 		
 		<div class="divProfile container2">
 			
