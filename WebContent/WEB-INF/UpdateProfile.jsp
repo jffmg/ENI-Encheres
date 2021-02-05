@@ -64,10 +64,10 @@
 			<p><input class="inputText" type="text" name="city" value="${profile.getCity()}" size=35/> <p>
 			
 			<p class="labelProfil"> Nouveau mot de passe : </p>
-			<p><input class="inputText" id="newPassword" type="text" name="newPassword" size=35 onkeyup="checkFunction()"/> <p>
+			<p><input class="inputText" id="newPassword" type="password" name="newPassword" size=35 onkeyup="checkFunction()"/> <p>
 			
 			<p class="labelProfil"> Confirmation Nouveau mot de passe : </p>
-			<p><input class="inputText" id="confirmPassword" type="text" name="confirmPassword" size=35 onkeyup="checkFunction()"/> <p>
+			<p><input class="inputText" id="confirmPassword" type="password" name="confirmPassword" size=35 onkeyup="checkFunction()"/> <p>
 			
 			<p class="labelProfil"></p>
 			<p><span id='message'></span><p>
