@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.eni.ecole.trocenchere.bll.UserManager;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
+import fr.eni.ecole.trocenchere.utils.ServletUtils;
 
 @WebServlet("/ServletDisableProfile")
 public class ServletDisableProfile extends HttpServlet {
@@ -44,8 +45,7 @@ public class ServletDisableProfile extends HttpServlet {
 			user.disableUser(userName);
 			deletionOK = true;
 		}catch (BusinessException e) {
-			request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
-			e.printStackTrace();
+			ServletUtils.handleBusinessException(e, request);
 			
 			System.out.println("could not delete user: " + userName + " -> redirecting to profile");
 		}

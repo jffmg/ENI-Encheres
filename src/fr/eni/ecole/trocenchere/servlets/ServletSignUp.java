@@ -14,8 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.ecole.trocenchere.bll.UserManager;
-import fr.eni.ecole.trocenchere.bo.Password;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
+import fr.eni.ecole.trocenchere.utils.PasswordUtils;
+import fr.eni.ecole.trocenchere.utils.ServletUtils;
 
 /**
  * Servlet implementation class ServletSignUp
@@ -50,15 +51,14 @@ public class ServletSignUp extends HttpServlet {
 		String city = request.getParameter("city");
 
 		// 2 - encrypt password
-		Password ps = new Password();
-		String passwordEncrypted = ps.encrypt(password);
+		String passwordEncrypted = PasswordUtils.encrypt(password);
 
 		// 3 - create user
 		UserManager userManager = new UserManager();
 		try {
 			userManager.addUser(user, name, firstName, email, phone, street, postCode, city, passwordEncrypted);
 		} catch (BusinessException e) {
-			request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
+			ServletUtils.handleBusinessException(e, request);
 			System.out.println("erreur lors de la saisie du formulaire");
 			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/SignUpForm.jsp");
 			rd.forward(request, response);

@@ -13,10 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.ecole.trocenchere.bll.UserManager;
-import fr.eni.ecole.trocenchere.bo.Password;
 import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 import fr.eni.ecole.trocenchere.gestion.erreurs.CodesResultatServlets;
+import fr.eni.ecole.trocenchere.utils.PasswordUtils;
+import fr.eni.ecole.trocenchere.utils.ServletUtils;
 
 
 @WebServlet("/ServletConnection")
@@ -41,8 +42,7 @@ public class ServletConnection extends HttpServlet {
 
 		// encrypt password
 		//String passwordEncrypted = encrypt(password);
-		Password ps = new Password();
-		String passwordEncrypted=ps.encrypt(password);
+		String passwordEncrypted = PasswordUtils.encrypt(password);
 		//System.out.println("paswwordEncrypted: " + passwordEncrypted);
 
 		// User - link to data base
@@ -54,8 +54,7 @@ public class ServletConnection extends HttpServlet {
 		try {
 			user = userManager.selectUser(userName);
 		}catch (BusinessException e) {
-			request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
-			e.printStackTrace();
+			ServletUtils.handleBusinessException(e, request);
 		}
 		if (user != null) {
 			passwordDataBase = user.getPasswordEncrypted();

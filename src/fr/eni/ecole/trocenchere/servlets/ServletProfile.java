@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.ecole.trocenchere.bll.UserManager;
 import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
+import fr.eni.ecole.trocenchere.utils.ServletUtils;
 
 
 @WebServlet("/ServletProfile")
@@ -25,15 +26,17 @@ public class ServletProfile extends HttpServlet {
 		
 		String profileName = request.getParameter("profile");
 		
+		System.out.println("je passe dans la ServletProfile - doGet / profilename : " +profileName);
+		
 		// User - link to data base
 		UserManager userManager = new UserManager();
 		User profile=null;
 		
 		try {
 			profile = userManager.selectUser(profileName);
-		}catch (BusinessException e) {
-			request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
-			e.printStackTrace();
+		}
+		catch (BusinessException e) {
+			ServletUtils.handleBusinessException(e, request);
 		}
 		
 		request.getServletContext().setAttribute("profile", profile);
@@ -46,6 +49,7 @@ public class ServletProfile extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("je passe dans la ServletProfile - doPost");
 		doGet(request, response);
 	}
 

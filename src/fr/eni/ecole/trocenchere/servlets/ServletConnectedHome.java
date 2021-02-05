@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import fr.eni.ecole.trocenchere.bll.ArticleManager;
 import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
+import fr.eni.ecole.trocenchere.utils.ServletUtils;
 
 /**
  * Servlet implementation class ServletConnectedHome
@@ -59,8 +60,7 @@ public class ServletConnectedHome extends HttpServlet {
 			try {
 				articlesSelected = am.displayArticles(keyWord, categorySelected, request);
 			} catch (BusinessException e) {
-				request.setAttribute("listeCodesErreur", listeCodesErreur);
-				e.printStackTrace();
+				ServletUtils.handleBusinessException(e, request);
 			}
 			request.getServletContext().setAttribute("articlesSelected", articlesSelected);
 
@@ -114,8 +114,7 @@ public class ServletConnectedHome extends HttpServlet {
 				articlesSelected = am.displayArticlesConnected(userName, keyWord, categorySelected, buyOrSell, checkBox,
 						request);
 			} catch (BusinessException e) {
-				request.setAttribute("listeCodesErreur", listeCodesErreur);
-				e.printStackTrace();
+				ServletUtils.handleBusinessException(e, request);
 			}
 
 			request.getServletContext().setAttribute("articlesSelected", articlesSelected);
