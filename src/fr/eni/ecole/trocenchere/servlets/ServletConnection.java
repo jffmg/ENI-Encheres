@@ -36,14 +36,14 @@ public class ServletConnection extends HttpServlet {
 		// get the paramaters
 		String userName = request.getParameter("user");
 		String password = request.getParameter("password");
-		System.out.println("password :" + password);
+		//System.out.println("password :" + password);
 
 
 		// encrypt password
 		//String passwordEncrypted = encrypt(password);
 		Password ps = new Password();
 		String passwordEncrypted=ps.encrypt(password);
-		System.out.println("paswwordEncrypted: " + passwordEncrypted);
+		//System.out.println("paswwordEncrypted: " + passwordEncrypted);
 
 		// User - link to data base
 		UserManager userManager = new UserManager();
@@ -60,7 +60,7 @@ public class ServletConnection extends HttpServlet {
 		if (user != null) {
 			passwordDataBase = user.getPasswordEncrypted();
 		}
-		System.out.println("paswwordDataBAse : " + passwordDataBase);
+		//System.out.println("paswwordDataBAse : " + passwordDataBase);
 
 		// Compare password
 		if (passwordDataBase != null && passwordDataBase.equals(passwordEncrypted)) {
