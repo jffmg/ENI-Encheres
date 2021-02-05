@@ -6,16 +6,18 @@
 <html>
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="css/Style.css" type="text/css" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="stylesheet" href="css/ClassStyle.css" type="text/css" />
+	<link rel="stylesheet" href="css/ButtonStyle.css" type="text/css" />
+	<link rel="stylesheet" href="css/GeneralStyle.css" type="text/css" />
 <title>Connexion</title>
 </head>
 
 <body class="body">
 
 	<header class="header">
-		<c:import url="HeaderNC.html"></c:import>
+		<%@include file="HeaderNC.jspf" %>
 	</header>
 
 	<%@include file="Errors.jspf" %>

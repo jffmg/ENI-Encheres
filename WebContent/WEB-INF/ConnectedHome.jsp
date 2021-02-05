@@ -7,8 +7,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="css/Style.css" type="text/css" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="stylesheet" href="css/ClassStyle.css" type="text/css" />
+	<link rel="stylesheet" href="css/ButtonStyle.css" type="text/css" />
+	<link rel="stylesheet" href="css/GeneralStyle.css" type="text/css" />
 <title>Connected Home</title>
 
 </head>
@@ -43,25 +46,45 @@
 							</c:forEach>
 						</select>  
 					</div>
-					<div>
-
-						<label class="selectBoxTitle"> <input type="radio"
-							name="buyOrSell" value="sell1" onClick="checkBoxes()">
-							Mes ventes
-						</label> <br>
-						<br> <input type="radio" name="sell2" class="checkBox"
-							id="currentSales" value="currentSales"> <label
-							class="selectBoxLabel">ventes en cours</label> <br>
-						<br> <input type="radio" name="sell2" class="checkBox"
-							id="notStartedSales" value="notStartedSales"> <label
-							class="selectBoxLabel">ventes non débutées</label> <br>
-						<br> <input type="radio" name="sell2" class="checkBox"
-							id="endedSales" value="endedSales"> <label
-							class="selectBoxLabel">ventes terminées</label>
-
+					
+					<div class="container2">
+						<div>
+	
+							<label class="selectBoxTitle"> <input type="radio"
+								name="buyOrSell" value="buy1" onClick="checkBoxes()">
+								Mes Achats
+							</label> <br>
+							<br> <input type="radio" name="buy2" class="checkBox"
+								id="openBids" value="openBids"> <label
+								class="selectBoxLabel">enchères ouvertes</label> <br>
+							<br> <input type="radio" name="sell2" class="checkBox"
+								id="myBids" value="myBids"> <label
+								class="selectBoxLabel">mes enchères</label> <br>
+							<br> <input type="radio" name="sell2" class="checkBox"
+								id="myWonBids" value="myWonBids"> <label
+								class="selectBoxLabel">enchères remportées</label>
+	
+						</div>
+						
+						<div>
+	
+							<label class="selectBoxTitle"> <input type="radio"
+								name="buyOrSell" value="sell1" onClick="checkBoxes()">
+								Mes ventes
+							</label> <br>
+							<br> <input type="radio" name="sell2" class="checkBox"
+								id="currentSales" value="currentSales"> <label
+								class="selectBoxLabel">ventes en cours</label> <br>
+							<br> <input type="radio" name="sell2" class="checkBox"
+								id="notStartedSales" value="notStartedSales"> <label
+								class="selectBoxLabel">ventes non débutées</label> <br>
+							<br> <input type="radio" name="sell2" class="checkBox"
+								id="endedSales" value="endedSales"> <label
+								class="selectBoxLabel">ventes terminées</label>
+	
+						</div>
 					</div>
-				</div>
-			</div>
+				</div>		
 			<input class="searchButton" type="submit" name="search"
 				value="Rechercher" />
 		</div>
@@ -111,10 +134,9 @@
 		}
 	</script>
 
-</body>
 
-<footer class="footer" id="footerCell">
-	<%@include file="Footer.jspf"%>
-</footer>
+	<footer class="footer" id="footerCell">
+			<%@include file="Footer.jspf" %>
+	</footer>
 
 </body>

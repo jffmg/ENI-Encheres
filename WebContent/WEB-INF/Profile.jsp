@@ -8,7 +8,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1">
-		<link rel="stylesheet" href="css/Style.css" type="text/css" />
+		<link rel="stylesheet" href="css/ClassStyle.css" type="text/css" />
+		<link rel="stylesheet" href="css/ButtonStyle.css" type="text/css" />
+		<link rel="stylesheet" href="css/GeneralStyle.css" type="text/css" />
 		<title>Profil</title>
 	</head>
 	

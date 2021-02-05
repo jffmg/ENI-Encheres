@@ -1,0 +1,123 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: Helvetica;
+	src: url("images/Helvetica Neu Bold.ttf")
+}
+
+* {
+	font-family: Helvetica;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.body {
+	display: flex;
+	flex-direction: column;
+	background-color: #d0dae4;
+}
+
+.header {
+	height: 16vh;
+	width: 100vw;
+	background-color: #d0dae4;
+	/*background-color: blue;*/
+	text-align: left;
+	padding-left: 1vw;
+	padding-top: 1vw;
+}
+
+#main {
+	display: inline-block;
+	height: 60vh;
+	background-color: #84a4bc;
+	width: 30vw;
+	margin-left: 38vw;
+	margin-right: 38vw;
+	min-height: 60vh;
+	margin-top: 1vh;
+	padding-top: 3vh;
+	padding-bottom: 3vh;
+	padding-left: 3vw;
+	padding-right: 3vw;
+	margin-top: 1vh;
+	padding-top: 3vh;
+	padding-bottom: 3vh;
+	padding-left: 3vw;
+	padding-right: 3vw;
+	border-radius: 5%;
+}
+
+#mainSignUp {
+	display: inline-block;
+	height: 100vh;
+	background-color: #84a4bc;
+	width: 60vw;
+	margin-left: 20vw;
+	margin-right: 20vw;
+	min-height: 60vh;
+	margin-top: 1vh;
+	padding-top: 3vh;
+	padding-bottom: 3vh;
+	padding-left: 3vw;
+	padding-right: 3vw;
+	margin-top: 1vh;
+	padding-top: 3vh;
+	padding-bottom: 3vh;
+	padding-left: 3vw;
+	padding-right: 3vw;
+	border-radius: 5%;
+}
+
+.footer {
+	display: inline;
+	height: 2em;
+	width: 100vw;
+	background-color: #d0dae4;
+	/*background-color: blue;*/
+	font-size: 12px;
+	margin-top: 10vh;
+	text-align: center;
+}
+
+#footerCell {
+	width: 100vw;
+	background-color: #84a4bc;
+	padding: 0.5em;
+	text-align: center;
+}
+
+ul {
+	display: flex;
+	height: 9vh;
+	flex-direction: column;
+	/*background-color: salmon;*/
+	flex-wrap: inherit;
+}
+
+li {
+	display: flex;
+	flex-direction: row;
+	list-style-type: none;
+	/*padding: 1em;*/
+	padding-top: 1vh;
+	padding-bottom: 1vh;
+}
+
+a {
+	text-decoration: none;
+}
+
+p {
+	text-align: center;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 1500px) {
+	li {flex-direction: column; padding-top:0; padding-bottom:0}
+	.idLabel {text-align: left; padding-left: 1em; width: 100vw}
+	.nav {flex-wrap: nowrap; align-items: center;}
+	.validationButton {margin-left:0}
+	
+}
