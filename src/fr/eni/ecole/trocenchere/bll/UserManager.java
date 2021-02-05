@@ -157,10 +157,4 @@ public class UserManager {
 		return passwordEncrypted;
 	}
 
-	public void updateUser(String user, String name, String firstName, String email, String phone, String street,
-			String postCode, String city, String passwordEncrypted, String userNameSession, String userEmailSession, int sessionID)
-			throws BusinessException {
-
-	}
-
 }
