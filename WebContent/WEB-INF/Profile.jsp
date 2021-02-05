@@ -65,7 +65,7 @@
 
 		<c:if test="${profile.getUser().equals(sessionScope.user)}">
 			<div class="container3">
-				<a href="<%=request.getContextPath()%>/ServletConnectedHome"> <!-- ServletUpdateProfile  -->
+				<a href="<%=request.getContextPath()%>/ServletUpdateProfile">
 					<input type="button" name="modify" value="Modifier mon profil" class="profileButton"/>
 				</a>
 				
@@ -81,7 +81,7 @@
 				<input type="button" name="cancel" value="Annuler" class="buttonPopUp"/>
 			</a>
 				
-			<a href="<%=request.getContextPath()%>/ServletDeleteProfile">
+			<a href="<%=request.getContextPath()%>/ServletDisableProfile">
 				<input type="button" name="validate" value="Supprimer mon profil" class="buttonPopUp"/>
 			</a>		
 		</div>

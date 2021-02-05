@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +15,8 @@ import javax.servlet.http.HttpSession;
 import fr.eni.ecole.trocenchere.bll.UserManager;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 
-@WebServlet("/ServletDeleteProfile")
-public class ServletDeleteProfile extends HttpServlet {
+@WebServlet("/ServletDisableProfile")
+public class ServletDisableProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static 	List<Integer> listeCodesErreur=new ArrayList<>();
 
@@ -42,7 +41,7 @@ public class ServletDeleteProfile extends HttpServlet {
 		boolean deletionOK = false;
 		UserManager user = new UserManager();
 		try {
-			user.deleteUser(userName);
+			user.disableUser(userName);
 			deletionOK = true;
 		}catch (BusinessException e) {
 			request.setAttribute("listeCodesErreur",e.getListeCodesErreur());

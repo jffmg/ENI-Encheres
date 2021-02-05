@@ -16,7 +16,8 @@ public interface DAO {
 	public abstract void updateUser(User data) throws BusinessException;
 	public abstract boolean checkUser(String user) throws BusinessException;
 	public abstract boolean checkEmail(String email) throws BusinessException;
-	public abstract void deleteUser(String userName) throws BusinessException;
+	public abstract void disableUser(String userName) throws BusinessException;
+	public abstract boolean checkArticlesToSale(String userName) throws BusinessException;
 
 	//Articles DAO Methods
 	public abstract List<Article> displayArticles(String keyword, String category, HttpServletRequest request)

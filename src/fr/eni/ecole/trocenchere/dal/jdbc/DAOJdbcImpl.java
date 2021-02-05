@@ -90,7 +90,7 @@ public class DAOJdbcImpl implements DAO {
 			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
 			+ "WHERE u.pseudo = ? AND a.etat_vente = ? AND no_categorie = ? AND a.nom_article LIKE CONCAT( '%',?,'%')";
 
-	private static final String SQL_DELETE_USER ="DELETE FROM UTILISATEURS WHERE pseudo=?";
+	private static final String SQL_DISABLE_USER ="UPDATE UTILISATEURS SET ACTIF = 0 WHERE pseudo=?";
 
 	/**
 	 *  USER : MAIN METHODS (Create - Select - Update - Delete)
@@ -144,18 +144,57 @@ public class DAOJdbcImpl implements DAO {
 	}
 	
 	@Override
-	public void deleteUser(String userName) throws BusinessException {
+	public void disableUser(String userName) throws BusinessException {
+		// Test User has articles in sales
+		boolean hasArticlesToSale = checkArticlesToSale(userName);
+
+		// User has articles to sales => error message
+		if(hasArticlesToSale) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.USER_CANNOT_BE_DISABLED_ARTICLES_TO_SALES);
+			businessException.printStackTrace();
+			throw businessException;
+		}
+
+		// test OK => disable User
+		else{
+			PreparedStatement prepStmt = null;
+			try (Connection cnx = ConnectionProvider.getConnection()) {
+				prepStmt = cnx.prepareStatement(SQL_DISABLE_USER);
+				prepStmt.setString(1, userName);
+				prepStmt.executeUpdate();
+			} catch (SQLException e) {
+				BusinessException businessException = new BusinessException();
+				businessException.ajouterErreur(CodesResultatDAL.DISABLE_USER_ECHEC);
+				e.printStackTrace();
+				throw businessException;
+			}
+		}
+	}
+	
+
+	@Override
+	public boolean checkArticlesToSale(String userName) throws BusinessException {
 		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		boolean hasArticlesToSale = false;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			prepStmt = cnx.prepareStatement(SQL_DELETE_USER);
+			prepStmt = cnx.prepareStatement(SQL_SELECT_USER_SALES);
 			prepStmt.setString(1, userName);
-			prepStmt.executeUpdate();
+			prepStmt.setString(2, "EC");
+			rs = prepStmt.executeQuery();
+			if (rs.next()) {
+				hasArticlesToSale = true;
+			}
+			return hasArticlesToSale;
+
 		} catch (SQLException e) {
 			BusinessException businessException = new BusinessException();
-			businessException.ajouterErreur(CodesResultatDAL.DELETE_USER_ECHEC);
+			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			e.printStackTrace();
 			throw businessException;
-		}	
+		}
+
 	}
 	
 	@Override

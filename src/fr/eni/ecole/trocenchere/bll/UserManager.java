@@ -53,8 +53,8 @@ public class UserManager {
 	}
 	
 	// Methode to delete User from base
-	public void deleteUser(String userName) throws BusinessException {
-		this.userDao.deleteUser(userName);		
+	public void disableUser(String userName) throws BusinessException {
+		this.userDao.disableUser(userName);		
 	}
 
 	// method to update user infos
