@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.ecole.trocenchere.bll.UserManager;
+import fr.eni.ecole.trocenchere.bo.Password;
 import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 import fr.eni.ecole.trocenchere.gestion.erreurs.CodesResultatServlets;
@@ -40,7 +41,8 @@ public class ServletConnection extends HttpServlet {
 
 		// encrypt password
 		//String passwordEncrypted = encrypt(password);
-		String passwordEncrypted=encrypt(password);
+		Password ps = new Password();
+		String passwordEncrypted=ps.encrypt(password);
 		System.out.println("paswwordEncrypted: " + passwordEncrypted);
 
 		// User - link to data base
@@ -89,17 +91,6 @@ public class ServletConnection extends HttpServlet {
 			rd.forward(request, response);
 		}
 
-	}
-
-	//function to encrypt password
-	private String encrypt(String password) {
-		String passwordEncrypted="";
-		for (int i=0; i<password.length();i++)  {
-			int c=password.charAt(i)^48;
-			passwordEncrypted=passwordEncrypted+(char)c;
-		}
-
-		return passwordEncrypted;
 	}
 
 }
