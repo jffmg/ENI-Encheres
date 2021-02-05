@@ -31,5 +31,8 @@ public abstract class CodesResultatDAL {
 	public static final int DELETE_LISTE_ECHEC=10004;
 	
 	public static final int DELETE_USER_ECHEC=10006;
+	
+	// User can't be disable as he has articles in sale 
+	public static final int USER_CANNOT_BE_DISABLED_ARTICLES_TO_SALES=10007;
 
 }
