@@ -500,5 +500,11 @@ public class DAOJdbcImpl implements DAO {
 			return articlesSelected;
 		}
 
+		@Override
+		public void updateUser(User data) throws BusinessException {
+			// TODO Auto-generated method stub
+			
+		}
+
 
 }

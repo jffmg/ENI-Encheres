@@ -18,17 +18,7 @@
 		<c:import url="HeaderNC.html"></c:import>
 	</header>
 
-	<c:if test="${!empty listeCodesErreur}">
-			<div class="displayLine" role="alert">
-			 <!--  <strong class="messageError">Erreur!</strong>  -->
-			  <br>
-			  <ul>
-			  	<c:forEach var="code" items="${listeCodesErreur}">
-			  		<li class="messageError">${LecteurMessage.getMessageErreur(code)}</li>
-			  	</c:forEach>
-			  </ul>
-			</div>
-	</c:if>
+	<%@include file="Errors.jspf" %>
 
 	<div id="main">
 

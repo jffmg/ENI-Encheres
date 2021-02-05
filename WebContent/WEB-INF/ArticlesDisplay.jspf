@@ -1,0 +1,25 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<div class="ArticlesDisplay">
+				
+	<c:forEach var="element" items="${articlesSelected}">
+		<div class="divArticle">
+			<div class="articleName">
+				${element.getName()}
+			</div>
+			<div class="container2">
+				<img  class="articleImg" alt="Object" src="<%=request.getContextPath()%>/images/object_to_sale.jpg">
+				<div class="articleInfo">
+					Prix : ${element.getSalePrice()} point(s) <br>
+					Meilleure ench&egrave;re : 0 point(s)<br>
+					Mise &agrave; prix : ${element.getStartingBid()} point(s) <br>
+					<a href="<%=request.getContextPath()%>/ServletProfile?profile=${element.getUser().getUser()}" class="seller">
+					Vendeur : ${element.getUser().getUser()}</a><br>
+					Fin de l'ench&egrave;re : ${element.getBidEndDate()}<br>
+				</div>
+			</div>
+		</div>
+	</c:forEach>
+			
+			
+/div>

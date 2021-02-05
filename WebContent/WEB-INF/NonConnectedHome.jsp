@@ -21,17 +21,7 @@
 		
 		<div class="welcome"><br></div>
 			
-		<c:if test="${!empty listeCodesErreur}">
-			<div class="displayLine" role="alert">
-			 <!--   <strong class="messageError">Erreur!</strong> -->
-			  <br>
-			  <ul>
-			  	<c:forEach var="code" items="${listeCodesErreur}">
-			  		<li class="messageError">${LecteurMessage.getMessageErreur(code)}</li>
-			  	</c:forEach>
-			  </ul>
-			</div>
-		</c:if>
+		<%@include file="Errors.jspf" %>
 		
 		<h1 class="title">Liste des enchères</h1>
 			
@@ -56,29 +46,7 @@
 			</div>
 			</form>
 			
-			<div class="ArticlesDisplay">
-				
-				<c:forEach var="element" items="${articlesSelected}">
-					<div class="divArticle">
-						<div class="articleName">
-							${element.getName()}
-						</div>
-						<div class="container2">
-							<img  class="articleImg" alt="Object" src="images/objet_à_vendre.jpg">
-							<div class="articleInfo">
-								Prix : ${element.getSalePrice()} point(s) <br>
-								Meilleure enchère : 0 point(s)<br>
-								Mise à prix : ${element.getStartingBid()} point(s) <br>
-								<a href="<%=request.getContextPath()%>/ServletProfile?profile=${element.getUser().getUser()}" class="seller">
-								Vendeur : ${element.getUser().getUser()}</a><br>
-								Fin de l'enchère : ${element.getBidEndDate()}<br>
-							</div>
-						</div>
-					</div>
-				</c:forEach>
-			
-			
-			</div>
+			<%@include file="ArticlesDisplay.jspf" %>
 
 	</body>
 
