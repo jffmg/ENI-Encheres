@@ -65,7 +65,7 @@
 
 		<c:if test="${profile.getUser().equals(sessionScope.user)}">
 			<div class="container3">
-				<a href="<%=request.getContextPath()%>/ServletUpdateProfile?profile=${sessionScope.user}">
+								<a href="<%=request.getContextPath()%>/ServletUpdateProfile?profile=${sessionScope.user}">
 					<input type="button" name="modify" value="Modifier mon profil" class="profileButton"/>
 				</a>
 				

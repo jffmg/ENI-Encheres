@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.trocenchere.bll.UserManager;
 import fr.eni.ecole.trocenchere.bo.Password;
+import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 
 /**
@@ -26,9 +27,27 @@ public class ServletUpdateProfile extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String profileName = request.getParameter("profile");
+		
+		// User - link to data base
+		UserManager userManager = new UserManager();
+		User profile=null;
+		
+		try {
+			profile = userManager.selectUser(profileName);
+		}catch (BusinessException e) {
+			request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
+			e.printStackTrace();
+		}
+		
+		request.getServletContext().setAttribute("profile", profile);
+		//System.out.println("Ville du profile : " + profile.getCity());
+
+		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/UpdateProfile.jsp");
+		rd.forward(request, response);
+
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

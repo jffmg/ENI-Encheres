@@ -42,53 +42,51 @@ public class DAOJdbcImpl implements DAO {
 			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
 			+ "WHERE a.etat_vente = 'EC' AND no_categorie = ? AND nom_article LIKE CONCAT( '%',?,'%');";
 	
-	private static final String SQL_SELECT_USER_BIDS_ARTICLES = "SELECT * FROM articles_vendus as a\r\n"
-			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
-			+ "WHERE a.etat_vente = 'EC' AND e.no_utilisateur = ?;";
+	private static final String SQL_SELECT_USER_BIDS_ARTICLES = "SELECT * FROM articles_vendus as a INNER JOIN ENCHERES as e ON a.no_article = e.no_article INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE a.etat_vente = 'EC' AND e.no_utilisateur = ?;";
 	
 	private static final String SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD = "SELECT * FROM articles_vendus as a\r\n"
 			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
-			+ "WHERE a.etat_vente = 'EC' AND e.no_utilisateur = ? AND a.nom_article LIKE CONCAT( '%',?,'%');";
+			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE a.etat_vente = 'EC' AND e.no_utilisateur = ? AND a.nom_article LIKE CONCAT( '%',?,'%');";
 	
 	private static final String SQL_SELECT_USER_BIDS_ARTICLES_BY_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
 			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
-			+ "WHERE a.etat_vente = 'EC' AND e.no_utilisateur = ? AND a.no_categorie = ?;";
+			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE a.etat_vente = 'EC' AND e.no_utilisateur = ? AND a.no_categorie = ?;";
 	
 	private static final String SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
 			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
-			+ "WHERE a.etat_vente = 'EC' AND e.no_utilisateur = ? AND a.no_categorie = ? AND a.nom_article LIKE CONCAT( '%',?,'%');";
+			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE a.etat_vente = 'EC' AND e.no_utilisateur = ? AND a.no_categorie = ? AND a.nom_article LIKE CONCAT( '%',?,'%');";
 	
 	private static final String SQL_SELECT_WON_BIDS_ARTICLES = "SELECT * FROM articles_vendus as a\r\n"
 			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
-			+ "WHERE (a.etat_vente = 'VD' OR a.etat_vente = 'RT') AND e.no_utilisateur = ?;";
+			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE (a.etat_vente = 'VD' OR a.etat_vente = 'RT') AND e.no_utilisateur = ?;";
 	
 	private static final String SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD = "SELECT * FROM articles_vendus as a\r\n"
 			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
-			+ "WHERE (a.etat_vente = 'VD' OR a.etat_vente = 'RT') AND e.no_utilisateur = ? AND a.nom_article LIKE CONCAT( '%',?,'%');";
+			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE (a.etat_vente = 'VD' OR a.etat_vente = 'RT') AND e.no_utilisateur = ? AND a.nom_article LIKE CONCAT( '%',?,'%');";
 	
 	private static final String SQL_SELECT_WON_BIDS_ARTICLES_BY_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
 			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
-			+ "WHERE (a.etat_vente = 'VD' OR a.etat_vente = 'RT') AND e.no_utilisateur = ? AND a.no_categorie = ?;";
+			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE (a.etat_vente = 'VD' OR a.etat_vente = 'RT') AND e.no_utilisateur = ? AND a.no_categorie = ?;";
 	
 	private static final String SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
 			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
-			+ "WHERE (a.etat_vente = 'VD' OR a.etat_vente = 'RT') AND e.no_utilisateur = ? AND a.no_categorie = ? AND a.nom_article LIKE CONCAT( '%',?,'%');";
+			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE (a.etat_vente = 'VD' OR a.etat_vente = 'RT') AND e.no_utilisateur = ? AND a.no_categorie = ? AND a.nom_article LIKE CONCAT( '%',?,'%');";
 
 	private static final String SQL_SELECT_USER_SALES = "SELECT * FROM articles_vendus as a\r\n"
 			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
-			+ "WHERE u.pseudo = ? AND a.etat_vente = ?";
+			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE u.pseudo = ? AND a.etat_vente = ?";
 	
 	private static final String SQL_SELECT_USER_SALES_BY_KEYWORD = "SELECT * FROM articles_vendus as a\r\n"
 			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
-			+ "WHERE u.pseudo = ? AND a.etat_vente = ? AND a.nom_article LIKE CONCAT( '%',?,'%')";
+			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE u.pseudo = ? AND a.etat_vente = ? AND a.nom_article LIKE CONCAT( '%',?,'%')";
 	
 	private static final String SQL_SELECT_USER_SALES_BY_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
 			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
-			+ "WHERE u.pseudo = ? AND a.etat_vente = ? AND no_categorie = ?";
+			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE u.pseudo = ? AND a.etat_vente = ? AND no_categorie = ?";
 	
 	private static final String SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
 			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
-			+ "WHERE u.pseudo = ? AND a.etat_vente = ? AND no_categorie = ? AND a.nom_article LIKE CONCAT( '%',?,'%')";
+			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE u.pseudo = ? AND a.etat_vente = ? AND no_categorie = ? AND a.nom_article LIKE CONCAT( '%',?,'%')";
 
 	private static final String SQL_DISABLE_USER ="UPDATE UTILISATEURS SET ACTIF = 0 WHERE pseudo=?";
 
