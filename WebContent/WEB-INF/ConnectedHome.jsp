@@ -57,10 +57,10 @@
 							<br> <input type="radio" name="buy2" class="checkBox"
 								id="openBids" value="openBids"> <label
 								class="selectBoxLabel">enchères ouvertes</label> <br>
-							<br> <input type="radio" name="sell2" class="checkBox"
+							<br> <input type="radio" name="buy2" class="checkBox"
 								id="myBids" value="myBids"> <label
 								class="selectBoxLabel">mes enchères</label> <br>
-							<br> <input type="radio" name="sell2" class="checkBox"
+							<br> <input type="radio" name="buy2" class="checkBox"
 								id="myWonBids" value="myWonBids"> <label
 								class="selectBoxLabel">enchères remportées</label>
 	
@@ -110,6 +110,10 @@
 	        }
 	        else if (document.forms[0].buyOrSell[1].checked) {
 		    	console.log('ventes is checked');
+		    	
+		    	disableCheckBox("openBids");
+		    	disableCheckBox("myBids");
+		    	disableCheckBox("myWonBids");  
 
 				enableCheckBox("currentSales", true);
 				enableCheckBox("notStartedSales", false);
