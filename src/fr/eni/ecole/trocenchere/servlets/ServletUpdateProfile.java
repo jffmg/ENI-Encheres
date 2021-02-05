@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.trocenchere.bll.UserManager;
+import fr.eni.ecole.trocenchere.bo.Password;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 
 /**
@@ -46,7 +47,8 @@ public class ServletUpdateProfile extends HttpServlet {
 		String city = request.getParameter("city");
 
 		// 2 - encrypt password
-		String passwordEncrypted = encrypt(password);
+		Password ps = new Password();
+		String passwordEncrypted = ps.encrypt(password);
 
 		// 3 - update user
 		UserManager userManager = new UserManager();
@@ -59,18 +61,6 @@ public class ServletUpdateProfile extends HttpServlet {
 			rd.forward(request, response);
 			e.printStackTrace();
 		}
-	}
-
-	// TODO move to somewhere else to avoid duplication?
-	// function to encrypt password
-	private String encrypt(String password) {
-		String passwordEncrypted = "";
-		for (int i = 0; i < password.length(); i++) {
-			int c = password.charAt(i) ^ 48;
-			passwordEncrypted = passwordEncrypted + (char) c;
-		}
-
-		return passwordEncrypted;
 	}
 
 }
