@@ -211,6 +211,20 @@ public class User implements Serializable {
 		this.postCode = postCode;
 		this.city = city;
 	}
+	
+	public User(int id, String user, String name, String firstName, String email, String phone, String street, String postCode,
+			String city, String passwordEncrypted) {
+		this.idUser = id;
+		this.user = user;
+		this.name = name;
+		this.firstName = firstName;
+		this.email = email;
+		this.phone = phone;
+		this.street = street;
+		this.postCode = postCode;
+		this.city = city;
+		this.passwordEncrypted = passwordEncrypted;
+	}
 
 	public User() {
 	}

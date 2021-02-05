@@ -118,7 +118,7 @@ public class DAOJdbcImpl implements DAO {
 	}
 	
 	@Override
-	public void createUser(User data) {
+	public void createUser(User data) throws BusinessException {
 		PreparedStatement prepStmt = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			prepStmt = cnx.prepareStatement(SQL_INSERT_USER);
@@ -139,6 +139,7 @@ public class DAOJdbcImpl implements DAO {
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
 			e.printStackTrace();
+			throw businessException;
 		}
 
 	}
@@ -218,6 +219,7 @@ public class DAOJdbcImpl implements DAO {
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJECT_ECHEC);
 			e.printStackTrace();
+			throw businessException;
 		}
 	}
 	

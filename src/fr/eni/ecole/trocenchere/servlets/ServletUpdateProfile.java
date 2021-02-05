@@ -53,7 +53,7 @@ public class ServletUpdateProfile extends HttpServlet {
 		// 3 - update user
 		UserManager userManager = new UserManager();
 		try {
-			userManager.changeUser(user, name, firstName, email, phone, street, postCode, city, passwordEncrypted);
+			userManager.updateUser(user, name, firstName, email, phone, street, postCode, city, passwordEncrypted);
 		} catch (BusinessException e) {
 			request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
 			System.out.println("erreur lors de la saisie du formulaire");
