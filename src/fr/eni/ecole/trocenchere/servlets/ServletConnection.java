@@ -67,11 +67,6 @@ public class ServletConnection extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", userName);
 
-			if(listeCodesErreur.size()>0)
-			{
-				request.setAttribute("listeCodesErreur",listeCodesErreur);
-			}
-
 			//Dispatch connected home
 			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/ConnectedHome.jsp");
 			rd.forward(request, response);
@@ -79,11 +74,7 @@ public class ServletConnection extends HttpServlet {
 		else {
 			// Message error
 			listeCodesErreur.add(CodesResultatServlets.USER_PASSWORD_ERROR);
-
-			if(listeCodesErreur.size()>0)
-			{
-				request.setAttribute("listeCodesErreur",listeCodesErreur);
-			}
+			request.setAttribute("listeCodesErreur",listeCodesErreur);
 
 			// Dispatch connection page
 			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Connection.jsp");

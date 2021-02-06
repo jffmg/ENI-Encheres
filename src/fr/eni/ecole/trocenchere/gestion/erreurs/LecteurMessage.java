@@ -37,7 +37,7 @@ public class LecteurMessage {
 			}
 			else
 			{
-				message="Problème à la lecture du fichier contenant les messages";
+				message="ProblÃ¨me Ã  la lecture du fichier contenant les messages";
 			}
 		}
 		catch (Exception e) {
