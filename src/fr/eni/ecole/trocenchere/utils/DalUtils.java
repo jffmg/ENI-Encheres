@@ -27,21 +27,32 @@ public class DalUtils {
 		prepStmt.setString(9, data.getPasswordEncrypted());
 	}
 	
-	public static void prepareStatement2Int(User data, PreparedStatement pstmt, int p1, int p2) throws SQLException {
-		pstmt.setInt(1, p1);
-		pstmt.setInt(2, p2);	
+	public static PreparedStatement prepareStatement1Param(User data, PreparedStatement pstmt, Object p1) throws SQLException {
+		pstmt.setObject(1, p1);
+		return pstmt;
 	}
 	
-	public static void prepareStatementIntString(User data, PreparedStatement pstmt, int p1, String p2) throws SQLException {
-		pstmt.setInt(1, p1);
-		pstmt.setString(2, p2);	
+	public static PreparedStatement prepareStatement2Params(User data, PreparedStatement pstmt, Object p1, Object p2) throws SQLException {
+		pstmt.setObject(1, p1);
+		pstmt.setObject(2, p2);
+		return pstmt;
 	}
 	
-	public static void prepareStatement2IntString(User data, PreparedStatement pstmt, int p1, int p2, String p3) throws SQLException {
-		pstmt.setInt(1, p1);
-		pstmt.setInt(2, p2);
-		pstmt.setString(3, p3);	
+	public static PreparedStatement prepareStatement3Params(User data, PreparedStatement pstmt, Object p1, Object p2, Object p3) throws SQLException {
+		pstmt.setObject(1, p1);
+		pstmt.setObject(2, p2);
+		pstmt.setObject(3, p3);
+		return pstmt;
 	}
+	
+	public static PreparedStatement prepareStatement4Params(User data, PreparedStatement pstmt, Object p1, Object p2, Object p3, Object p4) throws SQLException {
+		pstmt.setObject(1, p1);
+		pstmt.setObject(2, p2);
+		pstmt.setObject(3, p3);
+		pstmt.setObject(4, p4);
+		return pstmt;
+	}
+	
 	
 	
 	/**
@@ -140,6 +151,36 @@ public class DalUtils {
 		
 		
 	}
+	
+	//method for getting category int from category String
+		public static int categoryStringToInteger(String category) {
+			Integer categoryInt = 0;
+			String catStrimAccents = stripAccents(category);
+
+			// changing labels to int
+			switch (catStrimAccents.toLowerCase().trim()) {
+			case "informatique":
+				categoryInt = 1;
+				break;
+			case "ameublement":
+				categoryInt = 2;
+				break;
+			case "vatement":
+				categoryInt = 3;
+				break;
+			case "sport & loisirs":
+				categoryInt = 4;
+				break;
+			// default = all selected
+			default:
+				categoryInt = 0;
+				break;
+			}
+			
+			return categoryInt;
+			
+			
+		}
 
 	
 
