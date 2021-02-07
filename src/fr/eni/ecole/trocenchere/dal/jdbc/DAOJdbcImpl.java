@@ -17,6 +17,7 @@ import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.dal.DAO;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 import fr.eni.ecole.trocenchere.gestion.erreurs.CodesResultatDAL;
+import fr.eni.ecole.trocenchere.utils.DalUtils;
 import fr.eni.ecole.trocenchere.utils.SQL_REQUESTS_Utils;
 
 public class DAOJdbcImpl implements DAO {
@@ -35,7 +36,7 @@ public class DAOJdbcImpl implements DAO {
 			prepStmt.setString(1, userName);
 			rs = prepStmt.executeQuery();
 			if (rs.next()) {
-				user = buildUser(rs);
+				user = DalUtils.buildUser(rs);
 			}
 		} catch (SQLException e) {
 			BusinessException businessException = new BusinessException();
@@ -202,30 +203,7 @@ public class DAOJdbcImpl implements DAO {
 			throw businessException;
 		}
 	}
-	
-	/**
-	 * USER : SUPPORT METHODS
-	 */
-	
-	public User buildUser(ResultSet rs) throws SQLException {
-		User user = new User();
-		user.setIdUser(rs.getInt("no_utilisateur"));
-		user.setUser(rs.getString("pseudo"));
-		user.setPasswordEncrypted(rs.getString("mot_de_passe"));
-		user.setName(rs.getString("nom"));
-		user.setFirstName(rs.getString("prenom"));
-		user.setEmail(rs.getString("email"));
-		user.setPhone(rs.getString("telephone"));
-		user.setStreet(rs.getString("rue"));
-		user.setCity(rs.getString("ville"));
-		user.setPostCode(rs.getString("code_postal"));
-		user.setCredit(rs.getInt("credit"));
-		user.setAdmin(rs.getBoolean("administrateur"));
-		return user;
-	}
-	
-
-	
+		
 
 	/**
 	 * ARTICLES : MAIN METHODS (Select, Create, Update, Delete)
@@ -236,20 +214,20 @@ public class DAOJdbcImpl implements DAO {
 	public List<Article> displayArticles(String keyword, String category, HttpServletRequest request) throws BusinessException {
 
 		List<Article> articlesSelected = new ArrayList<>();
-		int categorySelected = categoryStringToInt(category);
+		int categorySelected = DalUtils.categoryStringToInt(category);
 
 		PreparedStatement pstmt = null;
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
-			pstmt = basicDisplay(keyword, categorySelected, pstmt, cnx);
+			pstmt = DalUtils.basicDisplay(keyword, categorySelected, pstmt, cnx);
 			
 			ResultSet rs = pstmt.executeQuery();
 			Article currentArticle = new Article();
 
 			while (rs.next()) {
 				if (rs.getInt("no_article") != currentArticle.getIdArticle()) {
-					currentArticle = articleBuilder(rs);
+					currentArticle = DalUtils.articleBuilder(rs);
 					articlesSelected.add(currentArticle);
 				}
 			}
@@ -271,7 +249,7 @@ public class DAOJdbcImpl implements DAO {
 		public List<Article> displayArticlesConnected(String userName, String keyword, String category, String buyOrSell, String checkBox, HttpServletRequest request) throws BusinessException {
 
 			List<Article> articlesSelected = new ArrayList<>();
-			int categorySelected = categoryStringToInt(category);
+			int categorySelected = DalUtils.categoryStringToInt(category);
 
 			PreparedStatement pstmt = null;
 			int userID = 0;
@@ -330,7 +308,7 @@ public class DAOJdbcImpl implements DAO {
 						}
 						;break;
 					default : 
-						pstmt = basicDisplay(keyword, categorySelected, pstmt, cnx);
+						pstmt = DalUtils.basicDisplay(keyword, categorySelected, pstmt, cnx);
 						; break;
 					}
 					
@@ -424,7 +402,7 @@ public class DAOJdbcImpl implements DAO {
 
 				while (rs.next()) {
 					if (rs.getInt("no_article") != currentArticle.getIdArticle()) {
-						currentArticle = articleBuilder(rs);
+						currentArticle = DalUtils.articleBuilder(rs);
 						articlesSelected.add(currentArticle);
 					}
 				}
@@ -438,84 +416,4 @@ public class DAOJdbcImpl implements DAO {
 
 			return articlesSelected;
 		}
-		
-		
-		/**
-		 * ARTICLES : SUPPORT METHODS
-		 */
-		
-		private PreparedStatement basicDisplay(String keyword, int category, PreparedStatement pstmt, Connection cnx) throws SQLException {
-			
-			if (category == 0) {
-				if (keyword == null || keyword == "") {
-					pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_ALL_EC_ARTICLES);
-				} else {
-					pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_EC_ARTICLES_BY_KEYWORD);
-					pstmt.setString(1, keyword);
-				}
-			} else {
-				if (keyword == "" || keyword == null) {
-					pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_EC_ARTICLES_BY_CATEGORY);
-					pstmt.setInt(1, category);
-				} else {
-					pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_DISABLE_USER);
-					pstmt.setInt(1, category);
-					pstmt.setString(2, keyword);
-				}
-			}
-			
-			return pstmt;
-		}
-		
-		//article builder
-		private Article articleBuilder(ResultSet rs) throws SQLException {
-			User user = buildUser(rs);
-			Article article = new Article(rs.getString("nom_article"), rs.getString("description"),
-					rs.getDate("date_debut_enchere").toLocalDate(), rs.getDate("date_fin_enchere").toLocalDate(),
-					rs.getInt("prix_initial"), rs.getString("etat_vente"), rs.getInt("no_categorie"), user, rs.getInt("no_utilisateur"));
-			
-			System.out.println(rs.getString("pseudo"));
-			
-			return article;
-		}
-
-		// method for getting rid of frenchy accents
-		private String stripAccents(String s) {
-			s = Normalizer.normalize(s, Normalizer.Form.NFD);
-			s = s.replaceAll("[^\\p{ASCII}]", "");
-			return s;
-		}
-		
-		//method for getting category int from category String
-		private int categoryStringToInt(String category) {
-			int categoryInt = 0;
-			String catStrimAccents = stripAccents(category);
-
-			// changing labels to int
-			switch (catStrimAccents.toLowerCase().trim()) {
-			case "informatique":
-				categoryInt = 1;
-				break;
-			case "ameublement":
-				categoryInt = 2;
-				break;
-			case "vatement":
-				categoryInt = 3;
-				break;
-			case "sport & loisirs":
-				categoryInt = 4;
-				break;
-			// default = all selected
-			default:
-				categoryInt = 0;
-				break;
-			}
-			
-			return categoryInt;
-			
-			
-		}
-
-		
-
 }
