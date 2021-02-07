@@ -17,78 +17,9 @@ import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.dal.DAO;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 import fr.eni.ecole.trocenchere.gestion.erreurs.CodesResultatDAL;
+import fr.eni.ecole.trocenchere.utils.SQL_REQUESTS_Utils;
 
 public class DAOJdbcImpl implements DAO {
-
-	private static final String SQL_SELECT_USER_BY_USER = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE pseudo=?;";
-	private static final String SQL_INSERT_USER = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-	private static final String SQL_SELECT_USER_BY_EMAIL = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE email=?;";
-
-	private static final String SQL_UPDATE_USER = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE no_utilisateur=?";
-	
-	private static final String SQL_SELECT_ALL_EC_ARTICLES = "SELECT * FROM articles_vendus as a\r\n"
-			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
-			+ "WHERE a.etat_vente = 'EC'";
-	
-	private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD = "SELECT * FROM articles_vendus as a\r\n"
-			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
-			+ "WHERE a.etat_vente = 'EC' AND nom_article LIKE CONCAT( '%',?,'%');";
-	
-	private static final String SQL_SELECT_EC_ARTICLES_BY_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
-			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
-			+ "WHERE a.etat_vente = 'EC' AND no_categorie = ?;";
-	
-	private static final String SQL_SELECT_EC_ARTICLES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
-			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
-			+ "WHERE a.etat_vente = 'EC' AND no_categorie = ? AND nom_article LIKE CONCAT( '%',?,'%');";
-	
-	private static final String SQL_SELECT_USER_BIDS_ARTICLES = "SELECT * FROM articles_vendus as a INNER JOIN ENCHERES as e ON a.no_article = e.no_article INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE a.etat_vente = 'EC' AND e.no_utilisateur = ?;";
-	
-	private static final String SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD = "SELECT * FROM articles_vendus as a\r\n"
-			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
-			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE a.etat_vente = 'EC' AND e.no_utilisateur = ? AND a.nom_article LIKE CONCAT( '%',?,'%');";
-	
-	private static final String SQL_SELECT_USER_BIDS_ARTICLES_BY_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
-			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
-			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE a.etat_vente = 'EC' AND e.no_utilisateur = ? AND a.no_categorie = ?;";
-	
-	private static final String SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
-			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
-			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE a.etat_vente = 'EC' AND e.no_utilisateur = ? AND a.no_categorie = ? AND a.nom_article LIKE CONCAT( '%',?,'%');";
-	
-	private static final String SQL_SELECT_WON_BIDS_ARTICLES = "SELECT * FROM articles_vendus as a\r\n"
-			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
-			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE (a.etat_vente = 'VD' OR a.etat_vente = 'RT') AND e.no_utilisateur = ?;";
-	
-	private static final String SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD = "SELECT * FROM articles_vendus as a\r\n"
-			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
-			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE (a.etat_vente = 'VD' OR a.etat_vente = 'RT') AND e.no_utilisateur = ? AND a.nom_article LIKE CONCAT( '%',?,'%');";
-	
-	private static final String SQL_SELECT_WON_BIDS_ARTICLES_BY_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
-			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
-			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE (a.etat_vente = 'VD' OR a.etat_vente = 'RT') AND e.no_utilisateur = ? AND a.no_categorie = ?;";
-	
-	private static final String SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
-			+ "INNER JOIN ENCHERES as e\r\n" + "ON a.no_article = e.no_article\r\n"
-			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE (a.etat_vente = 'VD' OR a.etat_vente = 'RT') AND e.no_utilisateur = ? AND a.no_categorie = ? AND a.nom_article LIKE CONCAT( '%',?,'%');";
-
-	private static final String SQL_SELECT_USER_SALES = "SELECT * FROM articles_vendus as a\r\n"
-			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
-			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE u.pseudo = ? AND a.etat_vente = ?";
-	
-	private static final String SQL_SELECT_USER_SALES_BY_KEYWORD = "SELECT * FROM articles_vendus as a\r\n"
-			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
-			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE u.pseudo = ? AND a.etat_vente = ? AND a.nom_article LIKE CONCAT( '%',?,'%')";
-	
-	private static final String SQL_SELECT_USER_SALES_BY_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
-			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
-			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE u.pseudo = ? AND a.etat_vente = ? AND no_categorie = ?";
-	
-	private static final String SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY = "SELECT * FROM articles_vendus as a\r\n"
-			+ "INNER JOIN UTILISATEURS as u\r\n" + "ON a.no_utilisateur = u.no_utilisateur\r\n"
-			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE u.pseudo = ? AND a.etat_vente = ? AND no_categorie = ? AND a.nom_article LIKE CONCAT( '%',?,'%')";
-
-	private static final String SQL_DISABLE_USER ="UPDATE UTILISATEURS SET ACTIF = 0 WHERE pseudo=?";
 
 	/**
 	 *  USER : MAIN METHODS (Create - Select - Update - Delete)
@@ -100,7 +31,7 @@ public class DAOJdbcImpl implements DAO {
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			prepStmt = cnx.prepareStatement(SQL_SELECT_USER_BY_USER);
+			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BY_USER);
 			prepStmt.setString(1, userName);
 			rs = prepStmt.executeQuery();
 			if (rs.next()) {
@@ -119,7 +50,7 @@ public class DAOJdbcImpl implements DAO {
 	public void createUser(User data) throws BusinessException {
 		PreparedStatement prepStmt = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			prepStmt = cnx.prepareStatement(SQL_INSERT_USER);
+			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_INSERT_USER);
 			prepStmt.setString(1, data.getUser());
 			prepStmt.setString(2, data.getName());
 			prepStmt.setString(3, data.getFirstName());
@@ -159,7 +90,7 @@ public class DAOJdbcImpl implements DAO {
 		else{
 			PreparedStatement prepStmt = null;
 			try (Connection cnx = ConnectionProvider.getConnection()) {
-				prepStmt = cnx.prepareStatement(SQL_DISABLE_USER);
+				prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_DISABLE_USER);
 				prepStmt.setString(1, userName);
 				prepStmt.executeUpdate();
 			} catch (SQLException e) {
@@ -178,7 +109,7 @@ public class DAOJdbcImpl implements DAO {
 		ResultSet rs = null;
 		boolean hasArticlesToSale = false;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			prepStmt = cnx.prepareStatement(SQL_SELECT_USER_SALES);
+			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES);
 			prepStmt.setString(1, userName);
 			prepStmt.setString(2, "EC");
 			rs = prepStmt.executeQuery();
@@ -200,7 +131,7 @@ public class DAOJdbcImpl implements DAO {
 	public void updateUser(User data) throws BusinessException {
 		PreparedStatement prepStmt = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			prepStmt = cnx.prepareStatement(SQL_UPDATE_USER);
+			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_UPDATE_USER);
 			prepStmt.setString(1, data.getUser());
 			prepStmt.setString(2, data.getName());
 			prepStmt.setString(3, data.getFirstName());
@@ -232,7 +163,7 @@ public class DAOJdbcImpl implements DAO {
 		ResultSet rs = null;
 		boolean userExists = false;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			prepStmt = cnx.prepareStatement(SQL_SELECT_USER_BY_USER);
+			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BY_USER);
 			prepStmt.setString(1, user);
 			rs = prepStmt.executeQuery();
 			if (rs.next()) {
@@ -255,7 +186,7 @@ public class DAOJdbcImpl implements DAO {
 		ResultSet rs = null;
 		boolean emailExists = false;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			prepStmt = cnx.prepareStatement(SQL_SELECT_USER_BY_EMAIL);
+			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BY_EMAIL);
 			prepStmt.setString(1, email);
 			rs = prepStmt.executeQuery();
 			if (rs.next()) {
@@ -355,20 +286,20 @@ public class DAOJdbcImpl implements DAO {
 					case "myBids" : 
 						if (categorySelected == 0) {
 							if (keyword == null || keyword == "") {
-								pstmt = cnx.prepareStatement(SQL_SELECT_USER_BIDS_ARTICLES);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES);
 								pstmt.setInt(1, userID);
 							} else {
-								pstmt = cnx.prepareStatement(SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD);
 								pstmt.setInt(1, userID);
 								pstmt.setString(2, keyword);
 							}
 						} else {
 							if (keyword == "" || keyword == null) {
-								pstmt = cnx.prepareStatement(SQL_SELECT_USER_BIDS_ARTICLES_BY_CATEGORY);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES_BY_CATEGORY);
 								pstmt.setInt(1, userID);
 								pstmt.setInt(2, categorySelected);
 							} else {
-								pstmt = cnx.prepareStatement(SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY);
 								pstmt.setInt(1, userID);
 								pstmt.setInt(2, categorySelected);
 								pstmt.setString(3, keyword);
@@ -378,20 +309,20 @@ public class DAOJdbcImpl implements DAO {
 					case "myWonBids" : 
 						if (categorySelected == 0) {
 							if (keyword == null || keyword == "") {
-								pstmt = cnx.prepareStatement(SQL_SELECT_WON_BIDS_ARTICLES);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES);
 								pstmt.setInt(1, userID);
 							} else {
-								pstmt = cnx.prepareStatement(SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD);
 								pstmt.setInt(1, userID);
 								pstmt.setString(2, keyword);
 							}
 						} else {
 							if (keyword == "" || keyword == null) {
-								pstmt = cnx.prepareStatement(SQL_SELECT_WON_BIDS_ARTICLES_BY_CATEGORY);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES_BY_CATEGORY);
 								pstmt.setInt(1, userID);
 								pstmt.setInt(2, categorySelected);
 							} else {
-								pstmt = cnx.prepareStatement(SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY);
 								pstmt.setInt(1, userID);
 								pstmt.setInt(2, categorySelected);
 								pstmt.setString(3, keyword);
@@ -408,23 +339,23 @@ public class DAOJdbcImpl implements DAO {
 					case "notStartedSales" : 
 						if (categorySelected == 0) {
 							if (keyword == null || keyword == "") {
-								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES);
 								pstmt.setString(1, userName);
 								pstmt.setString(2, "CR");
 							} else {
-								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_KEYWORD);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD);
 								pstmt.setString(1, userName);
 								pstmt.setString(2, "CR");
 								pstmt.setString(3, keyword);
 							}
 						} else {
 							if (keyword == "" || keyword == null) {
-								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_CATEGORY);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_CATEGORY);
 								pstmt.setString(1, userName);
 								pstmt.setString(2, "CR");
 								pstmt.setInt(3, categorySelected);
 							} else {
-								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
 								pstmt.setString(1, userName);
 								pstmt.setString(2, "CR");
 								pstmt.setInt(3, categorySelected);
@@ -435,23 +366,23 @@ public class DAOJdbcImpl implements DAO {
 					case "endedSales" : 
 						if (categorySelected == 0) {
 							if (keyword == null || keyword == "") {
-								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES);
 								pstmt.setString(1, userName);
 								pstmt.setString(2, "VD");
 							} else {
-								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_KEYWORD);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD);
 								pstmt.setString(1, userName);
 								pstmt.setString(2, "VD");
 								pstmt.setString(3, keyword);
 							}
 						} else {
 							if (keyword == "" || keyword == null) {
-								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_CATEGORY);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_CATEGORY);
 								pstmt.setString(1, userName);
 								pstmt.setString(2, "VD");
 								pstmt.setInt(3, categorySelected);
 							} else {
-								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
 								pstmt.setString(1, userName);
 								pstmt.setString(2, "VD");
 								pstmt.setInt(3, categorySelected);
@@ -462,23 +393,23 @@ public class DAOJdbcImpl implements DAO {
 					default : 
 						if (categorySelected == 0) {
 							if (keyword == null || keyword == "") {
-								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES);
 								pstmt.setString(1, userName);
 								pstmt.setString(2, "EC");
 							} else {
-								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_KEYWORD);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD);
 								pstmt.setString(1, userName);
 								pstmt.setString(2, "EC");
 								pstmt.setString(3, keyword);
 							}
 						} else {
 							if (keyword == "" || keyword == null) {
-								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_CATEGORY);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_CATEGORY);
 								pstmt.setString(1, userName);
 								pstmt.setString(2, "EC");
 								pstmt.setInt(3, categorySelected);
 							} else {
-								pstmt = cnx.prepareStatement(SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
+								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
 								pstmt.setString(1, userName);
 								pstmt.setString(2, "EC");
 								pstmt.setInt(3, categorySelected);
@@ -517,17 +448,17 @@ public class DAOJdbcImpl implements DAO {
 			
 			if (category == 0) {
 				if (keyword == null || keyword == "") {
-					pstmt = cnx.prepareStatement(SQL_SELECT_ALL_EC_ARTICLES);
+					pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_ALL_EC_ARTICLES);
 				} else {
-					pstmt = cnx.prepareStatement(SQL_SELECT_EC_ARTICLES_BY_KEYWORD);
+					pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_EC_ARTICLES_BY_KEYWORD);
 					pstmt.setString(1, keyword);
 				}
 			} else {
 				if (keyword == "" || keyword == null) {
-					pstmt = cnx.prepareStatement(SQL_SELECT_EC_ARTICLES_BY_CATEGORY);
+					pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_EC_ARTICLES_BY_CATEGORY);
 					pstmt.setInt(1, category);
 				} else {
-					pstmt = cnx.prepareStatement(SQL_SELECT_EC_ARTICLES_BY_KEYWORD_AND_CATEGORY);
+					pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_DISABLE_USER);
 					pstmt.setInt(1, category);
 					pstmt.setString(2, keyword);
 				}

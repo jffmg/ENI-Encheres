@@ -1,4 +1,4 @@
-package fr.eni.ecole.trocenchere.dal;
+package fr.eni.ecole.trocenchere.utils;
 
 public class TestPasswordEncrypted {
 	
@@ -6,7 +6,7 @@ public class TestPasswordEncrypted {
 		String passwordtest = "test";
 		String passwordEncypted = encrypt(passwordtest);
 		System.out.println("Mot de passse test : "+ passwordtest);
-		System.out.println("Mot de passe crypté : " + passwordEncypted) ;
+		System.out.println("Mot de passe cryptï¿½ : " + passwordEncypted) ;
 	}
 	
 
