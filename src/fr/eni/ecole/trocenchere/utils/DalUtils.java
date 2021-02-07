@@ -11,6 +11,23 @@ import fr.eni.ecole.trocenchere.bo.User;
 
 public class DalUtils {
 	
+	
+	/*
+	 * REQUEST STATEMENT FUNCTION
+	 */
+	public static void prepareStatementPersonalInfo(User data, PreparedStatement prepStmt) throws SQLException {
+		prepStmt.setString(1, data.getUser());
+		prepStmt.setString(2, data.getName());
+		prepStmt.setString(3, data.getFirstName());
+		prepStmt.setString(4, data.getEmail());
+		prepStmt.setString(5, data.getPhone());
+		prepStmt.setString(6, data.getStreet());
+		prepStmt.setString(7, data.getPostCode());
+		prepStmt.setString(8, data.getCity());
+		prepStmt.setString(9, data.getPasswordEncrypted());
+	}
+	
+	
 	/**
 	 * USER : SUPPORT METHODS
 	 */

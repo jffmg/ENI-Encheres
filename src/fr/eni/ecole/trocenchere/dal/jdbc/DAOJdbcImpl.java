@@ -52,15 +52,7 @@ public class DAOJdbcImpl implements DAO {
 		PreparedStatement prepStmt = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_INSERT_USER);
-			prepStmt.setString(1, data.getUser());
-			prepStmt.setString(2, data.getName());
-			prepStmt.setString(3, data.getFirstName());
-			prepStmt.setString(4, data.getEmail());
-			prepStmt.setString(5, data.getPhone());
-			prepStmt.setString(6, data.getStreet());
-			prepStmt.setString(7, data.getPostCode());
-			prepStmt.setString(8, data.getCity());
-			prepStmt.setString(9, data.getPasswordEncrypted());
+			DalUtils.prepareStatementPersonalInfo(data, prepStmt);
 			prepStmt.setInt(10, 100);
 			prepStmt.setInt(11, 0);
 			prepStmt.executeUpdate();
@@ -133,15 +125,7 @@ public class DAOJdbcImpl implements DAO {
 		PreparedStatement prepStmt = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_UPDATE_USER);
-			prepStmt.setString(1, data.getUser());
-			prepStmt.setString(2, data.getName());
-			prepStmt.setString(3, data.getFirstName());
-			prepStmt.setString(4, data.getEmail());
-			prepStmt.setString(5, data.getPhone());
-			prepStmt.setString(6, data.getStreet());
-			prepStmt.setString(7, data.getPostCode());
-			prepStmt.setString(8, data.getCity());
-			prepStmt.setString(9, data.getPasswordEncrypted());
+			DalUtils.prepareStatementPersonalInfo(data, prepStmt);
 			prepStmt.setInt(10, data.getIdUser());
 			prepStmt.executeUpdate();
 
