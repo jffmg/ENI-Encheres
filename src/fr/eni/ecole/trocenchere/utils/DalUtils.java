@@ -27,6 +27,22 @@ public class DalUtils {
 		prepStmt.setString(9, data.getPasswordEncrypted());
 	}
 	
+	public static void prepareStatement2Int(User data, PreparedStatement pstmt, int p1, int p2) throws SQLException {
+		pstmt.setInt(1, p1);
+		pstmt.setInt(2, p2);	
+	}
+	
+	public static void prepareStatementIntString(User data, PreparedStatement pstmt, int p1, String p2) throws SQLException {
+		pstmt.setInt(1, p1);
+		pstmt.setString(2, p2);	
+	}
+	
+	public static void prepareStatement2IntString(User data, PreparedStatement pstmt, int p1, int p2, String p3) throws SQLException {
+		pstmt.setInt(1, p1);
+		pstmt.setInt(2, p2);
+		pstmt.setString(3, p3);	
+	}
+	
 	
 	/**
 	 * USER : SUPPORT METHODS

@@ -225,7 +225,7 @@ public class DAOJdbcImpl implements DAO {
 
 		return articlesSelected;
 	}
-
+	
 	
 	
 	// method to display articles with filters (Non Connected)
@@ -252,19 +252,15 @@ public class DAOJdbcImpl implements DAO {
 								pstmt.setInt(1, userID);
 							} else {
 								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD);
-								pstmt.setInt(1, userID);
-								pstmt.setString(2, keyword);
+								DalUtils.prepareStatementIntString(user, pstmt, userID, keyword);
 							}
 						} else {
 							if (keyword == "" || keyword == null) {
 								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES_BY_CATEGORY);
-								pstmt.setInt(1, userID);
-								pstmt.setInt(2, categorySelected);
+								DalUtils.prepareStatement2Int(user, pstmt, userID, categorySelected);
 							} else {
 								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY);
-								pstmt.setInt(1, userID);
-								pstmt.setInt(2, categorySelected);
-								pstmt.setString(3, keyword);
+								DalUtils.prepareStatement2IntString(user, pstmt, userID, categorySelected,  keyword);
 							}
 						}
 						;break;
@@ -275,19 +271,14 @@ public class DAOJdbcImpl implements DAO {
 								pstmt.setInt(1, userID);
 							} else {
 								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD);
-								pstmt.setInt(1, userID);
-								pstmt.setString(2, keyword);
 							}
 						} else {
 							if (keyword == "" || keyword == null) {
 								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES_BY_CATEGORY);
-								pstmt.setInt(1, userID);
-								pstmt.setInt(2, categorySelected);
+								DalUtils.prepareStatement2Int(user, pstmt, userID, categorySelected);
 							} else {
 								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY);
-								pstmt.setInt(1, userID);
-								pstmt.setInt(2, categorySelected);
-								pstmt.setString(3, keyword);
+								DalUtils.prepareStatement2IntString(user, pstmt, userID, categorySelected,  keyword);
 							}
 						}
 						;break;
