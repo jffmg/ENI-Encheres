@@ -33,8 +33,14 @@
 
 					<ul class="connectionParameters">
 
-						<li><label for="userId" class="idLabel">Identifiant :</label> 
-							<input class="inputText" type="text" name="user" class="idField" required/> 
+						<!-- check rememberMe value -->
+						<% String userName =null;
+							if (request.getAttribute("userNameRemembered") != null) {
+								userName = String.valueOf(request.getAttribute("userNameRemembered"));
+							}
+						%>
+						<li><label name="userName" for="userId" class="idLabel">Identifiant :</label> 
+							<input class="inputText" type="text" name="user" class="idField" value="<%=(userName != null) ? userName : ""%>" required/> 
 							<br>
 						</li>
 
