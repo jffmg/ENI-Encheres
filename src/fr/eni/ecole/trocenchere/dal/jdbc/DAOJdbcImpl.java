@@ -10,6 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import fr.eni.ecole.trocenchere.bo.Article;
+import fr.eni.ecole.trocenchere.bo.PickUp;
 import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.dal.DAO;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
@@ -22,7 +23,7 @@ public class DAOJdbcImpl implements DAO {
 	/**
 	 *  USER : MAIN METHODS (Create - Select - Update - Delete)
 	 */
-	
+
 	@Override
 	public User selectUser(String userName) throws BusinessException {
 		User user = null;
@@ -43,7 +44,7 @@ public class DAOJdbcImpl implements DAO {
 		}
 		return user;
 	}
-	
+
 	@Override
 	public void createUser(User data) throws BusinessException {
 		PreparedStatement prepStmt = null;
@@ -62,7 +63,7 @@ public class DAOJdbcImpl implements DAO {
 		}
 
 	}
-	
+
 	@Override
 	public void disableUser(String userName) throws BusinessException {
 		// Test User has articles in sales
@@ -91,7 +92,7 @@ public class DAOJdbcImpl implements DAO {
 			}
 		}
 	}
-	
+
 
 	@Override
 	public boolean checkArticlesToSale(String userName) throws BusinessException {
@@ -116,7 +117,7 @@ public class DAOJdbcImpl implements DAO {
 		}
 
 	}
-	
+
 	@Override
 	public void updateUser(User data) throws BusinessException {
 		PreparedStatement prepStmt = null;
@@ -133,12 +134,12 @@ public class DAOJdbcImpl implements DAO {
 			throw businessException;
 		}
 	}
-	
+
 
 	/**
 	 * USER : CHECKERS
 	 */
-	
+
 	@Override
 	public boolean checkUser(String user) throws BusinessException {
 		PreparedStatement prepStmt = null;
@@ -184,12 +185,12 @@ public class DAOJdbcImpl implements DAO {
 			throw businessException;
 		}
 	}
-		
+
 
 	/**
 	 * ARTICLES : MAIN METHODS (Select, Create, Update, Delete)
 	 */
-	
+
 	// method to display articles with filters (Non Connected)
 	@Override
 	public List<Article> displayArticles(String keyword, String category, HttpServletRequest request) throws BusinessException {
@@ -202,7 +203,7 @@ public class DAOJdbcImpl implements DAO {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
 			pstmt = DalUtils.basicDisplay(keyword, categorySelected, pstmt, cnx);
-			
+
 			ResultSet rs = pstmt.executeQuery();
 			Article currentArticle = new Article();
 
@@ -222,150 +223,222 @@ public class DAOJdbcImpl implements DAO {
 
 		return articlesSelected;
 	}
-	
-	
-	
+
+
+
 	// method to display articles with filters (Non Connected)
-		@Override
-		public List<Article> displayArticlesConnected(String userName, String keyword, String category, String buyOrSell, String checkBox, HttpServletRequest request) throws BusinessException {
+	@Override
+	public List<Article> displayArticlesConnected(String userName, String keyword, String category, String buyOrSell, String checkBox, HttpServletRequest request) throws BusinessException {
 
-			List<Article> articlesSelected = new ArrayList<>();
-			int categorySelected = DalUtils.categoryStringToInteger(category);
+		List<Article> articlesSelected = new ArrayList<>();
+		int categorySelected = DalUtils.categoryStringToInteger(category);
 
-			PreparedStatement pstmt = null;
-			Integer userID = 0;
-			User user = selectUser(userName);
-			userID = (Integer) user.getIdUser();
-			String stateArticle = "";
+		PreparedStatement pstmt = null;
+		Integer userID = 0;
+		User user = selectUser(userName);
+		userID = (Integer) user.getIdUser();
+		String stateArticle = "";
 
-			try (Connection cnx = ConnectionProvider.getConnection()) {
-				
-				if (buyOrSell.equalsIgnoreCase("buy1")) {
-					switch (checkBox) {
-					case "myBids" : 
-						if (categorySelected == 0) {
-							if (keyword == null || keyword == "") {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES);
-								pstmt = DalUtils.prepareStatement1Param(user, pstmt, userID);
-							} else {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD);
-								pstmt = DalUtils.prepareStatement2Params(user, pstmt, userID, keyword);
-							}
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+
+			if (buyOrSell.equalsIgnoreCase("buy1")) {
+				switch (checkBox) {
+				case "myBids" : 
+					if (categorySelected == 0) {
+						if (keyword == null || keyword == "") {
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES);
+							pstmt = DalUtils.prepareStatement1Param(user, pstmt, userID);
 						} else {
-							if (keyword == "" || keyword == null) {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES_BY_CATEGORY);
-								pstmt = DalUtils.prepareStatement2Params(user, pstmt, userID, categorySelected);
-							} else {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY);
-								pstmt = DalUtils.prepareStatement3Params(user, pstmt, userID, categorySelected, keyword);
-							}
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD);
+							pstmt = DalUtils.prepareStatement2Params(user, pstmt, userID, keyword);
 						}
-						;break;
-					case "myWonBids" : 
-						if (categorySelected == 0) {
-							if (keyword == null || keyword == "") {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES);
-								pstmt = DalUtils.prepareStatement1Param(user, pstmt, userID);
-							} else {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD);
-								pstmt = DalUtils.prepareStatement2Params(user, pstmt, userID, keyword);
-							}
+					} else {
+						if (keyword == "" || keyword == null) {
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES_BY_CATEGORY);
+							pstmt = DalUtils.prepareStatement2Params(user, pstmt, userID, categorySelected);
 						} else {
-							if (keyword == "" || keyword == null) {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES_BY_CATEGORY);
-								pstmt = DalUtils.prepareStatement2Params(user, pstmt, userID, categorySelected);
-							} else {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY);
-								pstmt = DalUtils.prepareStatement3Params(user, pstmt, userID, categorySelected, keyword);
-							}
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY);
+							pstmt = DalUtils.prepareStatement3Params(user, pstmt, userID, categorySelected, keyword);
 						}
-						;break;
-					default : 
-						pstmt = DalUtils.basicDisplay(keyword, categorySelected, pstmt, cnx);
-						; break;
 					}
-					
-				} else {
-					switch (checkBox) {
-					case "notStartedSales" : 
-						stateArticle = "CR";
-						if (categorySelected == 0) {
-							if (keyword == null || keyword == "") {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES);
-								pstmt = DalUtils.prepareStatement2Params(user, pstmt, userName, stateArticle);
-															} else {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD);
-								pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle, keyword);
-							}
+					;break;
+				case "myWonBids" : 
+					if (categorySelected == 0) {
+						if (keyword == null || keyword == "") {
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES);
+							pstmt = DalUtils.prepareStatement1Param(user, pstmt, userID);
 						} else {
-							if (keyword == "" || keyword == null) {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_CATEGORY);
-								pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle, categorySelected);
-							} else {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
-								pstmt = DalUtils.prepareStatement4Params(user, pstmt, userName, stateArticle, categorySelected, keyword);
-							}
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD);
+							pstmt = DalUtils.prepareStatement2Params(user, pstmt, userID, keyword);
 						}
-						;break;
-					case "endedSales" : 
-						stateArticle = "VD";
-						if (categorySelected == 0) {
-							if (keyword == null || keyword == "") {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES);
-								pstmt = DalUtils.prepareStatement2Params(user, pstmt, userName, stateArticle);
-							} else {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD);
-								pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle, keyword);
-							}
+					} else {
+						if (keyword == "" || keyword == null) {
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES_BY_CATEGORY);
+							pstmt = DalUtils.prepareStatement2Params(user, pstmt, userID, categorySelected);
 						} else {
-							if (keyword == "" || keyword == null) {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_CATEGORY);
-								pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle, categorySelected);
-							} else {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
-								pstmt = DalUtils.prepareStatement4Params(user, pstmt, userName, stateArticle, categorySelected, keyword);
-							}
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY);
+							pstmt = DalUtils.prepareStatement3Params(user, pstmt, userID, categorySelected, keyword);
 						}
-						;break;
-					default : 
-						stateArticle = "EC";
-						if (categorySelected == 0) {
-							if (keyword == null || keyword == "") {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES);
-								pstmt = DalUtils.prepareStatement2Params(user, pstmt, userName, stateArticle);
-							} else {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD);
-								pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle, keyword);
-							}
-						} else {
-							if (keyword == "" || keyword == null) {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_CATEGORY);
-								pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle, categorySelected);
-							} else {
-								pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
-								pstmt = DalUtils.prepareStatement4Params(user, pstmt, userName, stateArticle, categorySelected, keyword);
-							}
-						}
-						; break;
 					}
+					;break;
+				default : 
+					pstmt = DalUtils.basicDisplay(keyword, categorySelected, pstmt, cnx);
+					; break;
 				}
-				ResultSet rs = pstmt.executeQuery();
-				Article currentArticle = new Article();
 
-				while (rs.next()) {
-					if (rs.getInt("no_article") != currentArticle.getIdArticle()) {
-						currentArticle = DalUtils.articleBuilder(rs);
-						articlesSelected.add(currentArticle);
+			} else {
+				switch (checkBox) {
+				case "notStartedSales" : 
+					stateArticle = "CR";
+					if (categorySelected == 0) {
+						if (keyword == null || keyword == "") {
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES);
+							pstmt = DalUtils.prepareStatement2Params(user, pstmt, userName, stateArticle);
+						} else {
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD);
+							pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle, keyword);
+						}
+					} else {
+						if (keyword == "" || keyword == null) {
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_CATEGORY);
+							pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle, categorySelected);
+						} else {
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
+							pstmt = DalUtils.prepareStatement4Params(user, pstmt, userName, stateArticle, categorySelected, keyword);
+						}
 					}
+					;break;
+				case "endedSales" : 
+					stateArticle = "VD";
+					if (categorySelected == 0) {
+						if (keyword == null || keyword == "") {
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES);
+							pstmt = DalUtils.prepareStatement2Params(user, pstmt, userName, stateArticle);
+						} else {
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD);
+							pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle, keyword);
+						}
+					} else {
+						if (keyword == "" || keyword == null) {
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_CATEGORY);
+							pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle, categorySelected);
+						} else {
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
+							pstmt = DalUtils.prepareStatement4Params(user, pstmt, userName, stateArticle, categorySelected, keyword);
+						}
+					}
+					;break;
+				default : 
+					stateArticle = "EC";
+					if (categorySelected == 0) {
+						if (keyword == null || keyword == "") {
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES);
+							pstmt = DalUtils.prepareStatement2Params(user, pstmt, userName, stateArticle);
+						} else {
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD);
+							pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle, keyword);
+						}
+					} else {
+						if (keyword == "" || keyword == null) {
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_CATEGORY);
+							pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle, categorySelected);
+						} else {
+							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
+							pstmt = DalUtils.prepareStatement4Params(user, pstmt, userName, stateArticle, categorySelected, keyword);
+						}
+					}
+					; break;
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				BusinessException businessException = new BusinessException();
-				businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
-				throw businessException;
 			}
-			System.out.println(articlesSelected);
+			ResultSet rs = pstmt.executeQuery();
+			Article currentArticle = new Article();
 
-			return articlesSelected;
+			while (rs.next()) {
+				if (rs.getInt("no_article") != currentArticle.getIdArticle()) {
+					currentArticle = DalUtils.articleBuilder(rs);
+					articlesSelected.add(currentArticle);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
+			throw businessException;
 		}
+		System.out.println(articlesSelected);
+
+		return articlesSelected;
+	}
+
+	//method to create an article to sell
+	@Override
+	public void createSellNewArticle(int userId, Article articleToSell, PickUp pickUp) throws BusinessException {
+		Article article = createArticleToSell(userId, articleToSell);
+
+		int articleId = article.getIdArticle();
+
+		boolean isPickUpOK = createPickUp(articleId,pickUp);
+
+		if(!isPickUpOK == true) {
+			deleteArticleToSell(articleId);
+		}
+
+	}
+
+	public Article createArticleToSell(int userId, Article articleToSell) throws BusinessException {
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_INSERT_ARTICLE);
+			DalUtils.prepareStatementSellArticle(prepStmt, articleToSell, userId);
+			rs = prepStmt.executeQuery();
+			if (rs.next()) {
+				articleToSell.setIdArticle(rs.getInt("no_article"));
+			}
+
+		} catch (SQLException e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
+			e.printStackTrace();
+			throw businessException;
+		}
+		return articleToSell;	
+	}
+
+	public boolean createPickUp(int articleId, PickUp pickUp) throws BusinessException {
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		boolean test = false;
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_INSERT_PICKUP);
+			DalUtils.prepareStatementpickUp(prepStmt, pickUp, articleId);
+			rs = prepStmt.executeQuery();
+			if (rs.next()) {
+				test=true;
+			}
+
+		} catch (SQLException e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
+			e.printStackTrace();
+			throw businessException;
+		}			
+		return test;
+	}
+
+	private void deleteArticleToSell(int articleId) throws BusinessException {
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_DELETE_ARTICLE);
+			prepStmt.setInt(1, articleId);
+			rs = prepStmt.executeQuery();
+		}
+		catch (SQLException e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.DELETE_ARTICLE_ECHEC);
+			e.printStackTrace();
+			throw businessException;
+		}			
+	}
 }

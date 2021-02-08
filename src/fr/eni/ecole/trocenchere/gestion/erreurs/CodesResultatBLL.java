@@ -16,5 +16,6 @@ public abstract class CodesResultatBLL {
 	public static final int PASSWORD_ERROR=20008;
 	public static final int USER_EXISTS = 20009;
 	public static final int EMAIL_EXISTS = 20010;
+	public static final int SALE_END_DATE=20011;
 	
 }

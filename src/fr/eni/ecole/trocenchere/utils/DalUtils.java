@@ -4,9 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.Normalizer;
 
 import fr.eni.ecole.trocenchere.bo.Article;
+import fr.eni.ecole.trocenchere.bo.PickUp;
 import fr.eni.ecole.trocenchere.bo.User;
 
 public class DalUtils {
@@ -53,6 +55,25 @@ public class DalUtils {
 		return pstmt;
 	}
 	
+	public static PreparedStatement prepareStatementSellArticle(PreparedStatement pstmt, Article article, int userId) throws SQLException {
+		pstmt.setString(1, article.getName());
+		pstmt.setString(2, article.getDescription());
+		pstmt.setTimestamp(3, Timestamp.valueOf(article.getBidEndDate()));
+		pstmt.setObject(4, Timestamp.valueOf(article.getBidEndDate()));
+		pstmt.setInt(5, article.getStartingBid());
+		pstmt.setInt(6, userId);
+		pstmt.setInt(7, article.getIdCategory());
+		pstmt.setString(8, article.getStatus());
+		return pstmt;
+	}
+	
+	public static PreparedStatement prepareStatementpickUp(PreparedStatement pstmt, PickUp pickUp, int articleId) throws SQLException {
+		pstmt.setInt(1, articleId);
+		pstmt.setString(2, pickUp.getStreet());
+		pstmt.setString(3, pickUp.getPostCode());
+		pstmt.setString(4, pickUp.getCity());
+		return pstmt;
+	}
 	
 	
 	/**
@@ -108,7 +129,7 @@ public class DalUtils {
 	public static Article articleBuilder(ResultSet rs) throws SQLException {
 		User user = buildUser(rs);
 		Article article = new Article(rs.getString("nom_article"), rs.getString("description"),
-				rs.getDate("date_debut_enchere").toLocalDate(), rs.getDate("date_fin_enchere").toLocalDate(),
+				rs.getTimestamp("date_debut_enchere").toLocalDateTime(), rs.getTimestamp("date_fin_enchere").toLocalDateTime(),
 				rs.getInt("prix_initial"), rs.getString("etat_vente"), rs.getInt("no_categorie"), user, rs.getInt("no_utilisateur"));
 		
 		System.out.println(rs.getString("pseudo"));

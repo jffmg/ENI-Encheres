@@ -1,13 +1,19 @@
 package fr.eni.ecole.trocenchere.bll;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import fr.eni.ecole.trocenchere.bo.Article;
+import fr.eni.ecole.trocenchere.bo.PickUp;
+import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.dal.DAO;
 import fr.eni.ecole.trocenchere.dal.DAOFactory;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
+import fr.eni.ecole.trocenchere.gestion.erreurs.CodesResultatBLL;
+import fr.eni.ecole.trocenchere.utils.DalUtils;
 
 public class ArticleManager {
 
@@ -42,6 +48,48 @@ public class ArticleManager {
 	public List<Article> displayArticlesConnected(String userName, String keyword, String category, String buyOrSell,
 			String checkBox, HttpServletRequest request) throws BusinessException {
 		return this.articleDao.displayArticlesConnected(userName, keyword, category, buyOrSell, checkBox, request);
+	}
+
+	public void sellArticle(int userId, String articleName, String articleDesc, String articleCat, Integer saleStartBid, 
+			LocalDateTime saleStartDate, LocalDateTime saleEndDate, String pickUpStreet, String pickUpPostCode, 
+			String pickUpCity) throws BusinessException{
+		BusinessException be = new BusinessException();
+		
+		// category from String to int
+		int idCategory = DalUtils.categoryStringToInteger(articleName);
+		
+		// check the end of sale date
+		boolean isSaleEndDateBeforeActualDate = false;
+		isSaleEndDateBeforeActualDate = checkUser(saleEndDate);
+		if (isSaleEndDateBeforeActualDate == true) {
+			be.ajouterErreur(CodesResultatBLL.SALE_END_DATE);
+			System.out.println(CodesResultatBLL.SALE_END_DATE);
+		}
+				
+		// define the sale status when created the sellArticle
+		String status = null;
+		
+		if (saleStartDate.isBefore(LocalDateTime.now())){
+			status = "EC";
+		} 
+		else {
+			status = "CR";
+		}
+		
+		PickUp pickUp = new PickUp(pickUpStreet, pickUpPostCode, pickUpCity);
+		Article articleToSell = new Article (articleName, articleDesc, saleStartDate, saleEndDate, saleStartBid,status, idCategory, userId);
+		
+		if (!be.hasErreurs()) {
+			this.articleDao.createSellNewArticle(userId, articleToSell, pickUp);
+		}
+
+		if (be.hasErreurs()) {
+			throw be;
+		}
+	}
+	private boolean checkUser(LocalDateTime saleEndDate) {
+		boolean isSaleEndDateBeforeActualDate = saleEndDate.isBefore(LocalDateTime.now());
+		return isSaleEndDateBeforeActualDate;
 	}
 
 }
