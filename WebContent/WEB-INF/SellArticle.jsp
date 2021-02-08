@@ -6,82 +6,90 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="css/ClassStyle.css" type="text/css" />
-<link rel="stylesheet" href="css/ButtonStyle.css" type="text/css" />
-<link rel="stylesheet" href="css/GeneralStyle.css" type="text/css" />
-<title>ENI-Enchères - Vendre un article</title>
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link rel="stylesheet" href="css/ClassStyle.css" type="text/css" />
+		<link rel="stylesheet" href="css/ButtonStyle.css" type="text/css" />
+		<link rel="stylesheet" href="css/GeneralStyle.css" type="text/css" />
+		<title>ENI-Enchères - Vendre un article</title>
+	</head>
 
-<body>
-	<header>
-		<%@include file="HeaderConnected.jspf"%>
-	</header>
+	<body>
+   		<header>
+        	<c:choose>
+            	<c:when test="${sessionScope.user!=null}">
+                	<%@include file="HeaderConnected.jspf" %>
+            	</c:when> 
+            	<c:otherwise >
+					<%@include file="HeaderDisconnected.jspf" %>
+				</c:otherwise>
+			</c:choose>
+		</header>
 
-	<%@include file="Errors.jspf"%>
+		<div class="body">
 
-	<h1 class="title">Nouvelle vente</h1>
+			<div class="welcome"><br></div>
 
-	<form
-		action="<%=request.getContextPath()%>/ServletSellArticle?profile=${sessionScope.profile}"
-		method="POST">
+			<%@include file="Errors.jspf" %>
 
-		<div class="divProfile container2">
+			<h1 class="title">Nouvelle vente</h1>
 
-			<p>
-			<label for="name" class="labelProfil">Article :</label>
-			<input class="inputText" type="text" name="name" size=35 />
-			</p>
-			<p><label for="description" class="labelProfil">Description :</label>
-			<textarea name="description" class="inputText" cols=35 rows=5 /></textarea>
-			</p>
-			<p>
-			<label class="labelProfil">Catégorie :</label>
-			<select
-					name="categories" id="category">
-					<c:forEach var="cat" items="${categories}">
-						<option value="${cat}">${cat}</option>
-					</c:forEach>
-				</select>
-				</p>
-<!-- 			<p> -->
-<!-- 			<label for="articlePicture">Photo de l'article</label> -->
-<!-- 			<input type="file" name="articlePicture" id="articlePicture accept="image/png, image/jpeg""> -->
-<!--   <input type="submit"> -->
+			<form
+				action="<%=request.getContextPath()%>/ServletSellArticle?profile=${sessionScope.profile}"
+				method="POST">
+
+				<div class="divProfile container2">
+
+					<p>
+						<label for="name" class="labelProfil">Article :</label>
+						<input class="inputText" type="text" name="name" size=35 />
+					</p>
+					<p>
+						<label for="description" class="labelProfil">Description :</label>
+						<textarea name="description" class="inputText" cols=35 rows=5 /></textarea>
+					</p>
+					<p>
+						<label class="labelProfil">Catégorie :</label>
+						<select name="categories" id="category">
+							<c:forEach var="cat" items="${categories}">
+								<option value="${cat}">${cat}</option>
+							</c:forEach>
+						</select>
+					</p>
+<!-- 				<p> -->
+<!-- 					<label for="articlePicture">Photo de l'article</label> -->
+<!-- 					<input type="file" name="articlePicture" id="articlePicture accept="image/png, image/jpeg""> -->
+<!--  					<input type="submit"> -->
 <!-- 				</p> -->
-			<p>
-			<label for="startBid" class="labelProfil">Mise à prix :</label>
-			<input type="number" name="startBid" size="6" value="50"> points
-			</p>
-			<p>
-			<label for="startDate" class="labelProfil">Début de l'enchère (jour et heure)</label>
-			<input type="datetime-local" name="startDate">
-			</p>
-			<p>
-			<label for="endDate" class="labelProfil">Fin de l'enchère (jour et heure)</label>
-			<input type="datetime-local" name="endDate">
-			</p>
-			<fieldset>
-			<legend>Retrait</legend>
-			<p>
-			<label for="street" class="labelProfil">Rue :</label>
-			
-				<input class="inputText" type="text" name="street" size="50" value="${profile.getStreet()}"/>
-			</p>
-			<p>
-			<label for="postCode" class="labelProfil">Code postal :</label>
-			
-				<input class="inputText" type="text" name="postCode" size=6 value="${profile.getPostCode()}"/>
-			</p>
-			<p>
-			<label for="city" class="labelProfil">Ville :</label>
-			
-				<input class="inputText" type="text" name="city" size=50 value="${profile.getCity()}"/>
-			</p>
-			</fieldset>
-			</div>
+					<p>
+						<label for="startBid" class="labelProfil">Mise à prix :</label>
+						<input type="number" name="startBid" size="6" value="50"> points
+					</p>
+					<p>
+						<label for="startDate" class="labelProfil">Début de l'enchère (jour et heure)</label>
+						<input type="datetime-local" name="startDate">
+					</p>
+					<p>
+						<label for="endDate" class="labelProfil">Fin de l'enchère (jour et heure)</label>
+						<input type="datetime-local" name="endDate">
+					</p>
+					<fieldset>
+						<legend>Retrait</legend>
+						<p>
+							<label for="street" class="labelProfil">Rue :</label>
+							<input class="inputText" type="text" name="street" size="50" value="${profile.getStreet()}"/>
+						</p>
+						<p>
+							<label for="postCode" class="labelProfil">Code postal :</label>
+							<input class="inputText" type="text" name="postCode" size=6 value="${profile.getPostCode()}"/>
+						</p>
+						<p>
+							<label for="city" class="labelProfil">Ville :</label>
+							<input class="inputText" type="text" name="city" size=50 value="${profile.getCity()}"/>
+						</p>
+					</fieldset>
+				</div>
 
 
 				<c:if test="${profile.getUser().equals(sessionScope.profile)}">
@@ -94,11 +102,11 @@
 						</a>
 					</div>
 				</c:if>
-	</form>
+			</form>
 
-	<footer class="footer" id="footerCell">
-		<%@include file="Footer.jspf"%>
-	</footer>
-
+			<footer class="footer" id="footerCell">
+				<%@include file="Footer.jspf"%>
+			</footer>
+</div>
 </body>
 </html>
