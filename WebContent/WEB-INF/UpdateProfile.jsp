@@ -35,7 +35,7 @@
 		
 		<h1 class="title"> Modifier votre profil</h1>
 		
-		<form action="<%=request.getContextPath()%>/ServletUpdateProfile?profile=${sessionScope.user}" method="POST">
+		<form action="<%=request.getContextPath()%>/Connected/UpdateProfile?profile=${sessionScope.user}" method="POST">
 		
 		<div class="divProfile container2">
 			
@@ -81,7 +81,7 @@
 			<div class="container3">
 					<input type="submit" id="submit" name="validate" value="Valider" class="profileButton"/>
 				
-				<a href="<%=request.getContextPath()%>/ServletProfile?profile=${sessionScope.user}">
+				<a href="<%=request.getContextPath()%>/Profile?profile=${sessionScope.user}">
 					<input type="button" name="cancel" value="Annuler" class="profileButton"/>
 				</a>	
 			</div>

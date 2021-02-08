@@ -16,7 +16,7 @@ import fr.eni.ecole.trocenchere.bll.UserManager;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 import fr.eni.ecole.trocenchere.utils.ServletUtils;
 
-@WebServlet("/ServletDisableProfile")
+@WebServlet("/Connected/DisableProfile")
 public class ServletDisableProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static 	List<Integer> listeCodesErreur=new ArrayList<>();
@@ -57,11 +57,11 @@ public class ServletDisableProfile extends HttpServlet {
 			session.removeAttribute("user");
 
 			// if Ok dispatch to NonConnectedHome, with the object CATEGORIES
-			this.getServletContext().getRequestDispatcher("/ServletNonConnectedHome").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/Home").forward(request, response);
 		}
 		else {
 			// if not OK dispatch to profile
-			this.getServletContext().getRequestDispatcher("/ServletProfile?profile=" + userName).forward(request, response);
+			this.getServletContext().getRequestDispatcher("/Connected/Profile?profile=" + userName).forward(request, response);
 		}
 	}
 

@@ -21,7 +21,7 @@ import fr.eni.ecole.trocenchere.utils.ServletUtils;
 /**
  * Servlet implementation class ServletConnectedHome
  */
-@WebServlet("/connected/Home")
+@WebServlet("/Connected/Home")
 public class ServletConnectedHome extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

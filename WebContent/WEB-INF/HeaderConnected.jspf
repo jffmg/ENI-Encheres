@@ -1,14 +1,14 @@
 <div class="navbar">
 	<div Style="width:10%">
-		<a href="<%=request.getContextPath()%>/ServletConnectedHome">
+		<a href="<%=request.getContextPath()%>/Connected/Home">
 			<img class="navbarLogo" src="<%=request.getContextPath()%>/images/logoENIEncheres.png"/>
 		</a>
 	</div>
 	<div Style="width:50%"></div>
 	<div Style="width:40%" class="navbarLabelDiv">
-		<a class="navbarLabel" href="<%=request.getContextPath()%>/ServletConnectedHome?profile=${sessionScope.user}">Ench&egrave;res</a> 
-		<a class="navbarLabel" href="${pageContext.request.contextPath}/ServletSellArticle?profile=${sessionScope.user}">Vendre un article</a>
-		<a class="navbarLabel" href="${pageContext.request.contextPath}/ServletProfile?profile=${sessionScope.user}">Mon Profil</a> 
-		<a class="navbarLabel" href="${pageContext.request.contextPath}/ServletDeconnected">D&eacute;connexion</a>
+		<a class="navbarLabel" href="<%=request.getContextPath()%>/Connected/Home?profile=${sessionScope.user}">Ench&egrave;res</a> 
+		<a class="navbarLabel" href="${pageContext.request.contextPath}/Connected/SellArticle?profile=${sessionScope.user}">Vendre un article</a>
+		<a class="navbarLabel" href="${pageContext.request.contextPath}/Profile?profile=${sessionScope.user}">Mon Profil</a> 
+		<a class="navbarLabel" href="${pageContext.request.contextPath}/Connected/Deconnection">D&eacute;connexion</a>
 	</div>
 </div>

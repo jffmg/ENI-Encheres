@@ -27,7 +27,7 @@
 			<div class="mainContent">
 
 				<div class="MainContentTop">
-					<form id="idform" action="<%=request.getContextPath()%>/ServletSignUp" method="POST">
+					<form id="idform" action="<%=request.getContextPath()%>/SignUp" method="POST">
 						<p class="marginBottomTwoEm">Tous les champs marqués d'un astérisque sont obligatoires.</p>
 						<ul>
 							<li>

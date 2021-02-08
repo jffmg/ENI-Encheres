@@ -6,6 +6,6 @@
 	</div>
 	<div Style="width:80%"></div>
 	<div Style="width:20%" class="navbarLabelDiv">
-		<a class="navbarLabel" href="<%=request.getContextPath()%>/ServletConnection">Cr&eacuteer un compte / Connexion</a>
+		<a class="navbarLabel" href="<%=request.getContextPath()%>/Connection">Cr&eacuteer un compte / Connexion</a>
 	</div>
 </div>

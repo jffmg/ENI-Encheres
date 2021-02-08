@@ -8,6 +8,9 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/ClassStyle.css" type="text/css" />
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/ButtonStyle.css" type="text/css" />
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/GeneralStyle.css" type="text/css" />
 		<title>Enchérir</title>
 	</head>
 
@@ -52,7 +55,7 @@
 				<p>Vendeur : ${article.getUser().getUser()}</p>
 			</div>
 
-			<form action="<%=request.getContextPath()%>/ServletBid" method="post">
+			<form action="<%=request.getContextPath()%>/Connected/Bid" method="post">
 				<c:if test="${profile.getUser().equals(sessionScope.profile)}">
 					<div class="container3">
 						<label for="bid">Mon offre :</label>

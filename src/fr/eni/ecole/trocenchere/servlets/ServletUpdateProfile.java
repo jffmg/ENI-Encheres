@@ -20,7 +20,7 @@ import fr.eni.ecole.trocenchere.utils.ServletUtils;
 /**
  * Servlet implementation class ServletUpdateProfile
  */
-@WebServlet("/ServletUpdateProfile")
+@WebServlet("/Connected/UpdateProfile")
 public class ServletUpdateProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -119,7 +119,7 @@ public class ServletUpdateProfile extends HttpServlet {
 		}
 		
 		//Dispatch
-			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ServletProfile?profile=" + profileName);
+			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Profile?profile=" + profileName);
 			rd.forward(request, response);
 		
 	}

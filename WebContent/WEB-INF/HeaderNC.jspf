@@ -1,5 +1,5 @@
 	<div id="logo">
-		<a href="<%=request.getContextPath()%>/ServletNonConnectedHome">
+		<a href="<%=request.getContextPath()%>/Home">
 			<img width="250" src="images/logoENIEncheres.png" alt="logo"/>
 		</a>
 	</div>

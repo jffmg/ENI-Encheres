@@ -17,7 +17,7 @@ import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 import fr.eni.ecole.trocenchere.utils.ServletUtils;
 
 
-@WebServlet("/ServletProfile")
+@WebServlet("/Profile")
 public class ServletProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static List<Integer> listeCodesErreur = new ArrayList<>();

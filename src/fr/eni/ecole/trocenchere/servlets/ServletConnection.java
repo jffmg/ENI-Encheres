@@ -21,7 +21,7 @@ import fr.eni.ecole.trocenchere.utils.PasswordUtils;
 import fr.eni.ecole.trocenchere.utils.ServletUtils;
 
 
-@WebServlet("/ServletConnection")
+@WebServlet("/Connection")
 public class ServletConnection extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

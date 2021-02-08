@@ -21,7 +21,7 @@ import fr.eni.ecole.trocenchere.utils.ServletUtils;
 /**
  * Servlet implementation class ServletSignUp
  */
-@WebServlet("/ServletSignUp")
+@WebServlet("/SignUp")
 public class ServletSignUp extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	List<Integer> listeCodesErreur=new ArrayList<>();
@@ -73,7 +73,7 @@ public class ServletSignUp extends HttpServlet {
 		System.out.println("saisie du formulaire OK");
 
 		//Redirect to Home
-		request.getServletContext().getRequestDispatcher("/ServletConnectedHome?foo=get").forward(request, response);
+		request.getServletContext().getRequestDispatcher("/Connected/Home?foo=get").forward(request, response);
 		//request.getServletContext().getRequestDispatcher("/WEB-INF/ConnectedHome.jsp").forward(request, response);
 
 		//response.sendRedirect("/ServletConnectedHome");

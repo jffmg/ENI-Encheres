@@ -17,7 +17,7 @@ import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 import fr.eni.ecole.trocenchere.utils.ServletUtils;
 
-@WebServlet("/ServletNonConnectedHome")
+@WebServlet("/Home")
 public class ServletNonConnectedHome extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static List<Integer> listeCodesErreur = new ArrayList<>();
@@ -39,7 +39,7 @@ public class ServletNonConnectedHome extends HttpServlet {
 		String userName = (String) session.getAttribute("user");
 		System.out.println("Session of " + userName);
 		if (userName != null) {
-			this.getServletContext().getRequestDispatcher("/ServletConnectedHome").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/Connected/Home").forward(request, response);
 		} else {
 
 			// displaying the NonConnectedHome, with the object CATEGORIES

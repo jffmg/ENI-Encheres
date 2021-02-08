@@ -18,7 +18,7 @@ import fr.eni.ecole.trocenchere.utils.ServletUtils;
 /**
  * Servlet implementation class ServletBid
  */
-@WebServlet("/ServletBid")
+@WebServlet("/Connected/Bid")
 public class ServletBid extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,7 +27,7 @@ public class ServletBid extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-String profileName = request.getParameter("profile");
+		String profileName = request.getParameter("profile");
 		
 		System.out.println("je passe dans la ServletBid - doGet / profile name : " + profileName );
 		
@@ -82,7 +82,7 @@ String profileName = request.getParameter("profile");
 			System.out.println("erreur lors de la saisie de l'offre");
 		}
 		//Dispatch
-		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ServletConnectedHome?profile=" + profileName);
+		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Connected/Home?profile=" + profileName);
 		rd.forward(request, response);
 	}
 

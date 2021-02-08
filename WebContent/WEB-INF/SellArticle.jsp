@@ -28,7 +28,7 @@
 	<h1 class="title">Nouvelle vente</h1>
 
 	<form
-		action="<%=request.getContextPath()%>/ServletSellArticle?profile=${sessionScope.profile}"
+		action="<%=request.getContextPath()%>/Connected/SellArticle?profile=${sessionScope.profile}"
 		method="POST">
 
 		<div class="divProfile container2">
@@ -91,7 +91,7 @@
 					<div class="container3">
 						<input type="submit" id="submit" name="validate" value="Valider"
 							class="profileButton" /> <a
-							href="<%=request.getContextPath()%>/ServletConnectedHome">
+							href="<%=request.getContextPath()%>/Connected/Home">
 							<input type="button" name="cancel" value="Annuler"
 							class="profileButton" />
 						</a>

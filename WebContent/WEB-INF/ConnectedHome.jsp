@@ -32,7 +32,7 @@
 	
 		<h1 class="title">Liste des enchères</h1>
 	
-		<form action="<%=request.getContextPath()%>/ServletConnectedHome"
+		<form action="<%=request.getContextPath()%>/Connected/Home"
 			method="post">
 			<div class="checkBoxes">
 				<div class="container">
@@ -52,34 +52,54 @@
 					<div class="container2">
 						<div>
 	
-							<label class="selectBoxTitle"> <input type="radio"
+							<label class="selectBoxTitle"> 
+							
+							<input type="radio"
 								name="buyOrSell" id="buy1" value="buy1" onClick="checkBoxes()">
 								Mes Achats
-							</label> <br> <br> <input type="radio" name="buy2"
+							</label> <br> <br>
+							 
+							<input type="radio" name="buy2"
 								class="checkBox" id="openBids" value="openBids">
-							<label class="selectBoxLabel">enchères ouvertes</label> <br>
-							<br> <input type="radio" name="buy2" class="checkBox"
-								id="myBids" value="myBids"> <label class="selectBoxLabel">mes
-								enchères</label> <br> <br> <input type="radio" name="buy2"
-								class="checkBox" id="myWonBids" value="myWonBids"> <label
-								class="selectBoxLabel">enchères remportées</label>
+							<label class="selectBoxLabel">enchères ouvertes
+							</label> <br><br> 
+							
+							<input type="radio" name="buy2" class="checkBox"
+								id="myBids" value="myBids"> 
+							<label class="selectBoxLabel">mes enchères
+							</label> <br> <br> 
+							
+							<input type="radio" name="buy2"
+								class="checkBox" id="myWonBids" value="myWonBids"> 
+							<label class="selectBoxLabel">enchères remportées
+							</label>
 	
 						</div>
 	
 						<div>
 	
-							<label class="selectBoxTitle"> <input type="radio"
+							<label class="selectBoxTitle"> 
+							
+							<input type="radio"
 								name="buyOrSell" value="sell1" onClick="checkBoxes()">
 								Mes ventes
-							</label> <br> <br> <input type="radio" name="sell2"
+							</label> <br> <br> 
+							
+							<input type="radio" name="sell2"
 								class="checkBox" id="currentSales" value="currentSales">
-							<label class="selectBoxLabel">ventes en cours</label> <br> <br>
+							<label class="selectBoxLabel">ventes en cours
+							</label> <br> <br>
+							
 							<input type="radio" name="sell2" class="checkBox"
-								id="notStartedSales" value="notStartedSales"> <label
-								class="selectBoxLabel">ventes non débutées</label> <br> <br>
+								id="notStartedSales" value="notStartedSales"> 
+							<label
+								class="selectBoxLabel">ventes non débutées
+							</label> <br> <br>
+							
 							<input type="radio" name="sell2" class="checkBox" id="endedSales"
-								value="endedSales"> <label class="selectBoxLabel">ventes
-								terminées</label>
+								value="endedSales"> 
+							<label class="selectBoxLabel">ventes terminées
+							</label>
 	
 						</div>
 					</div>

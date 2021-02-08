@@ -17,11 +17,9 @@ import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 
 
-@WebServlet("/ServletDeconnected")
+@WebServlet("/Connected/Deconnection")
 public class ServletDisconnected extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static List<Integer> listeCodesErreur = new ArrayList<>();
-
 
 	@Override
 	public void init() throws ServletException {
@@ -40,7 +38,7 @@ public class ServletDisconnected extends HttpServlet {
 		session.removeAttribute("user");
 
 		// dispatch to NonConnectedHome, with the object CATEGORIES
-		this.getServletContext().getRequestDispatcher("/ServletNonConnectedHome").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/Home").forward(request, response);
 	}
 
 

@@ -25,14 +25,11 @@ import fr.eni.ecole.trocenchere.utils.ServletUtils;
 /**
  * Servlet implementation class ServletSellArticle
  */
-@WebServlet("/ServletSellArticle")
+@WebServlet("/Connected/SellArticle")
 public class ServletSellArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -119,6 +116,6 @@ public class ServletSellArticle extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getServletContext().getRequestDispatcher("/ServletSelleArticle?profile=" + profileName).forward(request, response);
+		request.getServletContext().getRequestDispatcher("/Connected/SellArticle?profile=" + profileName).forward(request, response);
 	}
 }

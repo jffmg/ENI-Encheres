@@ -28,7 +28,7 @@
 
 			<div class="MainContentTop">
 
-				<form id="idForm" action="${pageContext.request.contextPath}/ServletConnection" method="POST">
+				<form id="idForm" action="${pageContext.request.contextPath}/Connection" method="POST">
 					<input class="inputText" type="hidden" name="submitted" value="true" />
 
 					<ul class="connectionParameters">
@@ -70,7 +70,7 @@
 			</div>
 
 			<div class="MainContentBottom">
-				<form action="<%=request.getContextPath()%>/ServletSignUp" method="GET">
+				<form action="<%=request.getContextPath()%>/SignUp" method="GET">
 					<input type="submit" name="createAccountButton"
 						value="Créer un compte" class="createAccountButton" />
 				</form>
