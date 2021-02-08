@@ -201,14 +201,10 @@ public class DalUtils {
 			
 			return categoryInt;
 			
+			
 		}
 
 	
-		//method to convert datetime-local String value from jsp on datetimevalue for database
-		public static String convertDateJSPtoDB() {
-			return null;
-			
-		}
 
 
 }

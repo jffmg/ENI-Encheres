@@ -1,9 +1,5 @@
 package fr.eni.ecole.trocenchere.bll;
 
-<<<<<<< HEAD
-import java.time.LocalDate;
-=======
->>>>>>> branch 'master' of https://github.com/LeroyErwan/ENI-Encheres
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.bo.PickUp;
-import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.dal.DAO;
 import fr.eni.ecole.trocenchere.dal.DAOFactory;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
@@ -53,7 +48,6 @@ public class ArticleManager {
 		return this.articleDao.displayArticlesConnected(userName, keyword, category, buyOrSell, checkBox, request);
 	}
 
-<<<<<<< HEAD
 	public void sellArticle(int userId, String articleName, String articleDesc, String articleCat, Integer saleStartBid, 
 			LocalDateTime saleStartDate, LocalDateTime saleEndDate, String pickUpStreet, String pickUpPostCode, 
 			String pickUpCity) throws BusinessException{
@@ -94,11 +88,6 @@ public class ArticleManager {
 	private boolean checkUser(LocalDateTime saleEndDate) {
 		boolean isSaleEndDateBeforeActualDate = saleEndDate.isBefore(LocalDateTime.now());
 		return isSaleEndDateBeforeActualDate;
-=======
-	public void sellArticle(int idSeller, String articleName, String articleDesc, String articleCat, Integer saleStartBid,
-			LocalDateTime saleStartDate, LocalDateTime saleEndDate, String pickUpStreet, String pickUpPostCode, String pickUpCity) throws BusinessException  {
-		
->>>>>>> branch 'master' of https://github.com/LeroyErwan/ENI-Encheres
 	}
 
 }
