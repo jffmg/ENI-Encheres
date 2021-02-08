@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +27,19 @@ public class ServletConnection extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Check if rememberMe cookie exists
+				Cookie[] cookies = request.getCookies();
+				String userNameRemembered = null;
+				if (cookies != null) {
+					for (Cookie cookie : cookies) {
+						if (cookie.getName().equals("userNameRemembered")) {
+							userNameRemembered = java.net.URLDecoder.decode(cookie.getValue(), "UTF-8");
+							request.setAttribute("userNameRemembered", userNameRemembered);
+							break;
+						}
+					}
+				}
+		
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Connection.jsp");
 		rd.forward(request, response);
 	}
@@ -38,7 +52,15 @@ public class ServletConnection extends HttpServlet {
 		String userName = request.getParameter("user");
 		String password = request.getParameter("password");
 		//System.out.println("password :" + password);
-
+		
+		//check if remember case is checked
+		if (request.getParameter("rememberMe") != null) {
+			//Create cookie + String to format HTM
+			Cookie cookie = new Cookie("userNameRemembered", java.net.URLEncoder.encode(userName, "UTF-8"));
+			cookie.setMaxAge(Integer.MAX_VALUE);
+			cookie.setHttpOnly(true);
+			response.addCookie(cookie);
+		}
 
 		// encrypt password
 		//String passwordEncrypted = encrypt(password);

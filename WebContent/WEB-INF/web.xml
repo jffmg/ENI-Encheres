@@ -18,9 +18,14 @@
   
   
   <context-param>
-  <description>Categories</description>
-  <param-name>CATEGORIES</param-name>
-  <param-value>Toutes, Informatique, Ameublement, Vêtement, Sport &amp; Loisirs</param-value>
+  	<description>Categories</description>
+  	<param-name>CATEGORIES</param-name>
+  	<param-value>Toutes, Informatique, Ameublement, Vêtement, Sport &amp; Loisirs</param-value>
   </context-param>
+  
+   <!-- invalider automatiquement la session apres 5 mn inactivite -->
+  <session-config>
+  	<session-timeout>5</session-timeout>
+  </session-config>
  
 </web-app>
