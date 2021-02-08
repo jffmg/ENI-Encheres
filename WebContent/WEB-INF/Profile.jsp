@@ -26,6 +26,8 @@
 		</c:choose>
 		
 	</header>
+	
+	<div class="body">
 		
 		<div class="welcome"><br></div>
 	
@@ -99,5 +101,6 @@
 		<%@include file="Footer.jspf" %>
 	</footer>
 
+</div>
 </body>
 </html>
