@@ -15,7 +15,8 @@
 body {
 	display: flex;
 	flex-direction: column;
-	background-color: #d0dae4;
+/* 	background-color: #d0dae4; */
+background-color: black;
 }
 
 .header {
