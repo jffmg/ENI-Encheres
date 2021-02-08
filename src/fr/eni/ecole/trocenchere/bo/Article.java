@@ -2,6 +2,7 @@ package fr.eni.ecole.trocenchere.bo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Article implements Serializable {
 
@@ -10,8 +11,8 @@ public class Article implements Serializable {
 	private int idArticle;
 	private String name;
 	private String description;
-	private LocalDate bidStartDate;
-	private LocalDate bidEndDate;
+	private LocalDateTime bidStartDate;
+	private LocalDateTime bidEndDate;
 	private int startingBid;
 	private int salePrice;
 	private String status;
@@ -61,28 +62,28 @@ public class Article implements Serializable {
 	/**
 	 * @return the bidStartDate
 	 */
-	public LocalDate getBidStartDate() {
+	public LocalDateTime getBidStartDate() {
 		return bidStartDate;
 	}
 
 	/**
 	 * @param bidStartDate the bidStartDate to set
 	 */
-	public void setBidStartDate(LocalDate bidStartDate) {
+	public void setBidStartDate(LocalDateTime bidStartDate) {
 		this.bidStartDate = bidStartDate;
 	}
 
 	/**
 	 * @return the bidEndDate
 	 */
-	public LocalDate getBidEndDate() {
+	public LocalDateTime getBidEndDate() {
 		return bidEndDate;
 	}
 
 	/**
 	 * @param bidEndDate the bidEndDate to set
 	 */
-	public void setBidEndDate(LocalDate bidEndDate) {
+	public void setBidEndDate(LocalDateTime bidEndDate) {
 		this.bidEndDate = bidEndDate;
 	}
 
@@ -156,7 +157,7 @@ public class Article implements Serializable {
 		this.idUser = idUser;
 	}
 
-		public Article(String name, String description, LocalDate bidStartDate, LocalDate bidEndDate, int startingBid,
+		public Article(String name, String description, LocalDateTime bidStartDate, LocalDateTime bidEndDate, int startingBid,
 				String status, int idCategory, User user, int idUser) {
 		this.name = name;
 		this.description = description;
