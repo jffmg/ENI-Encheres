@@ -26,8 +26,6 @@
 		</c:choose>
 		
 	</header>
-	
-	<body class="body">
 		
 		<div class="welcome"><br></div>
 	
@@ -55,10 +53,10 @@
 			<p class="labelProfil"> Rue : </p>
 			<p class= "infoProfil"> ${profile.getStreet()}</p>
 
-			<p class="labelProfil"> Code Postale : </p>
+			<p class="labelProfil"> Code postal : </p>
 			<p class= "infoProfil"> ${profile.getPostCode()}</p>
 
-			<p class="labelProfil"> Code Ville : </p>
+			<p class="labelProfil"> Ville : </p>
 			<p class= "infoProfil"> ${profile.getCity()}</p>
 		
 		</div>
@@ -76,7 +74,7 @@
 		</c:if>
 		
 		<div id="confirmationPopUp" class="confirmationPopUp">
-			<p class="textConfirmationPopUp"> Etes vous sûre de vouloir supprimer votre profil ?</p>
+			<p class="textConfirmationPopUp"> Êtes-vous sûr(e) de vouloir supprimer votre profil ?</p>
 			<a onclick="hidePopUp();">
 				<input type="button" name="cancel" value="Annuler" class="buttonPopUp"/>
 			</a>

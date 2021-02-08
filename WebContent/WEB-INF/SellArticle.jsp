@@ -39,8 +39,7 @@
 				<textarea name="description" class="inputText" cols=35 rows=5 /></textarea>
 			<p>
 			<p class="labelProfil">Catégorie :</p>
-			<p>
-				<label class="lookForLabel">Catégories : </label> <select
+			<select
 					name="categories" id="category">
 					<c:forEach var="cat" items="${categories}">
 						<option value="${cat}">${cat}</option>
@@ -52,7 +51,7 @@
 <!-- 				</p> -->
 			<p>
 			<label for="startBid" class="labelProfil">Mise à prix :</label>
-			<input type="number" name="startBid" value="50"> points
+			<input type="number" name="startBid" size="6" value="50"> points
 			</p>
 			<p>
 			<label for="startDate" class="labelProfil">Début de l'enchère (jour et heure)</label>

@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="css/ClassStyle.css" type="text/css" />
 	<link rel="stylesheet" href="css/ButtonStyle.css" type="text/css" />
 	<link rel="stylesheet" href="css/GeneralStyle.css" type="text/css" />
-<title>Disconnected Home</title>
+<title>ENI-Enchères - Accueil</title>
 
 </head>
 
@@ -19,8 +19,6 @@
 	<header>
 		<%@include file="HeaderDisconnected.jspf" %>
 	</header>
-	
-	<body class="body">
 		
 		<div class="welcome"><br></div>
 			

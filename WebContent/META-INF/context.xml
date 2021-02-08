@@ -3,14 +3,18 @@
 
 	<Resource 
 		name="jdbc/pool_cnx" 
-		driverClassName="com.mysql.cj.jdbc.Driver" 
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
 		type="javax.sql.DataSource" 
-		url="jdbc:mysql://127.0.0.1/ENCHERES?serverTimezone=UTC&amp;zeroDateTimeBehavior=CONVERT_TO_NULL"
-		username="root" 
-		password="password" 
+		url="jdbc:sqlserver://localhost;databasename=ENCHERES"
+		username="betaUser" 
+		password="Pa$$w0rd" 
 		maxTotal="100" 
 		maxIdle="30" 
 		maxWaitMillis="10000" 
 	/> 
 
 </Context>
+
+<!-- DRIVER SQL : com.microsoft.sqlserver.jdbc.SQLServerDriver
+username="betaUser" 
+password="Pa$$w0rd"  -->
