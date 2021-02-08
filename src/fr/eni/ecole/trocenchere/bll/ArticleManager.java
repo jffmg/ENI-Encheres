@@ -1,5 +1,6 @@
 package fr.eni.ecole.trocenchere.bll;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +43,11 @@ public class ArticleManager {
 	public List<Article> displayArticlesConnected(String userName, String keyword, String category, String buyOrSell,
 			String checkBox, HttpServletRequest request) throws BusinessException {
 		return this.articleDao.displayArticlesConnected(userName, keyword, category, buyOrSell, checkBox, request);
+	}
+
+	public void sellArticle(int idSeller, String articleName, String articleDesc, String articleCat, Integer saleStartBid,
+			LocalDateTime saleStartDate, LocalDateTime saleEndDate, String pickUpStreet, String pickUpPostCode, String pickUpCity) throws BusinessException  {
+		
 	}
 
 }
