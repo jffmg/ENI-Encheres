@@ -254,12 +254,11 @@ a.link {
 }
 
 .divProfile{
-	padding:2em;
-	height: 50vh;
+	padding:1em;
+	height: 60vh;
 	width:40vw;
 	margin-right:30vw;
 	margin-left:30vw;
-	/*background-color: #84a4bc;*/
 }
 
 .labelProfil{
@@ -277,11 +276,31 @@ a.link {
 	background-color: #cacace;
 	border: 1px solid #ccc;
 	border-radius: 4px;
-	width:60vh;
+	width:30vw;
 	height:20vh;
 	padding:2em;
 	text-align: center;
 	position:fixed; 
   	top: 40%;
   	left: 37%;
+}
+
+.pickUpInfo{
+	padding : 1em;
+	width : 40vw;
+}
+
+.labelPickUpinfo{
+	width : 25%;
+	text-align: left;
+}
+
+.inputPickUpinfo{
+	width : 65%;
+}
+
+.labelSellArticleInfo{
+	width:50%;
+	text-align: left;
+	vertical-align: top;
 }

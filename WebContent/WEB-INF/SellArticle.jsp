@@ -22,81 +22,87 @@
 	
 	<div class="body">
 
-	<%@include file="Errors.jspf"%>
+		<div class="welcome">
+		</div>
+	
+		<%@include file="Errors.jspf"%>
 	
 
 	<h1 class="title">Nouvelle vente</h1>
 
 	<form
-		action="<%=request.getContextPath()%>/Connected/SellArticle?profile=${sessionScope.profile}"
+		action="<%=request.getContextPath()%>/Connected/SellArticle?profile=${sessionScope.user}"
 		method="POST">
 
 		<div class="divProfile container2">
 
-			<p>
-			<label for="name" class="labelProfil">Article :</label>
-			<input class="inputText" type="text" name="name" size=35 />
+			<p class="labelSellArticleInfo">
+				<label for="name">Article :</label>
+				<input class="inputText" type="text" name="name" size=35 />
 			</p>
-			<p><label for="description" class="labelProfil">Description :</label>
-			<textarea name="description" class="inputText" cols=35 rows=5 /></textarea>
-			</p>
-			<p>
-			<label class="labelProfil">Catégorie :</label>
-			<select
+			
+			<p class="labelSellArticleInfo">
+				<label>Catégorie :</label>
+				<select
 					name="categories" id="category">
 					<c:forEach var="cat" items="${categories}">
 						<option value="${cat}">${cat}</option>
 					</c:forEach>
 				</select>
-				</p>
+			</p>
+			<br>
+			
+			<p class="labelSellArticleInfo">
+				<label for="description">Description :</label>
+				<textarea name="description" class="inputText" rows=5 /></textarea>
+			</p>
+
 <!-- 			<p> -->
 <!-- 			<label for="articlePicture">Photo de l'article</label> -->
 <!-- 			<input type="file" name="articlePicture" id="articlePicture accept="image/png, image/jpeg""> -->
 <!--   <input type="submit"> -->
 <!-- 				</p> -->
-			<p>
-			<label for="startBid" class="labelProfil">Mise à prix :</label>
-			<input type="number" name="startBid" size="6" value="50"> points
-			</p>
-			<p>
-			<label for="startDate" class="labelProfil">Début de l'enchère (jour et heure)</label>
-			<input type="datetime-local" name="startDate">
-			</p>
-			<p>
-			<label for="endDate" class="labelProfil">Fin de l'enchère (jour et heure)</label>
-			<input type="datetime-local" name="endDate">
-			</p>
-			<fieldset>
-			<legend>Retrait</legend>
-			<p>
-			<label for="street" class="labelProfil">Rue :</label>
 			
-				<input class="inputText" type="text" name="street" size="50" value="${profile.getStreet()}"/>
+			<p class="labelSellArticleInfo">
+				<label for="startBid">Mise à prix :</label>
+				<input type="number" name="startBid" value="50" class="inputText"> points
 			</p>
-			<p>
-			<label for="postCode" class="labelProfil">Code postal :</label>
 			
-				<input class="inputText" type="text" name="postCode" size=6 value="${profile.getPostCode()}"/>
+			<p  class="labelSellArticleInfo">
+				<label for="startDate">Début de l'enchère (jour et heure)</label>
+				<input type="datetime-local" name="startDate">
 			</p>
-			<p>
-			<label for="city" class="labelProfil">Ville :</label>
 			
-				<input class="inputText" type="text" name="city" size=50 value="${profile.getCity()}"/>
+			<p class="labelSellArticleInfo">
+				<label for="endDate">Fin de l'enchère (jour et heure)</label>
+				<input type="datetime-local" name="endDate">
 			</p>
+			
+			<fieldset class="pickUpInfo container2">
+				<legend>Retrait</legend>
+
+				<p class="labelPickUpinfo">
+					<label for="street">Rue :</label>
+				</p>
+				<input class="inputPickUpinfo" type="text" name="street" value="${profile.getStreet()}"/><br>
+
+				<p class="labelPickUpinfo">
+					<label for="postCode">Code postal :</label>
+				</p>
+				<input class="inputPickUpinfo" type="text" name="postCode" value="${profile.getPostCode()}"/><br>
+
+				<p class="labelPickUpinfo">
+					<label for="city">Ville :</label>		
+				</p>
+				<input class="inputPickUpinfo" type="text" name="city" value="${profile.getCity()}"/><br>
 			</fieldset>
-			</div>
+			
+		</div>
 
-
-				<c:if test="${profile.getUser().equals(sessionScope.profile)}">
-					<div class="container3">
-						<input type="submit" id="submit" name="validate" value="Valider"
-							class="profileButton" /> <a
-							href="<%=request.getContextPath()%>/Connected/Home">
-							<input type="button" name="cancel" value="Annuler"
-							class="profileButton" />
-						</a>
-					</div>
-				</c:if>
+		<div>
+			<input type="submit" name="sellArticleButton" value="Mettre en vente" class="searchButton" />
+		</div>
+				
 	</form>
 
 	<footer class="footer" id="footerCell">

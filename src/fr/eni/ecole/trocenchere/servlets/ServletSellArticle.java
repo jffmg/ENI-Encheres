@@ -32,6 +32,8 @@ public class ServletSellArticle extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		System.out.println("doget - servlet sellArticle");
 
 		String profileName = request.getParameter("profile");
 
@@ -60,6 +62,8 @@ public class ServletSellArticle extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		System.out.println("dopost - servlet sellArticle");
 
 		String profileName = request.getParameter("profile");
 		LocalDateTime startDate = null;
