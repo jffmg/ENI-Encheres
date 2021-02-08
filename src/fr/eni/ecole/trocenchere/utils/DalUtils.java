@@ -80,6 +80,7 @@ public class DalUtils {
 	 * ARTICLES : SUPPORT METHODS
 	 */
 	
+	//basic Display (non connected & connedted w/o filters)
 	public static PreparedStatement basicDisplay(String keyword, int category, PreparedStatement pstmt, Connection cnx) throws SQLException {
 		
 		if (category == 0) {
