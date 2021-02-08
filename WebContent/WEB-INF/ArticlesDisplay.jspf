@@ -1,14 +1,22 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="ArticlesDisplay">
-				
+
 	<c:forEach var="element" items="${articlesSelected}">
 		<div class="divArticle">
 			<div class="articleName">
-				${element.getName()}
+				<c:choose>
+					<c:when test="${sessionScope.user!=null}">
+						<a href="<%=request.getContextPath()%>/ServletBid?articleName=${element.getName()}">${element.getName()}</a>
+					</c:when>
+					<c:otherwise>
+						<a href="<%=request.getContextPath()%>/ServletArticle?articleName=${element.getName()}">${element.getName()}</a>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="container2">
-				<img  class="articleImg" alt="Object" src="<%=request.getContextPath()%>/images/object_to_sale.jpg">
+				<img class="articleImg" alt="Object"
+					src="<%=request.getContextPath()%>/images/object_to_sale.jpg">
 				<div class="articleInfo">
 					Prix : ${element.getSalePrice()} point(s) <br>
 					Meilleure ench&egrave;re : 0 point(s)<br>
@@ -20,4 +28,4 @@
 			</div>
 		</div>
 	</c:forEach>
-</div>			
+</div>
