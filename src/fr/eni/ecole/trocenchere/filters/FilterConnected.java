@@ -39,13 +39,6 @@ public class FilterConnected implements Filter {
             return;
         }
         
-       /* boolean isCss = ((HttpServletRequest) request).getRequestURI().startsWith("/css/");
-        boolean isImages = ((HttpServletRequest) request).getRequestURI().startsWith("/images/");
-
-        if (isCss || isImages) { 
-            chain.doFilter(request, response);
-        } */
-
         // get session info
 		HttpSession session = ((HttpServletRequest) request).getSession();
 		String userName = (String) session.getAttribute("user");
