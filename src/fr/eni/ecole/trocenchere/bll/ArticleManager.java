@@ -50,4 +50,8 @@ public class ArticleManager {
 		
 	}
 
+	public void updateMaxBid(int sessionID, Integer myOffer) throws BusinessException {
+		
+	}
+
 }
