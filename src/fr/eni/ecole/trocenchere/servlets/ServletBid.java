@@ -79,7 +79,6 @@ String profileName = request.getParameter("profile");
 			am.updateMaxBid(sessionID, myOffer);
 		} catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
-			
 			System.out.println("erreur lors de la saisie de l'offre");
 		}
 		//Dispatch

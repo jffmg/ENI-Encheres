@@ -35,12 +35,14 @@
 
 			<h1 class="title">Nouvelle vente</h1>
 
-			<form
-				action="<%=request.getContextPath()%>/ServletSellArticle?profile=${sessionScope.profile}"
-				method="POST">
+	<form
+		action="<%=request.getContextPath()%>/ServletSellArticle?profile=${sessionScope.user}"
+		method="POST">
+		
+		
 
 				<div class="divProfile container2">
-
+		
 					<p>
 						<label for="name" class="labelProfil">Article :</label>
 						<input class="inputText" type="text" name="name" size=35 />
@@ -92,7 +94,7 @@
 				</div>
 
 
-				<c:if test="${profile.getUser().equals(sessionScope.profile)}">
+				<c:if test="${profile.getUser().equals(sessionScope.user)}">
 					<div class="container3">
 						<input type="submit" id="submit" name="validate" value="Valider"
 							class="profileButton" /> <a
@@ -108,5 +110,6 @@
 				<%@include file="Footer.jspf"%>
 			</footer>
 </div>
+
 </body>
 </html>
