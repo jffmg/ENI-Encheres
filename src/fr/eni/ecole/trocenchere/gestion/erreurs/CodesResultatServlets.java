@@ -9,6 +9,7 @@ public abstract class CodesResultatServlets {
 	 * User and password incorrect
 	 */
 	public static final int USER_PASSWORD_ERROR=30000;
+	public static final Integer FORMAT_DATETIME_ERROR = 30001;
 	
 	
 }

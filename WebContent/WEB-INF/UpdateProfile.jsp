@@ -11,7 +11,7 @@
 		<link rel="stylesheet" href="css/ClassStyle.css" type="text/css" />
 		<link rel="stylesheet" href="css/ButtonStyle.css" type="text/css" />
 		<link rel="stylesheet" href="css/GeneralStyle.css" type="text/css" />
-		<title>Profil</title>
+		<title>Modifier le profil</title>
 	</head>
 	
 <body>
@@ -26,8 +26,6 @@
 		</c:choose>
 		
 	</header>
-	
-	<body class="body">
 		
 		<div class="welcome"><br></div>
 	
@@ -57,10 +55,10 @@
 			<p class="labelProfil"> Rue : </p>
 			<p><input class="inputText" type="text" name="street" value="${profile.getStreet()}" size=35/> <p>
 
-			<p class="labelProfil"> Code Postale : </p>
+			<p class="labelProfil"> Code Postal : </p>
 			<p><input class="inputText" type="text" name="postCode" value="${profile.getPostCode()}" size=35/> <p>
 
-			<p class="labelProfil"> Code Ville : </p>
+			<p class="labelProfil"> Ville : </p>
 			<p><input class="inputText" type="text" name="city" value="${profile.getCity()}" size=35/> <p>
 			
 			<p class="labelProfil"> Nouveau mot de passe*: </p>
@@ -70,7 +68,7 @@
 			<p><input class="inputText" id="confirmPassword" type="password" name="confirmPassword" size=35 onkeyup="checkFunction()" required/> <p>
 			
 			<p class="asterisque">* Vous devez définir un nouveau mot de passe pour pouvoir valider les modifications de votre profil.
-			Celui-ci peut être identique à votre mot de passe actuel.</p>
+			Il peut être identique à votre mot de passe actuel.</p>
 			
 			<p class="labelProfil"></p>
 			<p><span id='message'></span><p>

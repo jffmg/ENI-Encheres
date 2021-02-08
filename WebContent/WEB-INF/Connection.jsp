@@ -14,7 +14,7 @@
 <title>Connexion</title>
 </head>
 
-<body class="body">
+<body>
 
 	<header class="header">
 		<%@include file="HeaderNC.jspf" %>

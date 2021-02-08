@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="css/ClassStyle.css" type="text/css" />
 <link rel="stylesheet" href="css/ButtonStyle.css" type="text/css" />
 <link rel="stylesheet" href="css/GeneralStyle.css" type="text/css" />
-<title>Connected Home</title>
+<title>ENI-Enchères - Accueil (${sessionScope.user})</title>
 
 </head>
 
@@ -20,11 +20,10 @@
 	<header>
 		<%@include file="HeaderConnected.jspf"%>
 	</header>
-<body class="body">
 
 	<div class="welcome">
 		<c:out value="${sessionScope.user}" />
-		est connecté.
+		est connecté(e)
 	</div>
 
 	<%@include file="Errors.jspf"%>
