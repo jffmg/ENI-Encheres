@@ -7,7 +7,7 @@
 	<div Style="width:50%"></div>
 	<div Style="width:40%" class="navbarLabelDiv">
 		<a class="navbarLabel" href="">Ench&egrave;res</a> 
-		<a class="navbarLabel" href="">Vendre un article</a>
+		<a class="navbarLabel" href="${pageContext.request.contextPath}/ServletSellArticle?profile=${sessionScope.user}">Vendre un article</a>
 		<a class="navbarLabel" href="${pageContext.request.contextPath}/ServletProfile?profile=${sessionScope.user}">Mon Profil</a> 
 		<a class="navbarLabel" href="${pageContext.request.contextPath}/ServletDeconnected">D&eacute;connexion</a>
 	</div>
