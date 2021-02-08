@@ -63,11 +63,14 @@
 			<p class="labelProfil"> Code Ville : </p>
 			<p><input class="inputText" type="text" name="city" value="${profile.getCity()}" size=35/> <p>
 			
-			<p class="labelProfil"> Nouveau mot de passe : </p>
-			<p><input class="inputText" id="newPassword" type="password" name="newPassword" size=35 onkeyup="checkFunction()"/> <p>
+			<p class="labelProfil"> Nouveau mot de passe*: </p>
+			<p><input class="inputText" id="newPassword" type="password" name="newPassword" size=35 onkeyup="checkFunction()" required/> <p>
 			
-			<p class="labelProfil"> Confirmation Nouveau mot de passe : </p>
-			<p><input class="inputText" id="confirmPassword" type="password" name="confirmPassword" size=35 onkeyup="checkFunction()"/> <p>
+			<p class="labelProfil"> Confirmation mot de passe*: </p>
+			<p><input class="inputText" id="confirmPassword" type="password" name="confirmPassword" size=35 onkeyup="checkFunction()" required/> <p>
+			
+			<p class="asterisque">* Vous devez définir un nouveau mot de passe pour pouvoir valider les modifications de votre profil.
+			Celui-ci peut être identique à votre mot de passe actuel.</p>
 			
 			<p class="labelProfil"></p>
 			<p><span id='message'></span><p>
