@@ -13,10 +13,13 @@
 }
 
 body {
+	background-color: #d0dae4;
+}
+
+.body {
 	display: flex;
 	flex-direction: column;
-/* 	background-color: #d0dae4; */
-background-color: yellow;
+	background-color: #d0dae4;
 }
 
 .header {
@@ -72,10 +75,9 @@ background-color: yellow;
 }
 
 .footer {
-	display: inline;
 	height: 2em;
 	width: 100vw;
-	background-color: #d0dae4;
+	background-color: #84a4bc;
 	/*background-color: blue;*/
 	font-size: 12px;
 	margin-top: 10vh;

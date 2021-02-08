@@ -14,7 +14,7 @@
 		<title>Inscription</title>
 	</head>
 
-	<body>
+	<body class="body">
 	
 		<header class="header">
 			<%@include file="HeaderNC.jspf" %>
@@ -77,7 +77,7 @@
 		</div>
 
 		<footer class="footer" id="footerCell">
-				<%@include file="Footer.jspf" %>
+			<%@include file="Footer.jspf" %>
 		</footer>
 
 	</body>

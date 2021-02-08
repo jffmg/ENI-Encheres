@@ -19,6 +19,8 @@
 	<header>
 		<%@include file="HeaderDisconnected.jspf" %>
 	</header>
+	
+	<div class="body">
 		
 		<div class="welcome"><br></div>
 			
@@ -49,11 +51,12 @@
 			
 			<%@include file="ArticlesDisplay.jspf" %>
 
-	</body>
+
 
 	<footer class="footer" id="footerCell">
 			<%@include file="Footer.jspf" %>
 	</footer>
 
+</div>
 </body>
 </html>
