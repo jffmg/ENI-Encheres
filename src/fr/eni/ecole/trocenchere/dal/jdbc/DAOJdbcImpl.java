@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -387,14 +388,20 @@ public class DAOJdbcImpl implements DAO {
 
 	public Article createArticleToSell(int userId, Article articleToSell) throws BusinessException {
 		PreparedStatement prepStmt = null;
+		//PreparedStatement st = null;
 		ResultSet rs = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_INSERT_ARTICLE);
-			DalUtils.prepareStatementSellArticle(prepStmt, articleToSell, userId);
-			rs = prepStmt.executeQuery();
-			if (rs.next()) {
-				articleToSell.setIdArticle(rs.getInt("no_article"));
+			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_INSERT_ARTICLE, PreparedStatement.RETURN_GENERATED_KEYS);
+			prepStmt = DalUtils.prepareStatementSellArticle(prepStmt, articleToSell, userId);
+			prepStmt.executeUpdate();
+			rs = prepStmt.getGeneratedKeys();
+			if(rs.next())
+			{
+				articleToSell.setIdArticle(rs.getInt(1));
 			}
+			/*if (rs.next()) {
+				articleToSell.setIdArticle(rs.getInt("no_article"));
+			}*/
 
 		} catch (SQLException e) {
 			BusinessException businessException = new BusinessException();
@@ -412,8 +419,9 @@ public class DAOJdbcImpl implements DAO {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_INSERT_PICKUP);
 			DalUtils.prepareStatementpickUp(prepStmt, pickUp, articleId);
-			rs = prepStmt.executeQuery();
-			if (rs.next()) {
+			int i = prepStmt.executeUpdate();
+			
+			if (i > 0) {
 				test=true;
 			}
 

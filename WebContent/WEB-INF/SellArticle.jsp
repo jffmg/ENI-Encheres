@@ -14,6 +14,28 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/GeneralStyle.css" type="text/css" />
 <title>ENI-Enchères - Vendre un article</title>
 </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link rel="stylesheet" href="css/ClassStyle.css" type="text/css" />
+		<link rel="stylesheet" href="css/ButtonStyle.css" type="text/css" />
+		<link rel="stylesheet" href="css/GeneralStyle.css" type="text/css" />
+		<title>ENI-Enchères - Vendre un article</title>
+	</head>
+
+	<body>
+   		<header>
+        	<c:choose>
+            	<c:when test="${sessionScope.user!=null}">
+                	<%@include file="HeaderConnected.jspf" %>
+            	</c:when> 
+            	<c:otherwise >
+					<%@include file="HeaderDisconnected.jspf" %>
+				</c:otherwise>
+			</c:choose>
+		</header>
+
+		<div class="body">
 
 <body>
 	<header>

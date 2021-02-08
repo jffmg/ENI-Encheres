@@ -54,7 +54,7 @@ public class ArticleManager {
 		BusinessException be = new BusinessException();
 		
 		// category from String to int
-		int idCategory = DalUtils.categoryStringToInteger(articleName);
+		int idCategory = DalUtils.categoryStringToInteger(articleCat);
 		
 		// check the end of sale date
 		boolean isSaleEndDateBeforeActualDate = false;

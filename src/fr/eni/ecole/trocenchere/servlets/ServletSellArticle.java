@@ -97,6 +97,8 @@ public class ServletSellArticle extends HttpServlet {
 
 		//format dates
 		try {
+			saleStartDate = saleStartDate.replace("T", " ");
+			saleEndDate = saleEndDate.replace("T", " ");
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 			startDate = LocalDateTime.parse(saleStartDate, dtf);
 			endDate = LocalDateTime.parse(saleEndDate, dtf);
@@ -114,11 +116,9 @@ public class ServletSellArticle extends HttpServlet {
 		} catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
 			System.out.println("erreur lors de la saisie du formulaire");
-			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/sellArticle.jsp");
-			rd.forward(request, response);
 			e.printStackTrace();
 		}
 		
-		request.getServletContext().getRequestDispatcher("/ServletConnectedHome?foo=get&profile=" + profileName).forward(request, response);
+		request.getServletContext().getRequestDispatcher("/ServletSelleArticle?profile=" + profileName).forward(request, response);
 	}
 }
