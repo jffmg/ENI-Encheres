@@ -128,7 +128,7 @@ public class DalUtils {
 	//article builder
 	public static Article articleBuilder(ResultSet rs) throws SQLException {
 		User user = buildUser(rs);
-		Article article = new Article(rs.getString("nom_article"), rs.getString("description"),
+		Article article = new Article(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"),
 				rs.getTimestamp("date_debut_enchere").toLocalDateTime(), rs.getTimestamp("date_fin_enchere").toLocalDateTime(),
 				rs.getInt("prix_initial"), rs.getString("etat_vente"), rs.getInt("no_categorie"), user, rs.getInt("no_utilisateur"));
 		

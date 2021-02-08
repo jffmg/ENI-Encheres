@@ -28,6 +28,7 @@ public interface DAO {
 			String buyOrSell, String checkBox, HttpServletRequest request) throws BusinessException;
 	
 	public abstract void createSellNewArticle(int userId, Article articleToSell, PickUp pickUp) throws BusinessException;
+	public abstract Article selectArticle(String articleID) throws BusinessException;
 
 	
 

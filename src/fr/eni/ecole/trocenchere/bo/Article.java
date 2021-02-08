@@ -157,8 +157,8 @@ public class Article implements Serializable {
 		this.idUser = idUser;
 	}
 
-		public Article(String name, String description, LocalDateTime bidStartDate, LocalDateTime bidEndDate, int startingBid,
-				String status, int idCategory, User user, int idUser) {
+	public Article(String name, String description, LocalDateTime bidStartDate, LocalDateTime bidEndDate,
+			int startingBid, String status, int idCategory, User user, int idUser) {
 		this.name = name;
 		this.description = description;
 		this.bidStartDate = bidStartDate;
@@ -169,9 +169,22 @@ public class Article implements Serializable {
 		this.user = user;
 		this.idUser = idUser;
 	}
-		
-		public Article(String name, String description, LocalDateTime bidStartDate, LocalDateTime bidEndDate, int startingBid,
-				String status, int idCategory, int idUser) {
+
+	public Article(String name, String description, LocalDateTime bidStartDate, LocalDateTime bidEndDate,
+			int startingBid, String status, int idCategory, int idUser) {
+		this.name = name;
+		this.description = description;
+		this.bidStartDate = bidStartDate;
+		this.bidEndDate = bidEndDate;
+		this.startingBid = startingBid;
+		this.status = status;
+		this.idCategory = idCategory;
+		this.idUser = idUser;
+	}
+
+	public Article(int idArticle, String name, String description, LocalDateTime bidStartDate,
+			LocalDateTime bidEndDate, int startingBid, String status, int idCategory, User user, int idUser) {
+		this.idArticle = idArticle;
 		this.name = name;
 		this.description = description;
 		this.bidStartDate = bidStartDate;

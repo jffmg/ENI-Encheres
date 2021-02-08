@@ -5,14 +5,7 @@
 	<c:forEach var="element" items="${articlesSelected}">
 		<div class="divArticle">
 			<div class="articleName">
-				<c:choose>
-					<c:when test="${sessionScope.user!=null}">
-						<a href="<%=request.getContextPath()%>/ServletBid?articleName=${element.getName()}">${element.getName()}</a>
-					</c:when>
-					<c:otherwise>
-						<a href="<%=request.getContextPath()%>/ServletArticle?articleName=${element.getName()}">${element.getName()}</a>
-					</c:otherwise>
-				</c:choose>
+						<a href="<%=request.getContextPath()%>/Bid?articleID=${element.getIdArticle()}&profile=${sessionScope.user}">${element.getName()}</a>
 			</div>
 			<div class="container2">
 				<img class="articleImg" alt="Object"

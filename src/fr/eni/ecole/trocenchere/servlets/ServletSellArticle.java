@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 //import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.ecole.trocenchere.bll.ArticleManager;
 import fr.eni.ecole.trocenchere.bll.UserManager;
@@ -89,13 +90,13 @@ public class ServletSellArticle extends HttpServlet {
 			hasError=true;
 		}
 
-		//HttpSession session = request.getSession();
-		//String userName = (String) session.getAttribute("user");
+		HttpSession session = request.getSession();
+		String userName = (String) session.getAttribute("user");
 		User profile=null;
 		UserManager um = new UserManager();
 		
 		try {
-			profile = um.selectUser(profileName);
+			profile = um.selectUser(userName);
 		}
 		catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);

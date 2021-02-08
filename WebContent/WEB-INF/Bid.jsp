@@ -27,7 +27,8 @@
 	    </header>
 
     	<div class="body">
-
+		
+		
         	<div class="welcome"><br></div>
 
        		<%@include file="Errors.jspf" %>
@@ -37,22 +38,22 @@
 			<div class="divProfile container2">
 
 				<img  class="articleImg" alt="Object" src="<%=request.getContextPath()%>/images/object_to_sale.jpg">
-				<p>${article.getName()}</p>
+				<p>${currentArticle.getName()}</p>
 				<p class="labelProfil">Description :</p>
-				<p>${article.getDescription()}</p>
-				<p>
-					<label class="labelProfil">Catégorie :</label>
+				<p>${currentArticle.getDescription()}</p>
+				<p class="labelProfil">Catégorie</p>
+				<!-- 	<label class="labelProfil">Catégorie :</label>
 					<select name="categories" id="category">
 						<c:forEach var="cat" items="${categories}">
 							<option value="${cat}">${cat}</option>
 						</c:forEach>
-					</select>
-				</p>
+					</select> -->
+				<p>${currentArticle.getIdCategory()}</p>
 				<p>Meilleure offre : </p>
-				<p class="labelProfil">Mise à prix : ${article.getStartingBid()} points</p>
-				<p> Fin de l'enchère : ${article.getBidEndDate()}</p>
+				<p class="labelProfil">Mise à prix : ${currentArticle.getStartingBid()} points</p>
+				<p> Fin de l'enchère : ${currentArticle.getBidEndDate()}</p>
 				<p> Retrait </p>
-				<p>Vendeur : ${article.getUser().getUser()}</p>
+				<p>Vendeur : ${currentArticle.getUser().getUser()}</p>
 			</div>
 
 			<form action="<%=request.getContextPath()%>/Connected/Bid" method="post">

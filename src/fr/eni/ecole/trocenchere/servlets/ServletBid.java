@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.trocenchere.bll.ArticleManager;
 import fr.eni.ecole.trocenchere.bll.UserManager;
+import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 import fr.eni.ecole.trocenchere.utils.ServletUtils;
@@ -18,7 +19,7 @@ import fr.eni.ecole.trocenchere.utils.ServletUtils;
 /**
  * Servlet implementation class ServletBid
  */
-@WebServlet("/Connected/Bid")
+@WebServlet("/Bid")
 public class ServletBid extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -28,6 +29,7 @@ public class ServletBid extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String profileName = request.getParameter("profile");
+		String articleID = request.getParameter("articleID");
 		
 		System.out.println("je passe dans la ServletBid - doGet / profile name : " + profileName );
 		
@@ -42,7 +44,18 @@ public class ServletBid extends HttpServlet {
 			ServletUtils.handleBusinessException(e, request);
 		}
 		
+		ArticleManager articleManager = new ArticleManager();
+		Article currentArticle = null;
+		
+		try {
+			currentArticle = articleManager.selectArticle(articleID);
+		}
+		catch (BusinessException e) {
+			ServletUtils.handleBusinessException(e, request);
+		}
+		
 		request.getServletContext().setAttribute("profile", profile);
+		request.getServletContext().setAttribute("currentArticle", currentArticle);
 		//System.out.println("Ville du profile : " + profile.getCity());
 
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Bid.jsp");

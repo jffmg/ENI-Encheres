@@ -57,9 +57,9 @@ public class ArticleManager {
 		int idCategory = DalUtils.categoryStringToInteger(articleCat);
 		
 		// check the end of sale date
-		boolean isSaleEndDateBeforeActualDate = false;
-		isSaleEndDateBeforeActualDate = checkUser(saleEndDate);
-		if (isSaleEndDateBeforeActualDate == true) {
+		boolean datesAreOkay = false;
+		datesAreOkay = checkDates(saleEndDate, saleStartDate);
+		if (datesAreOkay == true) {
 			be.ajouterErreur(CodesResultatBLL.SALE_END_DATE);
 			System.out.println(CodesResultatBLL.SALE_END_DATE);
 		}
@@ -85,13 +85,23 @@ public class ArticleManager {
 			throw be;
 		}
 	}
-	private boolean checkUser(LocalDateTime saleEndDate) {
+	private boolean checkDates(LocalDateTime saleEndDate, LocalDateTime saleStartDate) {
+		boolean datesAreOkay = true;
 		boolean isSaleEndDateBeforeActualDate = saleEndDate.isBefore(LocalDateTime.now());
-		return isSaleEndDateBeforeActualDate;
+		boolean isSaleStartDateBeforeEndDate = saleStartDate.isBefore(saleEndDate);
+		if (!isSaleEndDateBeforeActualDate || !isSaleStartDateBeforeEndDate) {
+			datesAreOkay = false;
+		}
+		
+		return datesAreOkay;
 	}
 
 	public void updateMaxBid(int sessionID, Integer myOffer) throws BusinessException {
 		
+	}
+
+	public Article selectArticle(String articleID) throws BusinessException {
+		return this.articleDao.selectArticle(articleID);
 	}
 
 }

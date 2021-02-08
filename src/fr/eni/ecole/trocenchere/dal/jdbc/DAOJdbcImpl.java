@@ -225,6 +225,27 @@ public class DAOJdbcImpl implements DAO {
 		return articlesSelected;
 	}
 
+	
+	@Override
+	public Article selectArticle(String articleID) throws BusinessException {
+		Article article = null;
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_ARTICLE_BY_ID);
+			prepStmt.setString(1, articleID);
+			rs = prepStmt.executeQuery();
+			if (rs.next()) {
+				article = DalUtils.articleBuilder(rs);
+			}
+		} catch (SQLException e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
+			e.printStackTrace();
+			throw businessException;
+		}
+		return article;
+	}
 
 
 	// method to display articles with filters (Non Connected)
@@ -446,4 +467,6 @@ public class DAOJdbcImpl implements DAO {
 			throw businessException;
 		}			
 	}
+
+	
 }

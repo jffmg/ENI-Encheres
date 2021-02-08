@@ -67,12 +67,15 @@ public class SQL_REQUESTS_Utils {
 			+ "INNER JOIN UTILISATEURS as u ON a.no_utilisateur = u.no_utilisateur WHERE u.pseudo = ? AND a.etat_vente = ? AND no_categorie = ? AND a.nom_article LIKE CONCAT( '%',?,'%')";
 
 	public static final String SQL_DISABLE_USER = "UPDATE UTILISATEURS SET ACTIF = 0 WHERE pseudo=?";
-	
+
 	public static final String SQL_INSERT_ARTICLE = "INSERT INTO articles_vendus(nom_article, description, date_debut_enchere, "
 			+ "date_fin_enchere, prix_initial, no_utilisateur, no_categorie, etat_vente) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-	
-	public static final String SQL_INSERT_PICKUP= "INSERT INTO retraits(no_article, rue, code_postal, ville) VALUES (?, ?, ?, ?)";
-	
-	public static final String SQL_DELETE_ARTICLE ="DELETE FROM articles_vendus WHERE no_article = ?";
+
+	public static final String SQL_INSERT_PICKUP = "INSERT INTO retraits(no_article, rue, code_postal, ville) VALUES (?, ?, ?, ?)";
+
+	public static final String SQL_DELETE_ARTICLE = "DELETE FROM articles_vendus WHERE no_article = ?";
+	public static final String SQL_SELECT_ARTICLE_BY_ID = "SELECT * FROM ARTICLES_VENDUS as a \r\n"
+			+ "INNER JOIN UTILISATEURS as u ON u.no_utilisateur = a.no_utilisateur\r\n"
+			+ "WHERE a.no_article = ?;";
 
 }
