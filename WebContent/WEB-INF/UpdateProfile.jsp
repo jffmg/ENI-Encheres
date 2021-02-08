@@ -8,9 +8,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1">
-		<link rel="stylesheet" href="css/ClassStyle.css" type="text/css" />
-		<link rel="stylesheet" href="css/ButtonStyle.css" type="text/css" />
-		<link rel="stylesheet" href="css/GeneralStyle.css" type="text/css" />
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/ClassStyle.css" type="text/css" />
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/ButtonStyle.css" type="text/css" />
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/GeneralStyle.css" type="text/css" />
 		<title>Modifier le profil</title>
 	</head>
 	

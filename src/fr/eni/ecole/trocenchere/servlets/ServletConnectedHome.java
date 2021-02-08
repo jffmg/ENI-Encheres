@@ -21,11 +21,10 @@ import fr.eni.ecole.trocenchere.utils.ServletUtils;
 /**
  * Servlet implementation class ServletConnectedHome
  */
-@WebServlet("/ServletConnectedHome")
+@WebServlet("/connected/Home")
 public class ServletConnectedHome extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static List<Integer> listeCodesErreur = new ArrayList<>();
-
+	
 	@Override
 	public void init() throws ServletException {
 		// getting the object CATEGORIES so they're available in the servlet
@@ -43,13 +42,6 @@ public class ServletConnectedHome extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// check if user is connected
-		HttpSession session = request.getSession();
-		String userName = (String) session.getAttribute("user");
-		System.out.println("Session of " + userName);
-		if (userName != null) {
-
-			// display Connected Home screen
 
 			// displaying articles (default: no keyword, category Toutes)
 			String categorySelected = "";
@@ -65,11 +57,6 @@ public class ServletConnectedHome extends HttpServlet {
 			request.getServletContext().setAttribute("articlesSelected", articlesSelected);
 
 			this.getServletContext().getRequestDispatcher("/WEB-INF/ConnectedHome.jsp").forward(request, response);
-
-			// if user is not connected, dispatch to NonConnectedHome
-		} else {
-			this.getServletContext().getRequestDispatcher("/ServletNonConnectedHome").forward(request, response);
-		}
 	}
 
 	/**
