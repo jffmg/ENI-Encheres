@@ -399,9 +399,6 @@ public class DAOJdbcImpl implements DAO {
 			{
 				articleToSell.setIdArticle(rs.getInt(1));
 			}
-			/*if (rs.next()) {
-				articleToSell.setIdArticle(rs.getInt("no_article"));
-			}*/
 
 		} catch (SQLException e) {
 			BusinessException businessException = new BusinessException();
