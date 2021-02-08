@@ -25,7 +25,7 @@
 	<h1 class="title">Nouvelle vente</h1>
 
 	<form
-		action="<%=request.getContextPath()%>/ServletSellArticle?profile=${sessionScope.user}"
+		action="<%=request.getContextPath()%>/ServletSellArticle?profile=${sessionScope.profile}"
 		method="POST">
 
 		<div class="divProfile container2">
@@ -65,20 +65,20 @@
 			<legend>Retrait</legend>
 			<label for="street" class="labelProfil">Rue :</label>
 			<p>
-				<input class="inputText" type="text" name="street" size="50" value="${user.getStreet()}"/>
+				<input class="inputText" type="text" name="street" size="50" value="${profile.getStreet()}"/>
 			<p>
 			<label for="postCode" class="labelProfil">Code postal :</label>
 			<p>
-				<input class="inputText" type="text" name="postCode" size=6 value="${user.getPostCode()}"/>
+				<input class="inputText" type="text" name="postCode" size=6 value="${profile.getPostCode()}"/>
 			<p>
 			<label for="city" class="labelProfil">Ville :</label>
 			<p>
-				<input class="inputText" type="text" name="city" size=50 value="${user.getCity()}"/>
+				<input class="inputText" type="text" name="city" size=50 value="${profile.getCity()}"/>
 			<p>
 			</fieldset>
 
 
-				<c:if test="${profile.getUser().equals(sessionScope.user)}">
+				<c:if test="${profile.getUser().equals(sessionScope.profile)}">
 					<div class="container3">
 						<input type="submit" id="submit" name="validate" value="Valider"
 							class="profileButton" /> <a
