@@ -110,7 +110,7 @@ public class ServletUpdateProfile extends HttpServlet {
 			
 			profileName = profile.getUser();
 			
-			System.out.println("je dois avoir modifier le profile");
+			System.out.println("je dois avoir modifier le profil");
 			
 		} catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);

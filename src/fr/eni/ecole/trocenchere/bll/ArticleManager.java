@@ -90,4 +90,8 @@ public class ArticleManager {
 		return isSaleEndDateBeforeActualDate;
 	}
 
+	public void updateMaxBid(int sessionID, Integer myOffer) throws BusinessException {
+		
+	}
+
 }
