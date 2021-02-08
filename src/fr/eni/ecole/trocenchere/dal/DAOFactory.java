@@ -17,5 +17,10 @@ public abstract class DAOFactory {
 		return dao;
 	}
 	
+	public static DAO getPickUpInfo() {
+		dao = new DAOJdbcImpl();
+		return dao;
+	}
+	
 }
 

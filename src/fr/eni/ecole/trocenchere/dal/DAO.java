@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import fr.eni.ecole.trocenchere.bo.Article;
+import fr.eni.ecole.trocenchere.bo.PickUp;
 import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 
@@ -25,6 +26,8 @@ public interface DAO {
 
 	public abstract List<Article> displayArticlesConnected(String userName, String keyword, String category,
 			String buyOrSell, String checkBox, HttpServletRequest request) throws BusinessException;
+	
+	public abstract void createSellNewArticle(int userId, Article articleToSell, PickUp pickUp) throws BusinessException;
 
 	
 

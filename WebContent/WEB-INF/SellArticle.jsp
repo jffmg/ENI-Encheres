@@ -30,23 +30,25 @@
 
 		<div class="divProfile container2">
 
+			<p>
 			<label for="name" class="labelProfil">Article :</label>
+			<input class="inputText" type="text" name="name" size=35 />
+			</p>
+			<p><label for="description" class="labelProfil">Description :</label>
+			<textarea name="description" class="inputText" cols=35 rows=5 /></textarea>
+			</p>
 			<p>
-				<input class="inputText" type="text" name="name" size=35 />
-			<p>
-			<p class="labelProfil">Description :</p>
-			<p>
-				<textarea name="description" class="inputText" cols=35 rows=5 /></textarea>
-			<p>
-			<p class="labelProfil">Catégorie :</p>
+			<label class="labelProfil">Catégorie :</label>
 			<select
 					name="categories" id="category">
 					<c:forEach var="cat" items="${categories}">
 						<option value="${cat}">${cat}</option>
 					</c:forEach>
 				</select>
+				</p>
 <!-- 			<p> -->
-<!-- 			<input type="file" name="articlePicture" id="articlePicture"> -->
+<!-- 			<label for="articlePicture">Photo de l'article</label> -->
+<!-- 			<input type="file" name="articlePicture" id="articlePicture accept="image/png, image/jpeg""> -->
 <!--   <input type="submit"> -->
 <!-- 				</p> -->
 			<p>
@@ -63,19 +65,23 @@
 			</p>
 			<fieldset>
 			<legend>Retrait</legend>
-			<label for="street" class="labelProfil">Rue :</label>
 			<p>
+			<label for="street" class="labelProfil">Rue :</label>
+			
 				<input class="inputText" type="text" name="street" size="50" value="${profile.getStreet()}"/>
+			</p>
 			<p>
 			<label for="postCode" class="labelProfil">Code postal :</label>
-			<p>
+			
 				<input class="inputText" type="text" name="postCode" size=6 value="${profile.getPostCode()}"/>
+			</p>
 			<p>
 			<label for="city" class="labelProfil">Ville :</label>
-			<p>
+			
 				<input class="inputText" type="text" name="city" size=50 value="${profile.getCity()}"/>
-			<p>
+			</p>
 			</fieldset>
+			</div>
 
 
 				<c:if test="${profile.getUser().equals(sessionScope.profile)}">
