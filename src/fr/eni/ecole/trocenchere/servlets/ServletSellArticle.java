@@ -63,6 +63,8 @@ public class ServletSellArticle extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		boolean hasError = false;
+		
 		System.out.println("dopost - servlet sellArticle");
 
 		String profileName = request.getParameter("profile");
@@ -80,6 +82,12 @@ public class ServletSellArticle extends HttpServlet {
 		String pickUpStreet = request.getParameter("street");
 		String pickUpPostCode = request.getParameter("postCode");
 		String pickUpCity = request.getParameter("city");
+		
+		//Error category
+		if ("Toutes".equals(articleCat)) {
+			listeCodesErreur.add(CodesResultatServlets.CATEGORY_MISSING_ERROR);
+			hasError=true;
+		}
 
 		//HttpSession session = request.getSession();
 		//String userName = (String) session.getAttribute("user");
@@ -91,6 +99,7 @@ public class ServletSellArticle extends HttpServlet {
 		}
 		catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
+			hasError=true;
 		}
 				
 		//get session data
@@ -107,6 +116,7 @@ public class ServletSellArticle extends HttpServlet {
 		} catch (DateTimeParseException e) {
 			e.printStackTrace();
 			listeCodesErreur.add(CodesResultatServlets.FORMAT_DATETIME_ERROR);
+			hasError=true;
 		}
 
 		// create Article
@@ -118,8 +128,17 @@ public class ServletSellArticle extends HttpServlet {
 			ServletUtils.handleBusinessException(e, request);
 			System.out.println("erreur lors de la saisie du formulaire");
 			e.printStackTrace();
+			hasError=true;
 		}
 		
-		request.getServletContext().getRequestDispatcher("/Connected/SellArticle?profile=" + profileName).forward(request, response);
+		if (hasError) {
+			request.setAttribute("listeCodesErreur", listeCodesErreur);
+		}
+		else {
+			String message = "Votre vente a bien été ajoutée";
+			request.getServletContext().setAttribute("message", message);
+		}
+		
+		this.doGet(request, response);
 	}
 }

@@ -26,6 +26,9 @@
 		</div>
 	
 		<%@include file="Errors.jspf"%>
+		<c:if test="${message!=null}">
+			<p style="color:green">${message}</p>
+		</c:if>
 	
 
 	<h1 class="title">Nouvelle vente</h1>
@@ -38,13 +41,13 @@
 
 			<p class="labelSellArticleInfo">
 				<label for="name">Article :</label>
-				<input class="inputText" type="text" name="name" size=35 />
+				<input class="inputText" type="text" name="name" autofocus="autofocus"  required="required"/>
 			</p>
 			
 			<p class="labelSellArticleInfo">
 				<label>Catégorie :</label>
 				<select
-					name="categories" id="category">
+					name="categories" id="category" required="required">
 					<c:forEach var="cat" items="${categories}">
 						<option value="${cat}">${cat}</option>
 					</c:forEach>
@@ -54,7 +57,7 @@
 			
 			<p class="labelSellArticleInfo">
 				<label for="description">Description :</label>
-				<textarea name="description" class="inputText" rows=5 /></textarea>
+				<textarea name="description" class="inputText" rows=5 required="required"/></textarea>
 			</p>
 
 <!-- 			<p> -->
@@ -70,12 +73,12 @@
 			
 			<p  class="labelSellArticleInfo">
 				<label for="startDate">Début de l'enchère (jour et heure)</label>
-				<input type="datetime-local" name="startDate">
+				<input type="datetime-local" name="startDate" required="required">
 			</p>
 			
 			<p class="labelSellArticleInfo">
 				<label for="endDate">Fin de l'enchère (jour et heure)</label>
-				<input type="datetime-local" name="endDate">
+				<input type="datetime-local" name="endDate" required="required">
 			</p>
 			
 			<fieldset class="pickUpInfo container2">
