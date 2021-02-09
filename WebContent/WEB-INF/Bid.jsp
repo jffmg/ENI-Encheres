@@ -75,11 +75,19 @@
 				<p class= "infoProfil">Vendeur : ${currentArticle.getUser().getUser()}</p>
 			</div>
 			<form action="<%=request.getContextPath()%>/Bid?startingBid=${currentArticle.getStartingBid()}&articleID=${currentArticle.getIdArticle()}&currentOffer=${currentArticle.getSalePrice()}&profile=${sessionScope.user}" method="post">
-				<c:if test="${profile.getUser().equals(sessionScope.user)}">
+				<c:if test="${!currentArticle.getUser().getUser().equals(sessionScope.user)}">
 					<div class="container3">
 						<label for="myOffer">Mon offre :</label>
-						<input type="number" name="myOffer" step="1" min="${currentArticle.getSalePrice()}" value="${currentArticle.getSalePrice()}"> point(s)
+						<input style="height:2em" type="number" name="myOffer" step="1" min="${currentArticle.getSalePrice()}" value="${currentArticle.getSalePrice()}"> point(s)
 						<input type="submit" id="submit" name="validate" value="Enchérir" class="profileButton" />
+					</div>
+				</c:if>
+			</form>
+			
+			<form action="<%=request.getContextPath()%>/Bid?startingBid=${currentArticle.getStartingBid()}&articleID=${currentArticle.getIdArticle()}&currentOffer=${currentArticle.getSalePrice()}&profile=${sessionScope.user}" method="post">
+				<c:if test="${currentArticle.getUser().getUser().equals(sessionScope.user) && hasAuctionStarted == false}">
+					<div class="container3">
+						<input type="submit" id="submit" name="validate" value="Modifier ma vente" class="profileButton" />
 					</div>
 				</c:if>
 			</form>

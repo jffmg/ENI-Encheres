@@ -1,6 +1,7 @@
 package fr.eni.ecole.trocenchere.servlets;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,7 @@ public class ServletBid extends HttpServlet {
 		System.out.println("currentArticle nom : " + currentArticle.getName());
 		
 		LocalDateTime endDate = currentArticle.getBidEndDate();
+		LocalDateTime startDate = currentArticle.getBidStartDate();
 		
 		String endDateString = DalUtils.dateFormatterDateToString(endDate);
 		
@@ -69,6 +71,15 @@ public class ServletBid extends HttpServlet {
 		request.getServletContext().setAttribute("endDateString", endDateString);
 		request.getServletContext().setAttribute("articleID", articleID);
 		//System.out.println("Ville du profile : " + profile.getCity());
+		
+		// Parameter : test is auction has started or not yet
+		boolean hasAuctionStarted = true;
+		LocalDateTime now = LocalDateTime.now();
+		if(now.isBefore(startDate)) {
+			hasAuctionStarted = false;
+		}
+		
+		request.getServletContext().setAttribute("hasAuctionStarted", hasAuctionStarted);
 
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Bid.jsp");
 		rd.forward(request, response);
