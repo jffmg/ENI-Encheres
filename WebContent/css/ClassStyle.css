@@ -244,6 +244,11 @@ a.link {
 	text-decoration: underline;
 }
 
+.divImg {
+	display: flex;
+	justify-content: center;
+}
+
 .articleImg{
 	width:7em;
 }
