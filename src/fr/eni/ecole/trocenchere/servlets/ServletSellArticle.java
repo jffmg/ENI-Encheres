@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.eni.ecole.trocenchere.bll.ArticleManager;
 import fr.eni.ecole.trocenchere.bll.UserManager;
+import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 import fr.eni.ecole.trocenchere.gestion.erreurs.CodesResultatServlets;
@@ -36,33 +37,30 @@ public class ServletSellArticle extends HttpServlet {
 		
 		System.out.println("doget - servlet sellArticle");
 
-		String profileName = request.getParameter("profile");
+		manageProfile(request);
 
-		System.out.println("je passe dans la ServletSellArticle - doGet / profilename : " + profileName);
+		String articleID = request.getParameter("articleID");
+		
+		System.out.println("je passe dans la ServletSellArticle - doget / articleID : " + articleID);
+		
+		System.out.println("message: " + request.getParameter("message"));
+		System.out.println("message: " + request.getServletContext().getAttribute("message"));
+		System.out.println("message: " + request.getAttribute("message"));
+		System.out.println("message: " + request.getSession().getAttribute("message"));
 
-		// User - link to data base
-		UserManager userManager = new UserManager();
-		User profile = null;
-
-		try {
-			profile = userManager.selectUser(profileName);
-		} catch (BusinessException e) {
-			ServletUtils.handleBusinessException(e, request);
-		}
-
-		request.getServletContext().setAttribute("profile", profile);
-		// System.out.println("Ville du profile : " + profile.getCity());
+		manageArticle(request, articleID);
 
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/SellArticle.jsp");
 		rd.forward(request, response);
 	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException {		
 		
 		boolean hasError = false;
 		
@@ -74,6 +72,7 @@ public class ServletSellArticle extends HttpServlet {
 		List<Integer> listeCodesErreur = new ArrayList<>();
 
 		// Get parameters
+		String articleId = request.getParameter("articleId");
 		String articleName = request.getParameter("name");
 		String articleDesc = request.getParameter("description");
 		String articleCat = request.getParameter("categories");
@@ -119,12 +118,19 @@ public class ServletSellArticle extends HttpServlet {
 			listeCodesErreur.add(CodesResultatServlets.FORMAT_DATETIME_ERROR);
 			hasError=true;
 		}
-
+		
 		// create Article
 		try {
 			ArticleManager am = new ArticleManager();
-			am.sellArticle(idSeller, articleName, articleDesc, articleCat, saleStartBid, startDate, endDate,
+			
+			if (articleId == null) {
+				am.sellArticle(idSeller, articleName, articleDesc, articleCat, saleStartBid, startDate, endDate,
 					pickUpStreet, pickUpPostCode, pickUpCity);
+			}
+			else {
+				am.updateArticle(articleId, idSeller, articleName, articleDesc, articleCat, saleStartBid, startDate, endDate,
+						pickUpStreet, pickUpPostCode, pickUpCity);
+			}
 		} catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
 			System.out.println("erreur lors de la saisie du formulaire");
@@ -137,9 +143,56 @@ public class ServletSellArticle extends HttpServlet {
 		}
 		else {
 			String message = "Votre vente a bien été ajoutée";
+			if (articleId != null) {
+				message = "Votre vente a bien été mise à jour";
+			}
 			request.getServletContext().setAttribute("message", message);
 		}
 		
-		this.doGet(request, response);
+		if (articleId == null) {
+			this.doGet(request, response);
+		}
+		else {
+			manageArticle(request, articleId);
+			
+			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/SellArticle.jsp");
+			rd.forward(request, response);
+		}
 	}
+	
+	/*
+	* functions
+	*/
+	private void manageProfile(HttpServletRequest request) {
+		String profileName = request.getParameter("profile");
+
+		System.out.println("je passe dans la ServletSellArticle - doGet / profilename : " + profileName);
+
+		// User - link to data base
+		UserManager userManager = new UserManager();
+		User profile = null;
+
+		try {
+			profile = userManager.selectUser(profileName);
+		} catch (BusinessException e) {
+			ServletUtils.handleBusinessException(e, request);
+		}
+
+		request.getServletContext().setAttribute("profile", profile);
+		// System.out.println("Ville du profile : " + profile.getCity());
+	}
+	
+	private void manageArticle(HttpServletRequest request, String articleID) {
+		ArticleManager am = new ArticleManager();
+		Article article = null;
+
+		try {
+			article = am.selectArticle(articleID);
+		} catch (BusinessException e) {
+			ServletUtils.handleBusinessException(e, request);
+		}
+
+		request.getServletContext().setAttribute("article", article);
+	}
+	
 }

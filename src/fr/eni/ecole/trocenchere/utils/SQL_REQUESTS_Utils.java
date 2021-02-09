@@ -86,6 +86,9 @@ public class SQL_REQUESTS_Utils {
 	public static final String SQL_INSERT_ARTICLE = "INSERT INTO articles_vendus(nom_article, description, date_debut_enchere, "
 			+ "date_fin_enchere, prix_initial, no_utilisateur, no_categorie, etat_vente) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
+	public static final String SQL_UPDATE_ARTICLE = "UPDATE articles_vendus SET nom_article = ?, description = ?, date_debut_enchere = ?, "
+			+ "date_fin_enchere = ?, prix_initial = ?, no_categorie = ?, etat_vente = ? WHERE no_article = ?";
+
 	public static final String SQL_INSERT_PICKUP = "INSERT INTO retraits(no_article, rue, code_postal, ville) VALUES (?, ?, ?, ?)";
 
 	public static final String SQL_DELETE_ARTICLE = "DELETE FROM articles_vendus WHERE no_article = ?";

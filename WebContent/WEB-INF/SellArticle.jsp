@@ -3,6 +3,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page
 	import="fr.eni.ecole.trocenchere.gestion.erreurs.LecteurMessage"%>
+<%@ page
+	import="fr.eni.ecole.trocenchere.utils.DalUtils"%>
 <!DOCTYPE html>
 
 <html>
@@ -31,7 +33,15 @@
 		</c:if>
 	
 
-	<h1 class="title">Nouvelle vente</h1>
+	<c:choose>
+		<c:when test="${article==null}">
+				<h1 class="title">Nouvelle vente</h1>
+		</c:when>
+		<c:otherwise>
+				<h1 class="title">Modifier ma vente</h1>
+		</c:otherwise>
+	</c:choose>
+	
 
 	<form
 		action="<%=request.getContextPath()%>/Connected/SellArticle?profile=${sessionScope.user}"
@@ -39,9 +49,11 @@
 
 		<div class="divProfile container2">
 
+			<input type="hidden" name="articleId" value='${article != null ? article.getIdArticle() : ""}'/>
+				
 			<p class="labelSellArticleInfo">
 				<label for="name">Article :</label>
-				<input class="inputText" type="text" name="name" autofocus="autofocus"  required="required"/>
+				<input class="inputText" type="text" name="name" autofocus="autofocus"  required="required" value='${article != null ? article.getName() : ""}'/>
 			</p>
 			
 			<p class="labelSellArticleInfo">
@@ -49,7 +61,7 @@
 				<select
 					name="categories" id="category" required="required">
 					<c:forEach var="cat" items="${categories}">
-						<option value="${cat}">${cat}</option>
+						<option value="${cat}" ${article != null && DalUtils.categoryIntToString(article.getIdCategory()).equals(cat) ? "selected='true'" : ""}>${cat}</option>
 					</c:forEach>
 				</select>
 			</p>
@@ -57,7 +69,7 @@
 			
 			<p class="labelSellArticleInfo">
 				<label for="description">Description :</label>
-				<textarea name="description" class="inputText" rows=5 required="required"/></textarea>
+				<textarea name="description" class="inputText" rows=5 required="required"/>${article != null ? article.getDescription() : ""}</textarea>
 			</p>
 
 <!-- 			<p> -->
@@ -68,17 +80,17 @@
 			
 			<p class="labelSellArticleInfo">
 				<label for="startBid">Mise à prix :</label>
-				<input type="number" name="startBid" value="50" class="inputText"> points
+				<input type="number" name="startBid" value='${article != null ? article.getStartingBid() : "50"}' class="inputText"> points
 			</p>
 			
 			<p  class="labelSellArticleInfo">
 				<label for="startDate">Début de l'enchère (jour et heure)</label>
-				<input type="datetime-local" name="startDate" required="required">
+				<input type="datetime-local" name="startDate" required="required" value='${article != null ? article.getBidStartDate() : ""}'>
 			</p>
 			
 			<p class="labelSellArticleInfo">
 				<label for="endDate">Fin de l'enchère (jour et heure)</label>
-				<input type="datetime-local" name="endDate" required="required">
+				<input type="datetime-local" name="endDate" required="required" value='${article != null ? article.getBidEndDate() : ""}'>
 			</p>
 			
 			<fieldset class="pickUpInfo container2">
@@ -103,7 +115,7 @@
 		</div>
 
 		<div>
-			<input type="submit" name="sellArticleButton" value="Mettre en vente" class="searchButton" />
+			<input type="submit" name="sellArticleButton" value="${article == null ? "Mettre en vente" : "Modifier ma vente"}" class="searchButton" />
 		</div>
 				
 	</form>
