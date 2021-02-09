@@ -3,12 +3,17 @@ package fr.eni.ecole.trocenchere.bll;
 import java.time.LocalDateTime;
 
 import fr.eni.ecole.trocenchere.dal.DAO;
+import fr.eni.ecole.trocenchere.dal.DAOFactory;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 import fr.eni.ecole.trocenchere.gestion.erreurs.CodesResultatBLL;
 
 public class BidManager {
 	
 	private DAO bidDao;
+	
+	public BidManager() {
+		this.bidDao = DAOFactory.getBid();
+	}
 
 	public void updateMaxBid(int sessionId, int articleId, Integer myOffer, Integer currentOffer, Integer startingBid) throws BusinessException {
 		BusinessException be = new BusinessException();
@@ -25,7 +30,7 @@ public class BidManager {
 		else {
 		
 			// if first bid for this article
-			if( currentOffer == null) {
+			if( currentOffer == null || currentOffer == 0) {
 				createBid(sessionId, articleId, myOffer, startingBid, date);
 			}
 			// if it is not the first bid
