@@ -19,6 +19,7 @@ public class Article implements Serializable {
 	private int idCategory;
 	private int idUser;
 	private User user;
+	private Category category;
 
 	public int getIdArticle() {
 		return idArticle;
@@ -156,6 +157,27 @@ public class Article implements Serializable {
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
 	}
+	
+
+	public Article() {
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
 
 	public Article(String name, String description, LocalDateTime bidStartDate, LocalDateTime bidEndDate,
 			int startingBid, String status, int idCategory, User user, int idUser) {
@@ -194,16 +216,21 @@ public class Article implements Serializable {
 		this.idCategory = idCategory;
 		this.idUser = idUser;
 	}
-
-	public Article() {
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
+	
+	public Article(int idArticle, String name, String description, LocalDateTime bidStartDate, LocalDateTime bidEndDate,
+			int startingBid, int salePrice, String status, int idCategory, User user, int idUser, Category category) {
+		this.idArticle = idArticle;
+		this.name = name;
+		this.description = description;
+		this.bidStartDate = bidStartDate;
+		this.bidEndDate = bidEndDate;
+		this.startingBid = startingBid;
+		this.salePrice = salePrice;
+		this.status = status;
+		this.idCategory = idCategory;
+		this.idUser = idUser;
 		this.user = user;
+		this.category = category;
 	}
 
 }

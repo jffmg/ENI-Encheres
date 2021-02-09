@@ -47,6 +47,7 @@ public class ServletBid extends HttpServlet {
 		
 		ArticleManager articleManager = new ArticleManager();
 		Article currentArticle = null;
+		String currentCat = null;
 		
 		try {
 			currentArticle = articleManager.selectArticle(articleID);
@@ -55,8 +56,13 @@ public class ServletBid extends HttpServlet {
 			ServletUtils.handleBusinessException(e, request);
 		}
 		
+		LocalDateTime endDate = currentArticle.getBidEndDate();
+		
+		String endDateString = DalUtils.dateFormatterDateToString(endDate);
+		
 		request.getServletContext().setAttribute("profile", profile);
 		request.getServletContext().setAttribute("currentArticle", currentArticle);
+		request.getServletContext().setAttribute("endDateString", endDateString);
 		//System.out.println("Ville du profile : " + profile.getCity());
 
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Bid.jsp");
@@ -68,7 +74,7 @@ public class ServletBid extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String profileName = request.getParameter("profile");
+String profileName = request.getParameter("profile");
 		
 		System.out.println("je passe dans la ServletUpdateProfile - doPost / profile name : " + profileName );
 		

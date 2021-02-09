@@ -33,34 +33,48 @@
 
        		<%@include file="Errors.jspf" %>
 
-			<h1 class="title">Nouvelle vente</h1>
+			<h1 class="title">Vente</h1>
+			
+			<img  class="articleImg" alt="Object" src="<%=request.getContextPath()%>/images/object_to_sale.jpg">
 
 			<div class="divProfile container2">
 
-				<img  class="articleImg" alt="Object" src="<%=request.getContextPath()%>/images/object_to_sale.jpg">
-				<p>${currentArticle.getName()}</p>
+				
+				
+				<p class="labelProfil">Nom :</p>
+				<p class= "infoProfil">${currentArticle.getName()}</p>
+				
 				<p class="labelProfil">Description :</p>
-				<p>${currentArticle.getDescription()}</p>
-				<p class="labelProfil">Catégorie</p>
+				<p class= "infoProfil">${currentArticle.getDescription()}</p>
+				
+				<p class="labelProfil">Catégorie :</p>
+				<p class= "infoProfil">${currentArticle.getCategory().getCategoryLabel()}</p>
+				
 				<!-- 	<label class="labelProfil">Catégorie :</label>
 					<select name="categories" id="category">
 						<c:forEach var="cat" items="${categories}">
 							<option value="${cat}">${cat}</option>
 						</c:forEach>
 					</select> -->
-				<p>${currentArticle.getIdCategory()}</p>
-				<p>Meilleure offre : </p>
-				<p class="labelProfil">Mise à prix : ${currentArticle.getStartingBid()} points</p>
-				<p> Fin de l'enchère : ${currentArticle.getBidEndDate()}</p>
-				<p> Retrait </p>
-				<p>Vendeur : ${currentArticle.getUser().getUser()}</p>
+					
+				<p class="labelProfil">Meilleure offre :</p>
+				<p class= "infoProfil">${currentArticle.getSalePrice()} point(s)</p>
+				
+				<p class="labelProfil">Mise à prix :</p>
+				<p class= "infoProfil">${currentArticle.getStartingBid()} point(s)</p>
+				
+				<p class= "labelProfil"> Fin de l'enchère :</p>
+				<p class= "infoProfil">${endDateString}</p>
+				
+				<p class="labelProfil"> Retrait </p>
+				<p class= "infoProfil">Vendeur : ${currentArticle.getUser().getUser()}</p>
 			</div>
 
-			<form action="<%=request.getContextPath()%>/Connected/Bid" method="post">
+			<form action="<%=request.getContextPath()%>/Connected/Bid?startingBid=${currentArticle.getStartingBid()}&articleId=${currentArticle.getIdArticle()}&currentOffer=${currentArticle.getSalePrice()}" method="post">
 				<c:if test="${profile.getUser().equals(sessionScope.user)}">
 					<div class="container3">
-						<label for="bid">Mon offre :</label>
-						<input type="number" name="bid" value="${article.getCurrentBid()}">
+						<label for="myOffer">Mon offre :</label>
+						<input type="number" name="myOffer" step="1" min="${currentArticle.getSalePrice()}" value="${currentArticle.getSalePrice()}"> point(s)
 						<input type="submit" id="submit" name="validate" value="Enchérir" class="profileButton" />
 					</div>
 				</c:if>

@@ -6,8 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.Normalizer;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import fr.eni.ecole.trocenchere.bo.Article;
+import fr.eni.ecole.trocenchere.bo.Category;
 import fr.eni.ecole.trocenchere.bo.PickUp;
 import fr.eni.ecole.trocenchere.bo.User;
 
@@ -128,13 +131,21 @@ public class DalUtils {
 	//article builder
 	public static Article articleBuilder(ResultSet rs) throws SQLException {
 		User user = buildUser(rs);
+		Category category = categoryBuilder(rs);
 		Article article = new Article(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"),
 				rs.getTimestamp("date_debut_enchere").toLocalDateTime(), rs.getTimestamp("date_fin_enchere").toLocalDateTime(),
-				rs.getInt("prix_initial"), rs.getString("etat_vente"), rs.getInt("no_categorie"), user, rs.getInt("no_utilisateur"));
+				rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getString("etat_vente"), rs.getInt("no_categorie"), user, rs.getInt("no_utilisateur"), category);
 		
 		System.out.println(rs.getString("pseudo"));
 		
 		return article;
+	}
+
+	private static Category categoryBuilder(ResultSet rs) throws SQLException {
+		Category cat = new Category();
+		cat.setCategoryId(rs.getInt("no_categorie"));
+		cat.setCategoryLabel(rs.getString("libelle"));
+		return cat;
 	}
 
 	// method for getting rid of frenchy accents
@@ -200,11 +211,17 @@ public class DalUtils {
 			}
 			
 			return categoryInt;
-			
-			
 		}
 
-	
+	public static String dateFormatterDateToString(LocalDateTime date) {
+		String dateString = null;
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+		formatter = DateTimeFormatter.ofPattern("dd/MM/yyy à HH:mm");
+		dateString = date.format(formatter);
+		System.out.println(dateString);
+		
+		return dateString;
+	}
 
 
 }
