@@ -74,23 +74,27 @@
 				<p class="labelProfil">Vendeur : </p>
 				<p class= "infoProfil">${currentArticle.getUser().getUser()}</p>
 			</div>
-			<form action="<%=request.getContextPath()%>/Bid?startingBid=${currentArticle.getStartingBid()}&articleID=${currentArticle.getIdArticle()}&currentOffer=${currentArticle.getSalePrice()}&profile=${sessionScope.user}" method="post">
-				<c:if test="${!currentArticle.getUser().getUser().equals(sessionScope.user)}">
+			
+			<c:if test="${!currentArticle.getUser().getUser().equals(sessionScope.user)}">
+				<form action="<%=request.getContextPath()%>/Bid?startingBid=${currentArticle.getStartingBid()}&articleID=${currentArticle.getIdArticle()}&currentOffer=${currentArticle.getSalePrice()}&profile=${sessionScope.user}" method="post">
 					<div class="container3">
 						<label for="myOffer">Mon offre : </label>
 						<input style="height:1.5em" class="inputNumber" type="number" name="myOffer" step="1" min="${currentArticle.getSalePrice()+1}" value="${currentArticle.getSalePrice()}">  point(s)
 						<input type="submit" id="submit" name="validate" value="Enchérir" class="profileButton" />
 					</div>
-				</c:if>
-			</form>
+				</form>
+			</c:if>
 			
-			<form action="<%=request.getContextPath()%>/Bid?startingBid=${currentArticle.getStartingBid()}&articleID=${currentArticle.getIdArticle()}&currentOffer=${currentArticle.getSalePrice()}&profile=${sessionScope.user}" method="post">
-				<c:if test="${currentArticle.getUser().getUser().equals(sessionScope.user) && hasAuctionStarted == false}">
+			<c:if test="${currentArticle.getUser().getUser().equals(sessionScope.user) && hasAuctionStarted == false}">
+				<form action="<%=request.getContextPath()%>/Connected/SellArticle" method="get">
 					<div class="container3">
+						<input type="hidden" name="articleID" value="${currentArticle.getIdArticle()}" />
+						<input type="hidden" name="profile" value="${sessionScope.user}" />
 						<input type="submit" id="submit" name="validate" value="Modifier ma vente" class="profileButton" />
 					</div>
-				</c:if>
-			</form>
+				</form>
+			</c:if>
+
 
 			<footer class="footer" id="footerCell">
 				<%@include file="Footer.jspf"%>

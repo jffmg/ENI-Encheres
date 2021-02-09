@@ -70,6 +70,18 @@ public class DalUtils {
 		return pstmt;
 	}
 	
+	public static PreparedStatement prepareStatementUpdateArticle(PreparedStatement pstmt, Article article) throws SQLException {
+		pstmt.setString(1, article.getName());
+		pstmt.setString(2, article.getDescription());
+		pstmt.setTimestamp(3, Timestamp.valueOf(article.getBidStartDate()));
+		pstmt.setObject(4, Timestamp.valueOf(article.getBidEndDate()));
+		pstmt.setInt(5, article.getStartingBid());
+		pstmt.setInt(6, article.getIdCategory());
+		pstmt.setString(7, article.getStatus());
+		pstmt.setInt(8, article.getIdArticle());
+		return pstmt;
+	}
+	
 	public static PreparedStatement prepareStatementpickUp(PreparedStatement pstmt, PickUp pickUp, int articleId) throws SQLException {
 		pstmt.setInt(1, articleId);
 		pstmt.setString(2, pickUp.getStreet());
@@ -212,6 +224,27 @@ public class DalUtils {
 			
 			return categoryInt;
 		}
+		
+	public static String categoryIntToString(int categoryInt) {
+		String category = "Toutes";
+
+		switch (categoryInt) {
+		case 1:
+			category = "Informatique";
+			break;
+		case 2:
+			category = "Ameublement";
+			break;
+		case 3:
+			category = "Vêtement";
+			break;
+		case 4:
+			category = "Sport & Loisirs";
+			break;
+		}
+		
+		return category;
+	}
 
 	public static String dateFormatterDateToString(LocalDateTime date) {
 		String dateString = null;

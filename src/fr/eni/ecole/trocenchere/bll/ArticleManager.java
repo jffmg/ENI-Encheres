@@ -104,4 +104,26 @@ public class ArticleManager {
 		this.articleDao.updateDatabase();
 	}
 
+	public void updateArticle(String articleId, int idSeller, String articleName, String articleDesc, String articleCat,
+			Integer saleStartBid, LocalDateTime startDate, LocalDateTime endDate, String pickUpStreet,
+			String pickUpPostCode, String pickUpCity) throws BusinessException{
+		
+		int idCategory = DalUtils.categoryStringToInteger(articleCat);
+		
+		String status = null;
+		if (startDate.isBefore(LocalDateTime.now())){
+			status = "EC";
+		}
+		else {
+			status = "CR";
+		}
+		
+		PickUp pickUp = new PickUp(pickUpStreet, pickUpPostCode, pickUpCity);
+		Article articleToSell = new Article (articleName, articleDesc, startDate, endDate, saleStartBid, status, idCategory, idSeller);
+		
+		articleToSell.setIdArticle(Integer.parseInt(articleId));
+		
+		this.articleDao.updateArticle(articleToSell, pickUp);
+	}
+
 }
