@@ -48,14 +48,14 @@ public class ArticleManager {
 		return this.articleDao.displayArticlesConnected(userName, keyword, category, buyOrSell, checkBox, request);
 	}
 
-	public void sellArticle(int userId, String articleName, String articleDesc, String articleCat, Integer saleStartBid, 
-			LocalDateTime saleStartDate, LocalDateTime saleEndDate, String pickUpStreet, String pickUpPostCode, 
+	public void sellArticle(int userId, String articleName, String articleDesc, String articleCat, Integer saleStartBid,
+			LocalDateTime saleStartDate, LocalDateTime saleEndDate, String pickUpStreet, String pickUpPostCode,
 			String pickUpCity) throws BusinessException{
 		BusinessException be = new BusinessException();
-		
+
 		// category from String to int
 		int idCategory = DalUtils.categoryStringToInteger(articleCat);
-		
+
 		// check the end of sale date
 		boolean datesAreOkay = false;
 		datesAreOkay = checkDates(saleEndDate, saleStartDate);
@@ -63,20 +63,20 @@ public class ArticleManager {
 			be.ajouterErreur(CodesResultatBLL.SALE_END_DATE);
 			System.out.println(CodesResultatBLL.SALE_END_DATE);
 		}
-				
+
 		// define the sale status when created the sellArticle
 		String status = null;
-		
+
 		if (saleStartDate.isBefore(LocalDateTime.now())){
 			status = "EC";
-		} 
+		}
 		else {
 			status = "CR";
 		}
-		
+
 		PickUp pickUp = new PickUp(pickUpStreet, pickUpPostCode, pickUpCity);
 		Article articleToSell = new Article (articleName, articleDesc, saleStartDate, saleEndDate, saleStartBid,status, idCategory, userId);
-		
+
 		if (!be.hasErreurs()) {
 			this.articleDao.createSellNewArticle(userId, articleToSell, pickUp);
 		}
@@ -92,12 +92,16 @@ public class ArticleManager {
 		if (!isSaleEndDateBeforeActualDate || !isSaleStartDateBeforeEndDate) {
 			datesAreOkay = false;
 		}
-		
+
 		return datesAreOkay;
 	}
 
 	public Article selectArticle(String articleID) throws BusinessException {
 		return this.articleDao.selectArticle(articleID);
+	}
+
+	public void updateDatabase() throws BusinessException {
+		this.articleDao.updateDatabase();
 	}
 
 }

@@ -39,7 +39,7 @@
 			<h1 class="title">Vente</h1>
 			
 			<div class="divImg">	
-			<img  class="articleImg center" alt="Object" src="<%=request.getContextPath()%>/images/object_to_sale.jpg">
+			<img  class="articleImg" alt="Object" src="<%=request.getContextPath()%>/images/object_to_sale.jpg">
 			</div>
 
 			<div class="divProfile container2">
@@ -78,7 +78,7 @@
 				<c:if test="${profile.getUser().equals(sessionScope.user)}">
 					<div class="container3">
 						<label for="myOffer">Mon offre :</label>
-						<input type="number" name="myOffer" step="1" min="${currentArticle.getSalePrice()+1}" value="${currentArticle.getSalePrice()}" required> point(s)
+						<input type="number" name="myOffer" step="1" min="${currentArticle.getSalePrice()}" value="${currentArticle.getSalePrice()}"> point(s)
 						<input type="submit" id="submit" name="validate" value="Enchérir" class="profileButton" />
 					</div>
 				</c:if>

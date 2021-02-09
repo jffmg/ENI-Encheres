@@ -50,6 +50,7 @@ public class ServletBid extends HttpServlet {
 		
 		ArticleManager articleManager = new ArticleManager();
 		Article currentArticle = null;
+		String currentCat = null;
 		
 		try {
 			currentArticle = articleManager.selectArticle(articleID);

@@ -28,18 +28,20 @@ public interface DAO {
 
 	public abstract List<Article> displayArticlesConnected(String userName, String keyword, String category,
 			String buyOrSell, String checkBox, HttpServletRequest request) throws BusinessException;
-	
+
 	public abstract void createSellNewArticle(int userId, Article articleToSell, PickUp pickUp) throws BusinessException;
 	public abstract Article selectArticle(String articleID) throws BusinessException;
-	
+
+	public abstract void updateDatabase() throws BusinessException;
+
 	// Bid DAO methods
 	public abstract void updateBid(int sessionId, int articleId, Integer myOffer, LocalDateTime date) throws BusinessException;
 	public abstract void createBid(int sessionId, int articleId, Integer myOffer, LocalDateTime date) throws BusinessException;
-	
+
 	public abstract boolean checkbidExist(int sessionId, int articleId) throws BusinessException;
-	
 
 
-	
+
+
 
 }
