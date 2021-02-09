@@ -2,11 +2,8 @@ package fr.eni.ecole.trocenchere.servlets;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
-=======
->>>>>>> branch 'master' of https://github.com/LeroyErwan/ENI-Encheres
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import fr.eni.ecole.trocenchere.bll.ArticleManager;
 import fr.eni.ecole.trocenchere.bll.BidManager;
 import fr.eni.ecole.trocenchere.bll.UserManager;
