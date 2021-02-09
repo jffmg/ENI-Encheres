@@ -100,11 +100,6 @@ public class ArticleManager {
 		return this.articleDao.selectArticle(articleID);
 	}
 
-	public String selectCategoryString(int idCategory) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public void updateDatabase() throws BusinessException {
 		this.articleDao.updateDatabase();
 	}
