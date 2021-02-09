@@ -100,5 +100,9 @@ public class SQL_REQUESTS_Utils {
 	public static final String SQL_CREATE_BID = "INSERT INTO encheres (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?, ?, ?, ?);";
 	
 	public static final String SQL_UPDATE_SELL_PRICE = "UPDATE articles_vendus SET prix_vente = ? WHERE no_article = ?";
+	
+	public static final String SQL_SELECT_BID = "SELECT * FROM ENCHERES WHERE no_utilisateur = ? AND no_article = ?;";
+	
+	public static final String SQL_UPDATE_BID = "UPDATE encheres SET montant_enchere = ?, date_enchere = ? WHERE no_utilisateur = ? AND no_article = ?;";
 
 }

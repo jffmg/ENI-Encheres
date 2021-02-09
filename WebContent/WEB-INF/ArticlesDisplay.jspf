@@ -11,8 +11,8 @@
 				<img class="articleImg" alt="Object"
 					src="<%=request.getContextPath()%>/images/object_to_sale.jpg">
 				<div class="articleInfo">
-					Prix : ${element.getSalePrice()} point(s) <br>
-					Meilleure ench&egrave;re : 0 point(s)<br>
+					Meilleure ench&egrave;re : ${element.getSalePrice()} point(s) <br>
+					<!--  Meilleure ench&egrave;re : 0 point(s)<br>-->
 					Mise &agrave; prix : ${element.getStartingBid()} point(s) <br>
 					<a href="<%=request.getContextPath()%>/Profile?profile=${element.getUser().getUser()}" class="seller">
 					Vendeur : ${element.getUser().getUser()}</a><br>
