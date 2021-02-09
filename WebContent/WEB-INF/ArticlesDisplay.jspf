@@ -18,10 +18,10 @@
 					Meilleure ench&egrave;re : ${element.getSalePrice()} point(s) <br>
 					<!--  Meilleure ench&egrave;re : 0 point(s)<br>-->
 					Mise &agrave; prix : ${element.getStartingBid()} point(s) <br>
-					<a href="<%=request.getContextPath()%>/Profile?profile=${element.getUser().getUser()}" class="seller">
-					Vendeur : ${element.getUser().getUser()}</a><br>
+					
+					Vendeur : <a href="<%=request.getContextPath()%>/Profile?profile=${element.getUser().getUser()}" class="seller">${element.getUser().getUser()}</a><br>
 					Fin de l'ench&egrave;re : <fmt:parseDate value="${element.getBidEndDate()}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedEndDateTime" dateStyle="short" timeStyle="short" type="both" />
-	<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${parsedEndDateTime}" /><br>
+	<fmt:formatDate pattern="'Le' dd/MM/yyyy 'à' HH:mm" value="${parsedEndDateTime}" /><br>
 				</div>
 			</div>
 		</div>
