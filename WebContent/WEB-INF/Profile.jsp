@@ -60,6 +60,11 @@
 
 			<p class="labelProfil"> Ville : </p>
 			<p class= "infoProfil"> ${profile.getCity()}</p>
+			
+			<c:if test="${profile.getUser().equals(sessionScope.user)}">
+			<p class="labelProfil"> Crédit : </p>
+			<p class= "infoProfil"> ${profile.getCredit()}</p>
+			</c:if>
 		
 		</div>
 

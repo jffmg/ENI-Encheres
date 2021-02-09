@@ -77,8 +77,8 @@
 			<form action="<%=request.getContextPath()%>/Bid?startingBid=${currentArticle.getStartingBid()}&articleID=${currentArticle.getIdArticle()}&currentOffer=${currentArticle.getSalePrice()}&profile=${sessionScope.user}" method="post">
 				<c:if test="${!currentArticle.getUser().getUser().equals(sessionScope.user)}">
 					<div class="container3">
-						<label for="myOffer">Mon offre :</label>
-						<input style="height:2em" type="number" name="myOffer" step="1" min="${currentArticle.getSalePrice()+1}" value="${currentArticle.getSalePrice()}"> point(s)
+						<label for="myOffer">Mon offre : </label>
+						<input style="height:1.5em" class="inputNumber" type="number" name="myOffer" step="1" min="${currentArticle.getSalePrice()+1}" value="${currentArticle.getSalePrice()}">  point(s)
 						<input type="submit" id="submit" name="validate" value="Enchérir" class="profileButton" />
 					</div>
 				</c:if>

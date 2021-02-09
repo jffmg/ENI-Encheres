@@ -1,6 +1,6 @@
 <div class="navbar">
 	<div Style="width:10%">
-		<a href="<%=request.getContextPath()%>/ServletNonConnectedHome">
+		<a href="<%=request.getContextPath()%>/">
 			<img class="navbarLogo" src="<%=request.getContextPath()%>/images/logoENIEncheres.png"/>
 		</a>
 	</div>
