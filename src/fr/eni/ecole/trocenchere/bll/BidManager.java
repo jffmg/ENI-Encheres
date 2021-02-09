@@ -3,12 +3,17 @@ package fr.eni.ecole.trocenchere.bll;
 import java.time.LocalDateTime;
 
 import fr.eni.ecole.trocenchere.dal.DAO;
+import fr.eni.ecole.trocenchere.dal.DAOFactory;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 import fr.eni.ecole.trocenchere.gestion.erreurs.CodesResultatBLL;
 
 public class BidManager {
 	
 	private DAO bidDao;
+	
+	public BidManager() {
+		this.bidDao = DAOFactory.getBid();
+	}
 
 	public void updateMaxBid(int sessionId, int articleId, Integer myOffer, Integer currentOffer, Integer startingBid) throws BusinessException {
 		BusinessException be = new BusinessException();
