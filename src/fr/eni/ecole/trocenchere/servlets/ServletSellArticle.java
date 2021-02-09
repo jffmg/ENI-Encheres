@@ -133,7 +133,7 @@ public class ServletSellArticle extends HttpServlet {
 		}
 		
 		if (hasError) {
-			request.setAttribute("listeCodesErreur", listeCodesErreur);
+			request.getServletContext().setAttribute("listeCodesErreur", listeCodesErreur);
 		}
 		else {
 			String message = "Votre vente a bien été ajoutée";
