@@ -22,5 +22,10 @@ public abstract class DAOFactory {
 		return dao;
 	}
 	
+	public static DAO getBid() {
+		dao = new DAOJdbcImpl();
+		return dao;
+	}
+	
 }
 

@@ -1,7 +1,6 @@
 package fr.eni.ecole.trocenchere.servlets;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,11 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.trocenchere.bll.ArticleManager;
+import fr.eni.ecole.trocenchere.bll.BidManager;
 import fr.eni.ecole.trocenchere.bll.UserManager;
 import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
-import fr.eni.ecole.trocenchere.utils.DalUtils;
 import fr.eni.ecole.trocenchere.utils.ServletUtils;
 
 /**
@@ -93,11 +92,14 @@ String profileName = request.getParameter("profile");
 		int sessionID = profile.getIdUser();
 		
 		Integer myOffer = Integer.parseInt(request.getParameter("myOffer"));
+		Integer currentOffer = Integer.parseInt(request.getParameter("currentOffer"));
+		Integer startingBid = Integer.parseInt(request.getParameter("startingBid"));
+		Integer articleId = Integer.parseInt(request.getParameter("articleId"));
 		
-		ArticleManager am = new ArticleManager();
+		BidManager bm = new BidManager();
 		
 		try {
-			am.updateMaxBid(sessionID, myOffer);
+			bm.updateMaxBid(sessionID, articleId, myOffer, currentOffer, startingBid);
 		} catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
 			System.out.println("erreur lors de la saisie de l'offre");

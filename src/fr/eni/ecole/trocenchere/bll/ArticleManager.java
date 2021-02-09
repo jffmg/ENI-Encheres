@@ -96,10 +96,6 @@ public class ArticleManager {
 		return datesAreOkay;
 	}
 
-	public void updateMaxBid(int sessionID, Integer myOffer) throws BusinessException {
-		
-	}
-
 	public Article selectArticle(String articleID) throws BusinessException {
 		return this.articleDao.selectArticle(articleID);
 	}
