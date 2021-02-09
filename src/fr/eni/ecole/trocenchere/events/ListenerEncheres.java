@@ -5,10 +5,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import fr.eni.ecole.trocenchere.bll.ArticleManager;
-<<<<<<< HEAD
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
-=======
->>>>>>> branch 'master' of https://github.com/LeroyErwan/ENI-Encheres
 
 /**
  * Application Lifecycle Listener implementation class ListenerEncheres
@@ -37,11 +34,7 @@ public class ListenerEncheres implements ServletContextListener {
 	public void contextDestroyed(ServletContextEvent sce)  {
 		System.out.println("l'application s'est arrêtée");
 		start = false;
-<<<<<<< HEAD
 		asyncTask.interrupt();
-=======
-		asyncTask.interrupt(); // replace stop by interrupt => Todo check if it is OK
->>>>>>> branch 'master' of https://github.com/LeroyErwan/ENI-Encheres
 		System.out.println("... le traitement asynchrone s'arrête");
 	}
 
@@ -62,15 +55,11 @@ public class ListenerEncheres implements ServletContextListener {
 				while (start) {
 					try {
 						cpt++;
-<<<<<<< HEAD
 						try {
 							articleManager.updateDatabase();
 						} catch (BusinessException e) {
 							e.printStackTrace();
 						}
-=======
-						// Check status of bids - if bids is over => find the winner of the bid and change the owner of the product
->>>>>>> branch 'master' of https://github.com/LeroyErwan/ENI-Encheres
 						System.out.println("... le traitement asynchrone a été exécuté " + cpt + " fois...");
 						Thread.sleep(60000);
 					} catch (InterruptedException e) {
