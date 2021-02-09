@@ -54,7 +54,7 @@ public class ListenerEncheres implements ServletContextListener {
 						// déclencher la
 						// procstock
 						System.out.println("... le traitement asynchrone a été exécuté " + cpt + " fois...");
-						Thread.sleep(5000);
+						Thread.sleep(5000000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

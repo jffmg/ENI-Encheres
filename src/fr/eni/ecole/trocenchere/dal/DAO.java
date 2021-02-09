@@ -35,6 +35,9 @@ public interface DAO {
 	// Bid DAO methods
 	public abstract void updateBid(int sessionId, int articleId, Integer myOffer, LocalDateTime date) throws BusinessException;
 	public abstract void createBid(int sessionId, int articleId, Integer myOffer, LocalDateTime date) throws BusinessException;
+	
+	public abstract boolean checkbidExist(int sessionId, int articleId) throws BusinessException;
+	
 
 
 	
