@@ -1,6 +1,7 @@
 package fr.eni.ecole.trocenchere.servlets;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import fr.eni.ecole.trocenchere.bll.UserManager;
 import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
+import fr.eni.ecole.trocenchere.utils.DalUtils;
 import fr.eni.ecole.trocenchere.utils.ServletUtils;
 
 /**
