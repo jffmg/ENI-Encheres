@@ -2,8 +2,11 @@ package fr.eni.ecole.trocenchere.servlets;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
+=======
+>>>>>>> branch 'master' of https://github.com/LeroyErwan/ENI-Encheres
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
