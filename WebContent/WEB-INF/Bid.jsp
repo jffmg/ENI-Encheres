@@ -58,10 +58,10 @@
 					</select> -->
 					
 				<p class="labelProfil">Meilleure offre :</p>
-				<p class= "infoProfil">${currentArticle.getSalePrice()}</p>
+				<p class= "infoProfil">${currentArticle.getSalePrice()} point(s)</p>
 				
 				<p class="labelProfil">Mise à prix :</p>
-				<p class= "infoProfil">${currentArticle.getStartingBid()} points</p>
+				<p class= "infoProfil">${currentArticle.getStartingBid()} point(s)</p>
 				
 				<p class= "labelProfil"> Fin de l'enchère :</p>
 				<p class= "infoProfil">${endDateString}</p>
@@ -70,11 +70,11 @@
 				<p class= "infoProfil">Vendeur : ${currentArticle.getUser().getUser()}</p>
 			</div>
 
-			<form action="<%=request.getContextPath()%>/Connected/Bid?startingBid=${currentArticle.getStartingBid()}&articleId=${currentArticle.getIdArticle()}" method="post">
+			<form action="<%=request.getContextPath()%>/Connected/Bid?startingBid=${currentArticle.getStartingBid()}&articleId=${currentArticle.getIdArticle()}&currentOffer=${currentArticle.getSalePrice()}" method="post">
 				<c:if test="${profile.getUser().equals(sessionScope.user)}">
 					<div class="container3">
 						<label for="myOffer">Mon offre :</label>
-						<input type="number" name="myOffer" step="1" min="${currentArticle.getSalePrice()}" value="${currentArticle.getSalePrice()}">
+						<input type="number" name="myOffer" step="1" min="${currentArticle.getSalePrice()}" value="${currentArticle.getSalePrice()}"> point(s)
 						<input type="submit" id="submit" name="validate" value="Enchérir" class="profileButton" />
 					</div>
 				</c:if>
