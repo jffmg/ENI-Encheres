@@ -1,8 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div class="ArticlesDisplay">
 
 	<c:forEach var="element" items="${articlesSelected}">
+	
+	
+	
 		<div class="divArticle">
 			<div class="articleName">
 						<a href="<%=request.getContextPath()%>/Bid?articleID=${element.getIdArticle()}&profile=${sessionScope.user}">${element.getName()}</a>
@@ -16,7 +20,8 @@
 					Mise &agrave; prix : ${element.getStartingBid()} point(s) <br>
 					<a href="<%=request.getContextPath()%>/Profile?profile=${element.getUser().getUser()}" class="seller">
 					Vendeur : ${element.getUser().getUser()}</a><br>
-					Fin de l'ench&egrave;re : ${element.getBidEndDate()}<br>
+					Fin de l'ench&egrave;re : <fmt:parseDate value="${element.getBidEndDate()}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedEndDateTime" dateStyle="short" timeStyle="short" type="both" />
+	<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${parsedEndDateTime}" /><br>
 				</div>
 			</div>
 		</div>
