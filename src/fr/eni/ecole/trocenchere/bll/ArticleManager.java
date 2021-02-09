@@ -59,7 +59,7 @@ public class ArticleManager {
 		// check the end of sale date
 		boolean datesAreOkay = false;
 		datesAreOkay = checkDates(saleEndDate, saleStartDate);
-		if (datesAreOkay == true) {
+		if (datesAreOkay == false) {
 			be.ajouterErreur(CodesResultatBLL.SALE_END_DATE);
 			System.out.println(CodesResultatBLL.SALE_END_DATE);
 		}
@@ -86,8 +86,8 @@ public class ArticleManager {
 		}
 	}
 	private boolean checkDates(LocalDateTime saleEndDate, LocalDateTime saleStartDate) {
-		boolean datesAreOkay = true;
-		boolean isSaleEndDateBeforeActualDate = saleEndDate.isBefore(LocalDateTime.now());
+		boolean datesAreOkay = false;
+		boolean isSaleEndDateBeforeActualDate = LocalDateTime.now().isBefore(saleEndDate);
 		boolean isSaleStartDateBeforeEndDate = saleStartDate.isBefore(saleEndDate);
 		if (!isSaleEndDateBeforeActualDate || !isSaleStartDateBeforeEndDate) {
 			datesAreOkay = false;

@@ -78,7 +78,7 @@
 				<c:if test="${!currentArticle.getUser().getUser().equals(sessionScope.user)}">
 					<div class="container3">
 						<label for="myOffer">Mon offre :</label>
-						<input style="height:2em" type="number" name="myOffer" step="1" min="${currentArticle.getSalePrice()}" value="${currentArticle.getSalePrice()}"> point(s)
+						<input style="height:2em" type="number" name="myOffer" step="1" min="${currentArticle.getSalePrice()+1}" value="${currentArticle.getSalePrice()}"> point(s)
 						<input type="submit" id="submit" name="validate" value="Enchérir" class="profileButton" />
 					</div>
 				</c:if>

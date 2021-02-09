@@ -21,7 +21,7 @@ public class BidManager {
 		BusinessException be = new BusinessException();
 
 		LocalDateTime date = LocalDateTime.now();
-
+		
 		boolean checkPointTest = checkPoints(sessionId, myOffer);
 		if (!checkPointTest) {
 			be.ajouterErreur(CodesResultatBLL.MY_OFFER_INF_MY_POINTS);
