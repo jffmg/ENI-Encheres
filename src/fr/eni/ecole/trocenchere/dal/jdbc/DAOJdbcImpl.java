@@ -1,10 +1,10 @@
 package fr.eni.ecole.trocenchere.dal.jdbc;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -137,12 +137,12 @@ public class DAOJdbcImpl implements DAO {
 			throw businessException;
 		}
 	}
-	
+
 
 	@Override
 	public int selectPoints(int sessionId) throws BusinessException {
 		int points = 0;
-		
+
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
@@ -159,7 +159,7 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			e.printStackTrace();
 			throw businessException;
-		}			
+		}
 		return points;
 	}
 
@@ -252,7 +252,7 @@ public class DAOJdbcImpl implements DAO {
 		return articlesSelected;
 	}
 
-	
+
 	@Override
 	public Article selectArticle(String articleID) throws BusinessException {
 		Article article = null;
@@ -275,6 +275,7 @@ public class DAOJdbcImpl implements DAO {
 	}
 
 
+
 	// method to display articles with filters (Non Connected)
 	@Override
 	public List<Article> displayArticlesConnected(String userName, String keyword, String category, String buyOrSell, String checkBox, HttpServletRequest request) throws BusinessException {
@@ -285,14 +286,14 @@ public class DAOJdbcImpl implements DAO {
 		PreparedStatement pstmt = null;
 		Integer userID = 0;
 		User user = selectUser(userName);
-		userID = (Integer) user.getIdUser();
+		userID = user.getIdUser();
 		String stateArticle = "";
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
 			if (buyOrSell.equalsIgnoreCase("buy1")) {
 				switch (checkBox) {
-				case "myBids" : 
+				case "myBids" :
 					if (categorySelected == 0) {
 						if (keyword == null || keyword == "") {
 							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES);
@@ -309,9 +310,8 @@ public class DAOJdbcImpl implements DAO {
 							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY);
 							pstmt = DalUtils.prepareStatement3Params(user, pstmt, userID, categorySelected, keyword);
 						}
-					}
-					;break;
-				case "myWonBids" : 
+					}break;
+				case "myWonBids" :
 					if (categorySelected == 0) {
 						if (keyword == null || keyword == "") {
 							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES);
@@ -328,16 +328,15 @@ public class DAOJdbcImpl implements DAO {
 							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES_BY_KEYWORD_AND_CATEGORY);
 							pstmt = DalUtils.prepareStatement3Params(user, pstmt, userID, categorySelected, keyword);
 						}
-					}
-					;break;
-				default : 
+					}break;
+				default :
 					pstmt = DalUtils.basicDisplay(keyword, categorySelected, pstmt, cnx);
 					; break;
 				}
 
 			} else {
 				switch (checkBox) {
-				case "notStartedSales" : 
+				case "notStartedSales" :
 					stateArticle = "CR";
 					if (categorySelected == 0) {
 						if (keyword == null || keyword == "") {
@@ -355,9 +354,8 @@ public class DAOJdbcImpl implements DAO {
 							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
 							pstmt = DalUtils.prepareStatement4Params(user, pstmt, userName, stateArticle, categorySelected, keyword);
 						}
-					}
-					;break;
-				case "endedSales" : 
+					}break;
+				case "endedSales" :
 					stateArticle = "VD";
 					if (categorySelected == 0) {
 						if (keyword == null || keyword == "") {
@@ -375,9 +373,8 @@ public class DAOJdbcImpl implements DAO {
 							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
 							pstmt = DalUtils.prepareStatement4Params(user, pstmt, userName, stateArticle, categorySelected, keyword);
 						}
-					}
-					;break;
-				default : 
+					}break;
+				default :
 					stateArticle = "EC";
 					if (categorySelected == 0) {
 						if (keyword == null || keyword == "") {
@@ -395,8 +392,7 @@ public class DAOJdbcImpl implements DAO {
 							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_KEYWORD_AND_CATEGORY);
 							pstmt = DalUtils.prepareStatement4Params(user, pstmt, userName, stateArticle, categorySelected, keyword);
 						}
-					}
-					; break;
+					} break;
 				}
 			}
 			ResultSet rs = pstmt.executeQuery();
@@ -454,7 +450,7 @@ public class DAOJdbcImpl implements DAO {
 			e.printStackTrace();
 			throw businessException;
 		}
-		return articleToSell;	
+		return articleToSell;
 	}
 
 	public boolean createPickUp(int articleId, PickUp pickUp) throws BusinessException {
@@ -465,7 +461,7 @@ public class DAOJdbcImpl implements DAO {
 			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_INSERT_PICKUP);
 			DalUtils.prepareStatementpickUp(prepStmt, pickUp, articleId);
 			int i = prepStmt.executeUpdate();
-			
+
 			if (i > 0) {
 				test=true;
 			}
@@ -475,7 +471,7 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
 			e.printStackTrace();
 			throw businessException;
-		}			
+		}
 		return test;
 	}
 
@@ -492,13 +488,28 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.DELETE_ARTICLE_ECHEC);
 			e.printStackTrace();
 			throw businessException;
-		}			
+		}
+	}
+
+	// method to call the stored procedure : interrogating the db to see which auctions are over, marking the article status as sold, crediting seller, debiting buyer, affecting new user to sold article
+	@Override
+	public void updateDatabase() throws BusinessException {
+		CallableStatement callStmt = null;
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			callStmt = cnx.prepareCall("{call dbo.updateArticle()}");
+			int i = callStmt.executeUpdate();
+			System.out.println("Database updated");
+		} catch (SQLException e) {
+			BusinessException businessException = new BusinessException();
+			e.printStackTrace();
+			throw businessException;
+		}
 	}
 
 	/**
 	 * BIDS : MAIN METHODS (Select, Create, Update, Delete)
 	 */
-	// 
+	//
 	@Override
 	public void updateBid(int sessionId, int articleId, Integer myOffer, LocalDateTime date) throws BusinessException {
 		PreparedStatement prepStmt = null;
@@ -516,7 +527,7 @@ public class DAOJdbcImpl implements DAO {
 			e.printStackTrace();
 			throw businessException;
 		}
-		
+
 		updateSellPrice(articleId, myOffer);
 	}
 
@@ -527,14 +538,14 @@ public class DAOJdbcImpl implements DAO {
 			prepStmt.setInt(1, myOffer);
 			prepStmt.setInt(2, articleId);
 			prepStmt.executeUpdate();
-			
+
 		}
 		catch (SQLException e) {
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJECT_ECHEC);
 			e.printStackTrace();
 			throw businessException;
-		}			
+		}
 	}
 
 	@Override
@@ -553,10 +564,10 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJECT_ECHEC);
 			e.printStackTrace();
 			throw businessException;
-		}	
-		
+		}
+
 		updateSellPrice(articleId, myOffer);
-		
+
 	}
 
 	@Override
@@ -565,24 +576,25 @@ public class DAOJdbcImpl implements DAO {
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			
+
 			pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_BID);
 			pstmt.setInt(1, sessionId);
 			pstmt.setInt(2, articleId);
 			rs = pstmt.executeQuery();
-			
+
 			if (rs.next()) {
 				bidExists = true;
 			}
-			
+
 		} catch (SQLException e) {
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			e.printStackTrace();
 		}
-		
-		
+
+
 		return bidExists;
 	}
-	
+
+
 }

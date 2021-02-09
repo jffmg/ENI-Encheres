@@ -4,6 +4,9 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import fr.eni.ecole.trocenchere.bll.ArticleManager;
+import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
+
 /**
  * Application Lifecycle Listener implementation class ListenerEncheres
  *
@@ -15,6 +18,7 @@ public class ListenerEncheres implements ServletContextListener {
 
 	private boolean start = true;
 	private Thread asyncTask = null;
+	private ArticleManager articleManager = new ArticleManager();
 
 	/**
 	 * Default constructor.
@@ -30,7 +34,7 @@ public class ListenerEncheres implements ServletContextListener {
 	public void contextDestroyed(ServletContextEvent sce)  {
 		System.out.println("l'application s'est arrêtée");
 		start = false;
-		asyncTask.stop(); // TODO find non deprecated replacement
+		asyncTask.interrupt();
 		System.out.println("... le traitement asynchrone s'arrête");
 	}
 
@@ -50,13 +54,15 @@ public class ListenerEncheres implements ServletContextListener {
 				System.out.println("le traitement asynchrone commence...");
 				while (start) {
 					try {
-						cpt++; // TODO placer ici l'appel à un manager qui appelle la couche DAL pour
-						// déclencher la
-						// procstock
+						cpt++;
+						try {
+							articleManager.updateDatabase();
+						} catch (BusinessException e) {
+							e.printStackTrace();
+						}
 						System.out.println("... le traitement asynchrone a été exécuté " + cpt + " fois...");
-						Thread.sleep(5000000);
+						Thread.sleep(60000);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
