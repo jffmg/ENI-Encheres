@@ -1,6 +1,7 @@
 package fr.eni.ecole.trocenchere.servlets;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import fr.eni.ecole.trocenchere.bll.UserManager;
 import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
+import fr.eni.ecole.trocenchere.utils.DalUtils;
 import fr.eni.ecole.trocenchere.utils.ServletUtils;
 
 /**
@@ -46,6 +48,7 @@ public class ServletBid extends HttpServlet {
 		
 		ArticleManager articleManager = new ArticleManager();
 		Article currentArticle = null;
+		String currentCat = null;
 		
 		try {
 			currentArticle = articleManager.selectArticle(articleID);
@@ -54,8 +57,13 @@ public class ServletBid extends HttpServlet {
 			ServletUtils.handleBusinessException(e, request);
 		}
 		
+		LocalDateTime endDate = currentArticle.getBidEndDate();
+		
+		String endDateString = DalUtils.dateFormatterDateToString(endDate);
+		
 		request.getServletContext().setAttribute("profile", profile);
 		request.getServletContext().setAttribute("currentArticle", currentArticle);
+		request.getServletContext().setAttribute("endDateString", endDateString);
 		//System.out.println("Ville du profile : " + profile.getCity());
 
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Bid.jsp");
@@ -84,7 +92,7 @@ String profileName = request.getParameter("profile");
 		
 		int sessionID = profile.getIdUser();
 		
-		Integer myOffer = Integer.parseInt(request.getParameter("userName"));
+		Integer myOffer = Integer.parseInt(request.getParameter("myOffer"));
 		
 		ArticleManager am = new ArticleManager();
 		
