@@ -497,9 +497,9 @@ public class DAOJdbcImpl implements DAO {
 	public void updateDatabase() throws BusinessException {
 		CallableStatement callStmt = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			callStmt = cnx.prepareCall("{call dbo.updateArticle()}");
-			int i = callStmt.executeUpdate();
-			System.out.println("Database updated");
+			callStmt = cnx.prepareCall("{call updateArticle}");
+			boolean i = callStmt.execute();
+			System.out.println("Database updated : " + i);
 		} catch (SQLException e) {
 			BusinessException businessException = new BusinessException();
 			e.printStackTrace();
