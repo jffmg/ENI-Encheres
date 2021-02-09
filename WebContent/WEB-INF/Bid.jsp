@@ -39,7 +39,7 @@
 			<h1 class="title">Vente</h1>
 			
 			<div class="divImg">	
-			<img  class="articleImg center" alt="Object" src="<%=request.getContextPath()%>/images/object_to_sale.jpg">
+			<img  class="articleImg" alt="Object" src="<%=request.getContextPath()%>/images/object_to_sale.jpg">
 			</div>
 
 			<div class="divProfile container2">

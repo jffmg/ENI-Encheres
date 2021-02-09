@@ -61,7 +61,7 @@ public class DalUtils {
 	public static PreparedStatement prepareStatementSellArticle(PreparedStatement pstmt, Article article, int userId) throws SQLException {
 		pstmt.setString(1, article.getName());
 		pstmt.setString(2, article.getDescription());
-		pstmt.setTimestamp(3, Timestamp.valueOf(article.getBidEndDate()));
+		pstmt.setTimestamp(3, Timestamp.valueOf(article.getBidStartDate()));
 		pstmt.setObject(4, Timestamp.valueOf(article.getBidEndDate()));
 		pstmt.setInt(5, article.getStartingBid());
 		pstmt.setInt(6, userId);
