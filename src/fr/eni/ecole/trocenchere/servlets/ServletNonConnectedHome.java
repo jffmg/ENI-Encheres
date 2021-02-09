@@ -55,7 +55,7 @@ public class ServletNonConnectedHome extends HttpServlet {
 		} catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
 		}
-
+			
 			request.getServletContext().setAttribute("articlesSelected", articlesSelected);
 
 			this.getServletContext().getRequestDispatcher("/WEB-INF/NonConnectedHome.jsp").forward(request, response);

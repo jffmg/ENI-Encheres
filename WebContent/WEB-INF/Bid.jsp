@@ -71,15 +71,15 @@
 				<p class= "labelProfil"> Fin de l'enchère :</p>
 				<p class= "infoProfil">${endDateString}</p>
 				
-				<p class="labelProfil"> Retrait </p>
-				<p class= "infoProfil">Vendeur : ${currentArticle.getUser().getUser()}</p>
+				<p class="labelProfil">Vendeur : </p>
+				<p class= "infoProfil">${currentArticle.getUser().getUser()}</p>
 			</div>
 			
 			<c:if test="${!currentArticle.getUser().getUser().equals(sessionScope.user)}">
 				<form action="<%=request.getContextPath()%>/Bid?startingBid=${currentArticle.getStartingBid()}&articleID=${currentArticle.getIdArticle()}&currentOffer=${currentArticle.getSalePrice()}&profile=${sessionScope.user}" method="post">
 					<div class="container3">
 						<label for="myOffer">Mon offre :</label>
-						<input style="height:2em" type="number" name="myOffer" step="1" min="${currentArticle.getSalePrice()}" value="${currentArticle.getSalePrice()}"> point(s)
+						<input style="height:2em" type="number" name="myOffer" step="1" min="${currentArticle.getSalePrice()+1}" value="${currentArticle.getSalePrice()}"> point(s)
 						<input type="submit" id="submit" name="validate" value="Enchérir" class="profileButton" />
 					</div>
 				</form>
