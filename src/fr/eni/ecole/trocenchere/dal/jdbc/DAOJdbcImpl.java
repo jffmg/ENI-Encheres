@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+
 import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.bo.PickUp;
 import fr.eni.ecole.trocenchere.bo.User;
@@ -137,12 +138,12 @@ public class DAOJdbcImpl implements DAO {
 			throw businessException;
 		}
 	}
-	
+
 
 	@Override
 	public int selectPoints(int sessionId) throws BusinessException {
 		int points = 0;
-		
+
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
@@ -252,7 +253,7 @@ public class DAOJdbcImpl implements DAO {
 		return articlesSelected;
 	}
 
-	
+
 	@Override
 	public Article selectArticle(String articleID) throws BusinessException {
 		Article article = null;
@@ -465,7 +466,7 @@ public class DAOJdbcImpl implements DAO {
 			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_INSERT_PICKUP);
 			DalUtils.prepareStatementpickUp(prepStmt, pickUp, articleId);
 			int i = prepStmt.executeUpdate();
-			
+
 			if (i > 0) {
 				test=true;
 			}
@@ -516,7 +517,7 @@ public class DAOJdbcImpl implements DAO {
 			e.printStackTrace();
 			throw businessException;
 		}
-		
+
 		updateSellPrice(articleId, myOffer);
 	}
 
@@ -527,7 +528,7 @@ public class DAOJdbcImpl implements DAO {
 			prepStmt.setInt(1, myOffer);
 			prepStmt.setInt(2, articleId);
 			prepStmt.executeUpdate();
-			
+
 		}
 		catch (SQLException e) {
 			BusinessException businessException = new BusinessException();
@@ -584,5 +585,5 @@ public class DAOJdbcImpl implements DAO {
 		
 		return bidExists;
 	}
-	
+
 }
