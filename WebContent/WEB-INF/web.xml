@@ -5,6 +5,16 @@
     <welcome-file>encheres</welcome-file>
   </welcome-file-list>
   
+  <servlet>
+	<servlet-name>Home</servlet-name>
+	<servlet-class>fr.eni.ecole.trocenchere.servlets.ServletNonConnectedHome</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>Home</servlet-name>
+	<url-pattern>/encheres</url-pattern>
+</servlet-mapping>
+  
   <context-param>
   	<description>Categories</description>
   	<param-name>CATEGORIES</param-name>
