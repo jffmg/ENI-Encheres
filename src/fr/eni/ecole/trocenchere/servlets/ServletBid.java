@@ -2,6 +2,8 @@ package fr.eni.ecole.trocenchere.servlets;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import fr.eni.ecole.trocenchere.bll.ArticleManager;
 import fr.eni.ecole.trocenchere.bll.BidManager;
 import fr.eni.ecole.trocenchere.bll.UserManager;
@@ -34,7 +35,7 @@ public class ServletBid extends HttpServlet {
 		String profileName = request.getParameter("profile");
 		String articleID = request.getParameter("articleID");
 		
-		System.out.println("je passe dans la ServletBid - doGet / profile name : " + profileName );
+		System.out.println("je passe dans la ServletBid - doGet / profile name : " + profileName + " articleID : " + articleID);
 		
 		// User - link to data base
 		UserManager userManager = new UserManager();
@@ -57,6 +58,7 @@ public class ServletBid extends HttpServlet {
 		catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
 		}
+		System.out.println("currentArticle nom : " + currentArticle.getName());
 		
 		LocalDateTime endDate = currentArticle.getBidEndDate();
 		
@@ -65,6 +67,7 @@ public class ServletBid extends HttpServlet {
 		request.getServletContext().setAttribute("profile", profile);
 		request.getServletContext().setAttribute("currentArticle", currentArticle);
 		request.getServletContext().setAttribute("endDateString", endDateString);
+		request.getServletContext().setAttribute("articleID", articleID);
 		//System.out.println("Ville du profile : " + profile.getCity());
 
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Bid.jsp");
@@ -75,10 +78,13 @@ public class ServletBid extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Integer> listeCodesErreur = new ArrayList<>();
+		boolean hasError = false;
 		
-String profileName = request.getParameter("profile");
-		
-		System.out.println("je passe dans la ServletUpdateProfile - doPost / profile name : " + profileName );
+		String profileName = request.getParameter("profile");
+		String articleID = request.getParameter("articleID");
+		request.getServletContext().setAttribute("articleID", articleID);
+		System.out.println("je passe dans la ServletUpdateProfile - doPost / profile name : " + profileName + " articleID : " + articleID );
 		
 		// User - link to data base
 		UserManager userManager = new UserManager();
@@ -89,6 +95,7 @@ String profileName = request.getParameter("profile");
 		}
 		catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
+			hasError=true;
 		}
 		
 		int sessionID = profile.getIdUser();
@@ -96,19 +103,30 @@ String profileName = request.getParameter("profile");
 		Integer myOffer = Integer.parseInt(request.getParameter("myOffer"));
 		Integer currentOffer = Integer.parseInt(request.getParameter("currentOffer"));
 		Integer startingBid = Integer.parseInt(request.getParameter("startingBid"));
-		Integer articleId = Integer.parseInt(request.getParameter("articleId"));
+		Integer articleIdInteger = Integer.parseInt(articleID);
+		System.out.println("Article Integer : " + articleIdInteger);
 		
 		BidManager bm = new BidManager();
 		
 		try {
-			bm.updateMaxBid(sessionID, articleId, myOffer, currentOffer, startingBid);
+			bm.updateMaxBid(sessionID, articleIdInteger, myOffer, currentOffer, startingBid);
 		} catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
 			System.out.println("erreur lors de la saisie de l'offre");
+			hasError=true;
 		}
 		//Dispatch
-		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Connected/Home?profile=" + profileName);
-		rd.forward(request, response);
+		if (hasError) {
+			request.getServletContext().setAttribute("listeCodesErreur", listeCodesErreur);
+			System.out.println("ERROR => doit afficher message sur jsp");
+		}
+		else {
+			String message = "Votre enchère a bien été ajoutée";
+			request.getServletContext().setAttribute("message", message);
+			System.out.println("OK => doit afficher message sur jsp");
+		}
+		
+		this.doGet(request, response);
 	}
 
 }
