@@ -74,7 +74,6 @@
 				<p class="labelProfil"> Retrait </p>
 				<p class= "infoProfil">Vendeur : ${currentArticle.getUser().getUser()}</p>
 			</div>
-
 			<form action="<%=request.getContextPath()%>/Bid?startingBid=${currentArticle.getStartingBid()}&articleID=${currentArticle.getIdArticle()}&currentOffer=${currentArticle.getSalePrice()}&profile=${sessionScope.user}" method="post">
 				<c:if test="${profile.getUser().equals(sessionScope.user)}">
 					<div class="container3">

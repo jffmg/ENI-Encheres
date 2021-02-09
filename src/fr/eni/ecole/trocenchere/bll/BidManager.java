@@ -30,7 +30,7 @@ public class BidManager {
 		else {
 		
 			// if first bid for this article
-			if( currentOffer == null) {
+			if( currentOffer == null || currentOffer == 0) {
 				createBid(sessionId, articleId, myOffer, startingBid, date);
 			}
 			// if it is not the first bid
