@@ -1,5 +1,6 @@
 package fr.eni.ecole.trocenchere.dal;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ public interface DAO {
 	public abstract boolean checkEmail(String email) throws BusinessException;
 	public abstract void disableUser(String userName) throws BusinessException;
 	public abstract boolean checkArticlesToSale(String userName) throws BusinessException;
+	public abstract int selectPoints(int sessionId) throws BusinessException;
 
 	//Articles DAO Methods
 	public abstract List<Article> displayArticles(String keyword, String category, HttpServletRequest request)
@@ -29,6 +31,11 @@ public interface DAO {
 	
 	public abstract void createSellNewArticle(int userId, Article articleToSell, PickUp pickUp) throws BusinessException;
 	public abstract Article selectArticle(String articleID) throws BusinessException;
+	
+	// Bid DAO methods
+	public abstract void updateBid(int sessionId, int articleId, Integer myOffer, LocalDateTime date) throws BusinessException;
+	public abstract void createBid(int sessionId, int articleId, Integer myOffer, LocalDateTime date) throws BusinessException;
+
 
 	
 

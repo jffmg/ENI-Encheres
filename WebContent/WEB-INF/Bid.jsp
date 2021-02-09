@@ -57,7 +57,7 @@
 			</div>
 
 			<form action="<%=request.getContextPath()%>/Connected/Bid" method="post">
-				<c:if test="${profile.getUser().equals(sessionScope.profile)}">
+				<c:if test="${profile.getUser().equals(sessionScope.user)}">
 					<div class="container3">
 						<label for="bid">Mon offre :</label>
 						<input type="number" name="bid" value="${article.getCurrentBid()}">

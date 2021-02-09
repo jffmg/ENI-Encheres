@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,6 +136,31 @@ public class DAOJdbcImpl implements DAO {
 			e.printStackTrace();
 			throw businessException;
 		}
+	}
+	
+
+	@Override
+	public int selectPoints(int sessionId) throws BusinessException {
+		int points = 0;
+		
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_POINTS_BY_USER);
+			prepStmt.setInt(1, sessionId);
+			rs = prepStmt.executeQuery();
+			if(rs.next())
+			{
+				points=rs.getInt(1);
+			}
+		}
+		catch (SQLException e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
+			e.printStackTrace();
+			throw businessException;
+		}			
+		return points;
 	}
 
 
@@ -468,5 +495,53 @@ public class DAOJdbcImpl implements DAO {
 		}			
 	}
 
+	/**
+	 * BIDS : MAIN METHODS (Select, Create, Update, Delete)
+	 */
+	// 
+	@Override
+	public void updateBid(int sessionId, int articleId, Integer myOffer, LocalDateTime date) throws BusinessException {
+		createBid(sessionId, articleId, myOffer, date);
+		
+		updateSellPrice(articleId, myOffer);
+	}
+
+	private void updateSellPrice(int articleId, Integer myOffer) throws BusinessException {
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_UPDATE_SELL_PRICE);
+			prepStmt.setInt(1, myOffer);
+			prepStmt.setInt(2, articleId);
+			rs = prepStmt.executeQuery();
+			
+		}
+		catch (SQLException e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJECT_ECHEC);
+			e.printStackTrace();
+			throw businessException;
+		}			
+	}
+
+	@Override
+	public void createBid(int sessionId, int articleId, Integer myOffer, LocalDateTime date) throws BusinessException {
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_CREATE_BID);
+			prepStmt.setInt(1, sessionId);
+			prepStmt.setInt(2, articleId);
+			prepStmt.setTimestamp(3, Timestamp.valueOf(date));
+			prepStmt.setInt(4, myOffer);
+			rs = prepStmt.executeQuery();
+		}
+		catch (SQLException e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJECT_ECHEC);
+			e.printStackTrace();
+			throw businessException;
+		}			
+	}
 	
 }

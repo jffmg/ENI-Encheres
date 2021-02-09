@@ -17,5 +17,8 @@ public abstract class CodesResultatBLL {
 	public static final int USER_EXISTS = 20009;
 	public static final int EMAIL_EXISTS = 20010;
 	public static final int SALE_END_DATE=20011;
+	public static final int MY_OFFER_SUP_CURRENT_OFFER = 20012;
+	public static final int MY_OFFER_SUP_STARTING_BID = 20013;
+	public static final int MY_OFFER_INF_MY_POINTS = 20014;
 	
 }

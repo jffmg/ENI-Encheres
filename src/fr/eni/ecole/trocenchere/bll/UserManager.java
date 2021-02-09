@@ -146,4 +146,8 @@ public class UserManager {
 		return emailExists;
 	}
 
+	public int selectPointsUser(int sessionId) throws BusinessException {
+		return this.userDao.selectPoints(sessionId);
+	}
+
 }

@@ -77,5 +77,11 @@ public class SQL_REQUESTS_Utils {
 	public static final String SQL_SELECT_ARTICLE_BY_ID = "SELECT * FROM ARTICLES_VENDUS as a \r\n"
 			+ "INNER JOIN UTILISATEURS as u ON u.no_utilisateur = a.no_utilisateur\r\n"
 			+ "WHERE a.no_article = ?;";
+	
+	public static final String SQL_SELECT_POINTS_BY_USER ="SELECT credit FROM utilisateurs WHERE no_utilisateur=?;";
+	
+	public static final String SQL_CREATE_BID = "INSERT INTO encheres (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?, ?, ?, ?);";
+	
+	public static final String SQL_UPDATE_SELL_PRICE = "UPDATE articles_vendus SET prix_vente = ? WHERE no_article = ?";
 
 }
