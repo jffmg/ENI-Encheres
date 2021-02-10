@@ -1,8 +1,6 @@
 package fr.eni.ecole.trocenchere.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -46,8 +44,6 @@ public class ServletConnection extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Integer> listeCodesErreur=new ArrayList<>();
-
 		// get the paramaters
 		String userName = request.getParameter("user");
 		String password = request.getParameter("password");
@@ -95,8 +91,7 @@ public class ServletConnection extends HttpServlet {
 		}
 		else {
 			// Message error
-			listeCodesErreur.add(CodesResultatServlets.USER_PASSWORD_ERROR);
-			request.setAttribute("listeCodesErreur",listeCodesErreur);
+			ServletUtils.handleError(CodesResultatServlets.USER_PASSWORD_ERROR, request);
 
 			// Dispatch connection page
 			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Connection.jsp");

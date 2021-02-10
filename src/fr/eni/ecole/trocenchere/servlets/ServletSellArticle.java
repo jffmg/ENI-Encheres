@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,7 +31,6 @@ import fr.eni.ecole.trocenchere.utils.ServletUtils;
 public class ServletSellArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -53,7 +50,7 @@ public class ServletSellArticle extends HttpServlet {
 
 		manageArticle(request, articleID);
 		managePickUp(request, articleID);
-
+		
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/SellArticle.jsp");
 		rd.forward(request, response);
 	}
@@ -74,7 +71,6 @@ public class ServletSellArticle extends HttpServlet {
 		String profileName = request.getParameter("profile");
 		LocalDateTime startDate = null;
 		LocalDateTime endDate = null;
-		List<Integer> listeCodesErreur = new ArrayList<>();
 
 		// Get parameters
 		String articleId = request.getParameter("articleId");
@@ -90,7 +86,7 @@ public class ServletSellArticle extends HttpServlet {
 
 		//Error category
 		if ("Toutes".equals(articleCat)) {
-			listeCodesErreur.add(CodesResultatServlets.CATEGORY_MISSING_ERROR);
+			ServletUtils.handleError(CodesResultatServlets.CATEGORY_MISSING_ERROR, request);
 			hasError=true;
 		}
 
@@ -120,7 +116,7 @@ public class ServletSellArticle extends HttpServlet {
 			//System.out.println("Start date : " + startDate + " / End date : " + endDate); //debug display
 		} catch (DateTimeParseException e) {
 			e.printStackTrace();
-			listeCodesErreur.add(CodesResultatServlets.FORMAT_DATETIME_ERROR);
+			ServletUtils.handleError(CodesResultatServlets.FORMAT_DATETIME_ERROR, request);
 			hasError=true;
 		}
 
@@ -145,10 +141,7 @@ public class ServletSellArticle extends HttpServlet {
 			hasError=true;
 		}
 
-		if (hasError) {
-			request.setAttribute("listeCodesErreur", listeCodesErreur);
-		}
-		else {
+		if (!hasError) {
 			String message = "Votre vente a bien été ajoutée";
 			if (articleId != null) {
 				message = "Votre vente a bien été mise à jour";

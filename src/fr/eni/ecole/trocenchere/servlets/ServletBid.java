@@ -2,8 +2,6 @@ package fr.eni.ecole.trocenchere.servlets;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -91,7 +89,6 @@ public class ServletBid extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Integer> listeCodesErreur = new ArrayList<>();
 		boolean hasError = false;
 
 		String profileName = request.getParameter("profile");
@@ -129,11 +126,7 @@ public class ServletBid extends HttpServlet {
 			hasError=true;
 		}
 		//Dispatch
-		if (hasError) {
-			request.setAttribute("listeCodesErreur", listeCodesErreur);
-			//System.out.println("ERROR => doit afficher message sur jsp");
-		}
-		else {
+		if (!hasError) {
 			String message = "Votre enchère a bien été ajoutée";
 			request.setAttribute("message", message);
 			//System.out.println("OK => doit afficher message sur jsp");
