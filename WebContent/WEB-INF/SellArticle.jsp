@@ -61,7 +61,7 @@
 				<select
 					name="categories" id="category" required="required">
 					<c:forEach var="cat" items="${categories}">
-						<option value="${cat}" ${article != null && DalUtils.categoryIntToString(article.getIdCategory()).equals(cat) ? "selected='true'" : ""}>${cat}</option>
+						<option value="${cat}" ${article != null && article.getIdCategory() == DalUtils.categoryStringToInteger(cat) ? "selected" : ""}>${cat}</option>
 					</c:forEach>
 				</select>
 			</p>

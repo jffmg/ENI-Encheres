@@ -470,7 +470,28 @@ public class DAOJdbcImpl implements DAO {
 			e.printStackTrace();
 			throw businessException;
 		}
+		
+		int articleId = articleToSell.getIdArticle();
+		updatePickUp(articleId,pickUp);
+		
 		return articleToSell;
+	}
+	
+	public void updatePickUp(int articleId, PickUp pickUp) throws BusinessException {
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			
+			PreparedStatement prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_UPDATE_PICKUP);
+			
+			DalUtils.prepareStatementUpdatePickUp(prepStmt, articleId, pickUp);
+			
+			prepStmt.executeUpdate();
+
+		} catch (SQLException e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJECT_ECHEC);
+			e.printStackTrace();
+			throw businessException;
+		}
 	}
 
 	public boolean createPickUp(int articleId, PickUp pickUp) throws BusinessException {
@@ -493,6 +514,27 @@ public class DAOJdbcImpl implements DAO {
 			throw businessException;
 		}
 		return test;
+	}
+	
+	@Override
+	public PickUp selectPickUp(String articleID) throws BusinessException {
+		PickUp pickUp = null;
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_PICKUP_BY_ID);
+			prepStmt.setString(1, articleID);
+			rs = prepStmt.executeQuery();
+			if (rs.next()) {
+				pickUp = DalUtils.pickUpBuilder(rs);
+			}
+		} catch (SQLException e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
+			e.printStackTrace();
+			throw businessException;
+		}
+		return pickUp;
 	}
 
 	private void deleteArticleToSell(int articleId) throws BusinessException {
@@ -619,6 +661,5 @@ public class DAOJdbcImpl implements DAO {
 
 		return bidExists;
 	}
-
 
 }

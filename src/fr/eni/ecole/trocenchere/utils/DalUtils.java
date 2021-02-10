@@ -90,6 +90,15 @@ public class DalUtils {
 		return pstmt;
 	}
 	
+
+	public static PreparedStatement prepareStatementUpdatePickUp(PreparedStatement pstmt, int articleId, PickUp pickUp) throws SQLException {
+		pstmt.setString(1, pickUp.getStreet());
+		pstmt.setString(2, pickUp.getPostCode());
+		pstmt.setString(3, pickUp.getCity());
+		pstmt.setInt(4, articleId);
+		return pstmt;
+	}
+	
 	
 	/**
 	 * USER : SUPPORT METHODS
@@ -158,6 +167,14 @@ public class DalUtils {
 		cat.setCategoryId(rs.getInt("no_categorie"));
 		cat.setCategoryLabel(rs.getString("libelle"));
 		return cat;
+	}
+	
+	public static PickUp pickUpBuilder(ResultSet rs) throws SQLException {
+		PickUp pickUp = new PickUp();
+		pickUp.setStreet(rs.getString("rue"));
+		pickUp.setPostCode(rs.getString("poste_code"));
+		pickUp.setCity(rs.getString("ville"));
+		return pickUp;
 	}
 
 	// method for getting rid of frenchy accents
@@ -255,6 +272,7 @@ public class DalUtils {
 		
 		return dateString;
 	}
+
 
 
 }

@@ -17,8 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.ecole.trocenchere.bll.ArticleManager;
+import fr.eni.ecole.trocenchere.bll.PickUpManager;
 import fr.eni.ecole.trocenchere.bll.UserManager;
 import fr.eni.ecole.trocenchere.bo.Article;
+import fr.eni.ecole.trocenchere.bo.PickUp;
 import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 import fr.eni.ecole.trocenchere.gestion.erreurs.CodesResultatServlets;
@@ -43,10 +45,10 @@ public class ServletSellArticle extends HttpServlet {
 		
 		System.out.println("je passe dans la ServletSellArticle - doget / articleID : " + articleID);
 		
-		System.out.println("message: " + request.getParameter("message"));
-		System.out.println("message: " + request.getServletContext().getAttribute("message"));
-		System.out.println("message: " + request.getAttribute("message"));
-		System.out.println("message: " + request.getSession().getAttribute("message"));
+		//System.out.println("message: " + request.getParameter("message"));
+		//System.out.println("message: " + request.getServletContext().getAttribute("message"));
+		//System.out.println("message: " + request.getAttribute("message"));
+		//System.out.println("message: " + request.getSession().getAttribute("message"));
 
 		manageArticle(request, articleID);
 
@@ -154,6 +156,7 @@ public class ServletSellArticle extends HttpServlet {
 		}
 		else {
 			manageArticle(request, articleId);
+			managePickUp(request, articleId);
 			
 			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/SellArticle.jsp");
 			rd.forward(request, response);
@@ -193,6 +196,20 @@ public class ServletSellArticle extends HttpServlet {
 		}
 
 		request.getServletContext().setAttribute("article", article);
+	}
+	
+	private void managePickUp(HttpServletRequest request, String articleID){
+		PickUpManager pm = new PickUpManager();
+		PickUp pickUp = null;
+
+		try {
+			pickUp = pm.getPickUp(articleID);
+		} catch (BusinessException e) {
+			ServletUtils.handleBusinessException(e, request);
+		}
+
+
+		request.getServletContext().setAttribute("pickUp", pickUp);
 	}
 	
 }

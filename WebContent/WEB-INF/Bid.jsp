@@ -75,7 +75,7 @@
 				<p class= "infoProfil">${currentArticle.getUser().getUser()}</p>
 			</div>
 			
-			<c:if test="${!currentArticle.getUser().getUser().equals(sessionScope.user)}">
+			<c:if test="${!currentArticle.getUser().getUser().equals(sessionScope.user) && sessionScope.user!=null}">
 				<form action="<%=request.getContextPath()%>/Bid?startingBid=${currentArticle.getStartingBid()}&articleID=${currentArticle.getIdArticle()}&currentOffer=${currentArticle.getSalePrice()}&profile=${sessionScope.user}" method="post">
 					<div class="container3">
 						<label for="myOffer">Mon offre :</label>
