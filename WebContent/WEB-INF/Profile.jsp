@@ -49,7 +49,7 @@
 			<p class="labelProfil"> Email : </p>
 			<p class= "infoProfil"> ${profile.getEmail()}</p>
 
-			<p class="labelProfil"> Téléphone </p>
+			<p class="labelProfil"> Téléphone : </p>
 			<p class= "infoProfil"> ${profile.getPhone()}</p>
 			
 			<p class="labelProfil"> Rue : </p>

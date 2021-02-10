@@ -61,17 +61,17 @@
 							 
 							<input type="radio" name="buy2"
 								class="checkBox" id="openBids" value="openBids">
-							<label class="selectBoxLabel">enchères ouvertes
+							<label class="selectBoxLabel">Enchères ouvertes
 							</label> <br><br> 
 							
 							<input type="radio" name="buy2" class="checkBox"
 								id="myBids" value="myBids"> 
-							<label class="selectBoxLabel">mes enchères
+							<label class="selectBoxLabel">Mes enchères
 							</label> <br> <br> 
 							
 							<input type="radio" name="buy2"
 								class="checkBox" id="myWonBids" value="myWonBids"> 
-							<label class="selectBoxLabel">enchères remportées
+							<label class="selectBoxLabel">Enchères remportées
 							</label>
 	
 						</div>
@@ -87,18 +87,18 @@
 							
 							<input type="radio" name="sell2"
 								class="checkBox" id="currentSales" value="currentSales">
-							<label class="selectBoxLabel">ventes en cours
+							<label class="selectBoxLabel">Ventes en cours
 							</label> <br> <br>
 							
 							<input type="radio" name="sell2" class="checkBox"
 								id="notStartedSales" value="notStartedSales"> 
 							<label
-								class="selectBoxLabel">ventes non débutées
+								class="selectBoxLabel">Ventes non débutées
 							</label> <br> <br>
 							
 							<input type="radio" name="sell2" class="checkBox" id="endedSales"
 								value="endedSales"> 
-							<label class="selectBoxLabel">ventes terminées
+							<label class="selectBoxLabel">Ventes terminées
 							</label>
 	
 						</div>

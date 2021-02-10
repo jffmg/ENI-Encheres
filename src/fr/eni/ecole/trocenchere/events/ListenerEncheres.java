@@ -32,10 +32,10 @@ public class ListenerEncheres implements ServletContextListener {
 	 */
 	@Override
 	public void contextDestroyed(ServletContextEvent sce)  {
-		System.out.println("l'application s'est arrêtée");
+		//		System.out.println("l'application s'est arrêtée");
 		start = false;
 		asyncTask.interrupt();
-		System.out.println("... le traitement asynchrone s'arrête");
+		//		System.out.println("... le traitement asynchrone s'arrête");
 	}
 
 	/**
@@ -43,24 +43,24 @@ public class ListenerEncheres implements ServletContextListener {
 	 */
 	@Override
 	public void contextInitialized(ServletContextEvent sce)  {
-		System.out.println("l'application a démarré");
+		//		System.out.println("l'application a démarré");
 
 		// definition of asynchronous task
 		asyncTask = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				int cpt = 0;
-				System.out.println("le traitement asynchrone commence...");
+				//				int cpt = 0;
+				//				System.out.println("le traitement asynchrone commence...");
 				while (start) {
 					try {
-						cpt++;
+						//						cpt++;
 						try {
 							articleManager.updateDatabase();
 						} catch (BusinessException e) {
 							e.printStackTrace();
 						}
-						System.out.println("... le traitement asynchrone a été exécuté " + cpt + " fois...");
+						//						System.out.println("... le traitement asynchrone a été exécuté " + cpt + " fois...");
 						Thread.sleep(60000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();

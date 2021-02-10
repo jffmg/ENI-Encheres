@@ -18,32 +18,34 @@ import javax.servlet.http.HttpSession;
 , urlPatterns = { "/Connected/*" })
 public class FilterConnected implements Filter {
 
+	@Override
 	public void destroy() {
 	}
 
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		
+
 		// get the request and response objects
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		
-		 // avoid css and images being filtered
-		
-        String path = ((HttpServletRequest) request).getRequestURI();
-        System.out.println("path : " + path);
-       
-        if (path.contains("/css") || path.contains( "/images" )) {
-            System.out.println("SKIPPED : " + path);
-            
-            chain.doFilter( request, response );
-            return;
-        }
-        
-        // get session info
+
+		// avoid css and images being filtered
+
+		String path = ((HttpServletRequest) request).getRequestURI();
+		//        System.out.println("path : " + path);
+
+		if (path.contains("/css") || path.contains( "/images" )) {
+			//            System.out.println("SKIPPED : " + path);
+
+			chain.doFilter( request, response );
+			return;
+		}
+
+		// get session info
 		HttpSession session = ((HttpServletRequest) request).getSession();
 		String userName = (String) session.getAttribute("user");
-		System.out.println("Session of " + userName);
-		
+		//		System.out.println("Session of " + userName);
+
 		// Filter
 		if (userName == null) {
 			httpRequest.getRequestDispatcher("/Home").forward(request, response);
@@ -54,6 +56,7 @@ public class FilterConnected implements Filter {
 		}
 	}
 
+	@Override
 	public void init(FilterConfig fConfig) throws ServletException {
 
 	}

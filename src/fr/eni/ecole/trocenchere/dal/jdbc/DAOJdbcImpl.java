@@ -442,7 +442,7 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			throw businessException;
 		}
-		System.out.println(articlesSelected);
+		//		System.out.println(articlesSelected);
 
 		return articlesSelected;
 	}
@@ -501,20 +501,20 @@ public class DAOJdbcImpl implements DAO {
 			e.printStackTrace();
 			throw businessException;
 		}
-		
+
 		int articleId = articleToSell.getIdArticle();
 		updatePickUp(articleId,pickUp);
-		
+
 		return articleToSell;
 	}
-	
+
 	public void updatePickUp(int articleId, PickUp pickUp) throws BusinessException {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			
+
 			PreparedStatement prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_UPDATE_PICKUP);
-			
+
 			DalUtils.prepareStatementUpdatePickUp(prepStmt, articleId, pickUp);
-			
+
 			prepStmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -546,7 +546,7 @@ public class DAOJdbcImpl implements DAO {
 		}
 		return test;
 	}
-	
+
 	@Override
 	public PickUp selectPickUp(String articleID) throws BusinessException {
 		PickUp pickUp = null;

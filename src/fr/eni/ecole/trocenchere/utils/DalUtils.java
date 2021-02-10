@@ -1,7 +1,7 @@
 package fr.eni.ecole.trocenchere.utils;
 
-import java.sql.PreparedStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -16,8 +16,8 @@ import fr.eni.ecole.trocenchere.bo.PickUp;
 import fr.eni.ecole.trocenchere.bo.User;
 
 public class DalUtils {
-	
-	
+
+
 	/*
 	 * REQUEST STATEMENT FUNCTION
 	 */
@@ -32,25 +32,25 @@ public class DalUtils {
 		prepStmt.setString(8, data.getCity());
 		prepStmt.setString(9, data.getPasswordEncrypted());
 	}
-	
+
 	public static PreparedStatement prepareStatement1Param(User data, PreparedStatement pstmt, Object p1) throws SQLException {
 		pstmt.setObject(1, p1);
 		return pstmt;
 	}
-	
+
 	public static PreparedStatement prepareStatement2Params(User data, PreparedStatement pstmt, Object p1, Object p2) throws SQLException {
 		pstmt.setObject(1, p1);
 		pstmt.setObject(2, p2);
 		return pstmt;
 	}
-	
+
 	public static PreparedStatement prepareStatement3Params(User data, PreparedStatement pstmt, Object p1, Object p2, Object p3) throws SQLException {
 		pstmt.setObject(1, p1);
 		pstmt.setObject(2, p2);
 		pstmt.setObject(3, p3);
 		return pstmt;
 	}
-	
+
 	public static PreparedStatement prepareStatement4Params(User data, PreparedStatement pstmt, Object p1, Object p2, Object p3, Object p4) throws SQLException {
 		pstmt.setObject(1, p1);
 		pstmt.setObject(2, p2);
@@ -58,7 +58,7 @@ public class DalUtils {
 		pstmt.setObject(4, p4);
 		return pstmt;
 	}
-	
+
 	public static PreparedStatement prepareStatementSellArticle(PreparedStatement pstmt, Article article, int userId) throws SQLException {
 		pstmt.setString(1, article.getName());
 		pstmt.setString(2, article.getDescription());
@@ -70,7 +70,7 @@ public class DalUtils {
 		pstmt.setString(8, article.getStatus());
 		return pstmt;
 	}
-	
+
 	public static PreparedStatement prepareStatementUpdateArticle(PreparedStatement pstmt, Article article) throws SQLException {
 		pstmt.setString(1, article.getName());
 		pstmt.setString(2, article.getDescription());
@@ -82,7 +82,7 @@ public class DalUtils {
 		pstmt.setInt(8, article.getIdArticle());
 		return pstmt;
 	}
-	
+
 	public static PreparedStatement prepareStatementpickUp(PreparedStatement pstmt, PickUp pickUp, int articleId) throws SQLException {
 		pstmt.setInt(1, articleId);
 		pstmt.setString(2, pickUp.getStreet());
@@ -90,7 +90,7 @@ public class DalUtils {
 		pstmt.setString(4, pickUp.getCity());
 		return pstmt;
 	}
-	
+
 
 	public static PreparedStatement prepareStatementUpdatePickUp(PreparedStatement pstmt, int articleId, PickUp pickUp) throws SQLException {
 		pstmt.setString(1, pickUp.getStreet());
@@ -99,12 +99,12 @@ public class DalUtils {
 		pstmt.setInt(4, articleId);
 		return pstmt;
 	}
-	
-	
+
+
 	/**
 	 * USER : SUPPORT METHODS
 	 */
-	
+
 	public static User buildUser(ResultSet rs) throws SQLException {
 		User user = new User();
 		user.setIdUser(rs.getInt("no_utilisateur"));
@@ -121,14 +121,14 @@ public class DalUtils {
 		user.setAdmin(rs.getBoolean("administrateur"));
 		return user;
 	}
-	
+
 	/**
 	 * ARTICLES : SUPPORT METHODS
 	 */
-	
+
 	//basic Display (non connected & connedted w/o filters)
 	public static PreparedStatement basicDisplay(String keyword, int category, PreparedStatement pstmt, Connection cnx) throws SQLException {
-		
+
 		if (category == 0) {
 			if (keyword == null || keyword == "") {
 				pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_ALL_EC_ARTICLES);
@@ -146,10 +146,10 @@ public class DalUtils {
 				pstmt.setString(2, keyword);
 			}
 		}
-		
+
 		return pstmt;
 	}
-	
+
 	//article builder
 	public static Article articleBuilder(ResultSet rs) throws SQLException {
 		User user = buildUser(rs);
@@ -157,9 +157,9 @@ public class DalUtils {
 		Article article = new Article(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"),
 				rs.getTimestamp("date_debut_enchere").toLocalDateTime(), rs.getTimestamp("date_fin_enchere").toLocalDateTime(),
 				rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getString("etat_vente"), rs.getInt("no_categorie"), user, rs.getInt("no_utilisateur"), category);
-		
-		System.out.println(rs.getString("pseudo"));
-		
+
+		//		System.out.println(rs.getString("pseudo"));
+
 		return article;
 	}
 
@@ -169,7 +169,7 @@ public class DalUtils {
 		cat.setCategoryLabel(rs.getString("libelle"));
 		return cat;
 	}
-	
+
 	public static PickUp pickUpBuilder(ResultSet rs) throws SQLException {
 		PickUp pickUp = new PickUp();
 		pickUp.setStreet(rs.getString("rue"));
@@ -184,7 +184,7 @@ public class DalUtils {
 		s = s.replaceAll("[^\\p{ASCII}]", "");
 		return s;
 	}
-	
+
 	//method for getting category int from category String
 	public static int categoryStringToInt(String category) {
 		int categoryInt = 0;
@@ -204,45 +204,45 @@ public class DalUtils {
 		case "sport & loisirs":
 			categoryInt = 4;
 			break;
-		// default = all selected
+			// default = all selected
 		default:
 			categoryInt = 0;
 			break;
 		}
-		
-		return categoryInt;
-		
-		
-	}
-	
-	//method for getting category int from category String
-		public static int categoryStringToInteger(String category) {
-			Integer categoryInt = 0;
-			String catStrimAccents = stripAccents(category);
 
-			// changing labels to int
-			switch (catStrimAccents.toLowerCase().trim()) {
-			case "informatique":
-				categoryInt = 1;
-				break;
-			case "ameublement":
-				categoryInt = 2;
-				break;
-			case "vetement":
-				categoryInt = 3;
-				break;
-			case "sport & loisirs":
-				categoryInt = 4;
-				break;
+		return categoryInt;
+
+
+	}
+
+	//method for getting category int from category String
+	public static int categoryStringToInteger(String category) {
+		Integer categoryInt = 0;
+		String catStrimAccents = stripAccents(category);
+
+		// changing labels to int
+		switch (catStrimAccents.toLowerCase().trim()) {
+		case "informatique":
+			categoryInt = 1;
+			break;
+		case "ameublement":
+			categoryInt = 2;
+			break;
+		case "vetement":
+			categoryInt = 3;
+			break;
+		case "sport & loisirs":
+			categoryInt = 4;
+			break;
 			// default = all selected
-			default:
-				categoryInt = 0;
-				break;
-			}
-			
-			return categoryInt;
+		default:
+			categoryInt = 0;
+			break;
 		}
-		
+
+		return categoryInt;
+	}
+
 	public static String categoryIntToString(int categoryInt) {
 		String category = "Toutes";
 
@@ -260,7 +260,7 @@ public class DalUtils {
 			category = "Sport & Loisirs";
 			break;
 		}
-		
+
 		return category;
 	}
 
@@ -269,8 +269,8 @@ public class DalUtils {
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 		formatter = DateTimeFormatter.ofPattern("dd/MM/yyy à HH:mm");
 		dateString = date.format(formatter);
-		System.out.println(dateString);
-		
+		//		System.out.println(dateString);
+
 		return dateString;
 	}
 

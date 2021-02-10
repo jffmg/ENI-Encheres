@@ -1,14 +1,14 @@
 package fr.eni.ecole.trocenchere.utils;
 
 public class TestPasswordEncrypted {
-	
+
 	public static void main(String[] args) {
 		String passwordtest = "test";
 		String passwordEncypted = encrypt(passwordtest);
-		System.out.println("Mot de passse test : "+ passwordtest);
-		System.out.println("Mot de passe crypt� : " + passwordEncypted) ;
+		//		System.out.println("Mot de passe test : "+ passwordtest);
+		//		System.out.println("Mot de passe crypt� : " + passwordEncypted) ;
 	}
-	
+
 
 	//function to encrypt password
 	private static String encrypt(String password) {

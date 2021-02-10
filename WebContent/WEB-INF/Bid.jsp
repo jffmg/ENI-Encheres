@@ -68,7 +68,7 @@
 				<p class="labelProfil">Mise à prix :</p>
 				<p class= "infoProfil">${currentArticle.getStartingBid()} point(s)</p>
 				
-				<p class= "labelProfil"> Fin de l'enchère :</p>
+				<p class= "labelProfil">Fin de l'enchère :</p>
 				<p class= "infoProfil">Le ${endDateString}</p>
 				
 				<p class="labelProfil">Vendeur : </p>
