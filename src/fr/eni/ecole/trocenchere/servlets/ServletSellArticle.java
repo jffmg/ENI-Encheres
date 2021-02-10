@@ -115,7 +115,7 @@ public class ServletSellArticle extends HttpServlet {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 			startDate = LocalDateTime.parse(saleStartDate, dtf);
 			endDate = LocalDateTime.parse(saleEndDate, dtf);
-			System.out.println("Start date : " + startDate + " / End date : " + endDate); //debug display
+			//System.out.println("Start date : " + startDate + " / End date : " + endDate); //debug display
 		} catch (DateTimeParseException e) {
 			e.printStackTrace();
 			listeCodesErreur.add(CodesResultatServlets.FORMAT_DATETIME_ERROR);

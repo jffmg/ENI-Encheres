@@ -69,7 +69,7 @@
 			
 			<p class="labelSellArticleInfo">
 				<label for="description">Description :</label>
-				<textarea name="description" class="inputText" rows=5 required="required"/>${article != null ? article.getDescription() : ""}</textarea>
+				<textarea name="description" class="inputText" rows=5 required="required">${article != null ? article.getDescription() : ""}</textarea>
 			</p>
 
 <!-- 			<p> -->
