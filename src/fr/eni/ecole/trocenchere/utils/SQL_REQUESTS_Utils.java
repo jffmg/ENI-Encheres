@@ -113,6 +113,10 @@ public class SQL_REQUESTS_Utils {
 	public static final String SQL_SELECT_PICKUP_BY_ID = "SELECT * FROM retraits WHERE no_article=?";
 	
 	public static final String SQL_UPDATE_CREDIT = "UPDATE utilisateurs SET credit = ? WHERE no_utilisateur = ?";
+	
+	public static final String SQL_SELECT_ARTICLE_MAX_BID = "SELECT prix_vente FROM articles_vendus WHERE no_article = ?;";
+	public static final String SQL_SELECT_BID_BY_ARTICLE_AND_AMOUNT = "SELECT * FROM encheres WHERE no_article = ? AND montant_enchere = ?;";
+	public static final String SQL_SELECT_USER_BY_ID = "SELECT * FROM utilisateurs WHERE no_utilisateur = ?;";
 
 
 }

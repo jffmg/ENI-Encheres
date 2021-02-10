@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import fr.eni.ecole.trocenchere.bo.Article;
+import fr.eni.ecole.trocenchere.bo.Bid;
 import fr.eni.ecole.trocenchere.bo.Category;
 import fr.eni.ecole.trocenchere.bo.PickUp;
 import fr.eni.ecole.trocenchere.bo.User;
@@ -271,6 +272,11 @@ public class DalUtils {
 		System.out.println(dateString);
 		
 		return dateString;
+	}
+
+	public static Bid bidBuilder(ResultSet rs) throws SQLException {
+		Bid bid = new Bid(rs.getInt("no_utilisateur"), rs.getInt("no_article"), rs.getTimestamp("date_enchere").toLocalDateTime(), rs.getInt("montant_enchere"));
+		return bid;
 	}
 
 
