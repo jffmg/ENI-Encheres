@@ -22,6 +22,7 @@ public class BidManager {
 
 		LocalDateTime date = LocalDateTime.now();
 		
+		//check the bidder has enough points
 		boolean checkPointTest = checkPoints(sessionId, myOffer);
 		if (!checkPointTest) {
 			be.ajouterErreur(CodesResultatBLL.MY_OFFER_INF_MY_POINTS);
@@ -36,6 +37,9 @@ public class BidManager {
 				updateBid(sessionId, articleId, myOffer, currentOffer, date);
 			}
 		}
+		
+		//withdraw points on the bidder account
+		debitUserPoints(sessionId, myOffer);
 
 		// check the points of the bider
 		/*
@@ -52,6 +56,11 @@ public class BidManager {
 		 * 
 		 * } }
 		 */
+	}
+
+	private void debitUserPoints(int sessionId, Integer myOffer) throws BusinessException  {
+		UserManager um = new UserManager();
+		um.updatePointsUser(sessionId, myOffer);
 	}
 
 	private boolean checkPoints(int sessionId, int myOffer) throws BusinessException {

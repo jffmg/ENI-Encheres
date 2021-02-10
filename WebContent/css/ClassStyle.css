@@ -8,6 +8,14 @@
 	resize: none;
 }
 
+.inputNumber{
+	width: 5em;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	margin-left: 1em;
+	margin-right: 1em;
+}
+
 .inputSelect{
 	width: 30%;
 	border: 1px solid #ccc;
