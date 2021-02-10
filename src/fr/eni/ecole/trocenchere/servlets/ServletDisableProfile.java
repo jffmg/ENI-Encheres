@@ -36,7 +36,7 @@ public class ServletDisableProfile extends HttpServlet {
 		// get the user data
 		HttpSession session = request.getSession();
 		String userName = (String) session.getAttribute("user");
-		System.out.println("Session of " + userName);
+		//System.out.println("Session of " + userName);
 		
 		// try to delete the user
 		boolean deletionOK = false;
@@ -47,11 +47,11 @@ public class ServletDisableProfile extends HttpServlet {
 		}catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
 			
-			System.out.println("could not delete user: " + userName + " -> redirecting to profile");
+			//System.out.println("could not delete user: " + userName + " -> redirecting to profile");
 		}
 		
 		if (deletionOK) {
-			System.out.println("TEST");
+			//System.out.println("TEST");
 
 			// if OK delete session attribute user
 			session.removeAttribute("user");

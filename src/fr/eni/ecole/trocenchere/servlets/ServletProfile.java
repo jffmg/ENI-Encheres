@@ -26,7 +26,7 @@ public class ServletProfile extends HttpServlet {
 		
 		String profileName = request.getParameter("profile");
 		
-		System.out.println("je passe dans la ServletProfile - doGet / profilename : " +profileName);
+		//System.out.println("je passe dans la ServletProfile - doGet / profilename : " +profileName);
 		
 		// User - link to data base
 		UserManager userManager = new UserManager();
@@ -49,7 +49,7 @@ public class ServletProfile extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("je passe dans la ServletProfile - doPost");
+		//System.out.println("je passe dans la ServletProfile - doPost");
 		doGet(request, response);
 	}
 
