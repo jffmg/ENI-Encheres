@@ -107,5 +107,7 @@ public class SQL_REQUESTS_Utils {
 	public static final String SQL_SELECT_BID = "SELECT * FROM ENCHERES WHERE no_utilisateur = ? AND no_article = ?;";
 	
 	public static final String SQL_UPDATE_BID = "UPDATE encheres SET montant_enchere = ?, date_enchere = ? WHERE no_utilisateur = ? AND no_article = ?;";
+	
+	public static final String SQL_UPDATE_CREDIT = "UPDATE utilisateurs SET credit = ? WHERE no_utilisateur = ?";
 
 }

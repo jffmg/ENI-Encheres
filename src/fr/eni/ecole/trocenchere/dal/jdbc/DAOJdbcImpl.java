@@ -620,5 +620,23 @@ public class DAOJdbcImpl implements DAO {
 		return bidExists;
 	}
 
+	@Override
+	public void updatePoints(int sessionId, Integer myOffer) throws BusinessException {
+		int currentCredit = selectPoints(sessionId);
+		int newCredit = currentCredit - myOffer;
+		PreparedStatement pstmt = null;
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_UPDATE_CREDIT);
+			pstmt.setInt(1, newCredit);
+			pstmt.setInt(2, sessionId);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
+			e.printStackTrace();
+		}
+		
+	}
+
 
 }

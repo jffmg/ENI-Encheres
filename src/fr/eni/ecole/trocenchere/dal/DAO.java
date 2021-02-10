@@ -40,6 +40,7 @@ public interface DAO {
 
 	public abstract boolean checkbidExist(int sessionId, int articleId) throws BusinessException;
 	public abstract Article updateArticle(Article articleToSell, PickUp pickUp) throws BusinessException;
+	public abstract void updatePoints(int sessionId, Integer myOffer) throws BusinessException;
 
 
 

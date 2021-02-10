@@ -150,4 +150,9 @@ public class UserManager {
 		return this.userDao.selectPoints(sessionId);
 	}
 
+	public void updatePointsUser(int sessionId, Integer myOffer) throws BusinessException {
+		this.userDao.updatePoints(sessionId, myOffer);
+		
+	}
+
 }
