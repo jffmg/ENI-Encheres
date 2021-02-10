@@ -34,17 +34,18 @@ public class ServletSellArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		//System.out.println("doget - servlet sellArticle");
 
 		manageProfile(request);
 
 		String articleID = request.getParameter("articleID");
-		
+
 		//System.out.println("je passe dans la ServletSellArticle - doget / articleID : " + articleID);
-		
+
 		//System.out.println("message: " + request.getParameter("message"));
 		//System.out.println("message: " + request.getServletContext().getAttribute("message"));
 		//System.out.println("message: " + request.getAttribute("message"));
@@ -62,11 +63,12 @@ public class ServletSellArticle extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {		
-		
+			throws ServletException, IOException {
+
 		boolean hasError = false;
-		
+
 		//System.out.println("dopost - servlet sellArticle");
 
 		String profileName = request.getParameter("profile");
@@ -85,7 +87,7 @@ public class ServletSellArticle extends HttpServlet {
 		String pickUpStreet = request.getParameter("street");
 		String pickUpPostCode = request.getParameter("postCode");
 		String pickUpCity = request.getParameter("city");
-		
+
 		//Error category
 		if ("Toutes".equals(articleCat)) {
 			listeCodesErreur.add(CodesResultatServlets.CATEGORY_MISSING_ERROR);
@@ -96,7 +98,7 @@ public class ServletSellArticle extends HttpServlet {
 		String userName = (String) session.getAttribute("user");
 		User profile=null;
 		UserManager um = new UserManager();
-		
+
 		try {
 			profile = um.selectUser(userName);
 		}
@@ -104,7 +106,7 @@ public class ServletSellArticle extends HttpServlet {
 			ServletUtils.handleBusinessException(e, request);
 			hasError=true;
 		}
-				
+
 		//get session data
 		int idSeller = profile.getIdUser();
 
@@ -121,16 +123,16 @@ public class ServletSellArticle extends HttpServlet {
 			listeCodesErreur.add(CodesResultatServlets.FORMAT_DATETIME_ERROR);
 			hasError=true;
 		}
-		
+
 		// create Article
 		try {
 			ArticleManager am = new ArticleManager();
 
 			//System.out.println("articleId: " + articleId);
-			
+
 			if (articleId == null || "".equals(articleId)) {
 				am.sellArticle(idSeller, articleName, articleDesc, articleCat, saleStartBid, startDate, endDate,
-					pickUpStreet, pickUpPostCode, pickUpCity);
+						pickUpStreet, pickUpPostCode, pickUpCity);
 			}
 			else {
 				am.updateArticle(articleId, idSeller, articleName, articleDesc, articleCat, saleStartBid, startDate, endDate,
@@ -142,7 +144,7 @@ public class ServletSellArticle extends HttpServlet {
 			e.printStackTrace();
 			hasError=true;
 		}
-		
+
 		if (hasError) {
 			request.setAttribute("listeCodesErreur", listeCodesErreur);
 		}
@@ -153,26 +155,26 @@ public class ServletSellArticle extends HttpServlet {
 			}
 			request.setAttribute("message", message);
 		}
-		
+
 		if (articleId == null) {
 			this.doGet(request, response);
 		}
 		else {
 			manageArticle(request, articleId);
 			managePickUp(request, articleId);
-			
+
 			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/SellArticle.jsp");
 			rd.forward(request, response);
 		}
 	}
-	
+
 	/*
-	* functions
-	*/
+	 * functions
+	 */
 	private void manageProfile(HttpServletRequest request) {
 		String profileName = request.getParameter("profile");
 
-		System.out.println("je passe dans la ServletSellArticle - doGet / profilename : " + profileName);
+		//		System.out.println("je passe dans la ServletSellArticle - doGet / profilename : " + profileName);
 
 		// User - link to data base
 		UserManager userManager = new UserManager();
@@ -187,7 +189,7 @@ public class ServletSellArticle extends HttpServlet {
 		request.getServletContext().setAttribute("profile", profile);
 		// System.out.println("Ville du profile : " + profile.getCity());
 	}
-	
+
 	private void manageArticle(HttpServletRequest request, String articleID) {
 		ArticleManager am = new ArticleManager();
 		Article article = null;
@@ -200,7 +202,7 @@ public class ServletSellArticle extends HttpServlet {
 
 		request.getServletContext().setAttribute("article", article);
 	}
-	
+
 	private void managePickUp(HttpServletRequest request, String articleID){
 		PickUpManager pm = new PickUpManager();
 		PickUp pickUp = null;
@@ -214,5 +216,5 @@ public class ServletSellArticle extends HttpServlet {
 
 		request.getServletContext().setAttribute("pickUp", pickUp);
 	}
-	
+
 }

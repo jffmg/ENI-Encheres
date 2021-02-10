@@ -1,8 +1,6 @@
 package fr.eni.ecole.trocenchere.servlets;
 
 import java.io.IOException;
-import java.text.Normalizer;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

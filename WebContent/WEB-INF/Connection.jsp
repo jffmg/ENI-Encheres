@@ -39,7 +39,7 @@
 								userName = String.valueOf(request.getAttribute("userNameRemembered"));
 							}
 						%>
-						<li><label name="user" for="userId" class="idLabel">Identifiant :</label> 
+						<li><label for="user" class="idLabel">Identifiant :</label> 
 							<input class="inputText" type="text" name="user" class="idField" value="<%=(userName != null) ? userName : ""%>" required/> 
 							<br>
 						</li>

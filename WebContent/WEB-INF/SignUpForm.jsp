@@ -52,7 +52,8 @@
 							</li>
 							<li>
 								<label class="labelSignForm" for="phone">Téléphone : </label>
-								<input class="inputText" type="tel" pattern="0[1-9]([0-9]{2}){4}" name="phone" placeholder="0123456789">
+								<input class="inputText" type="tel" name="phone" placeholder="0123456789">
+<!-- 								pattern="|0[1-9]([0-9]{2}){4}" -->
 							</li>
 							<li>
 								<label class="labelSignForm" for="street">Adresse* : </label>

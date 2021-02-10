@@ -32,7 +32,7 @@ public class FilterConnected implements Filter {
 		// avoid css and images being filtered
 
 		String path = ((HttpServletRequest) request).getRequestURI();
-		//        System.out.println("path : " + path);
+		//		System.out.println("path : " + path);
 
 		if (path.contains("/css") || path.contains( "/images" )) {
 			//            System.out.println("SKIPPED : " + path);

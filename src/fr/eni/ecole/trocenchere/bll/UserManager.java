@@ -30,12 +30,12 @@ public class UserManager {
 
 		if (userExists == true) {
 			be.ajouterErreur(CodesResultatBLL.USER_EXISTS);
-			System.out.println(CodesResultatBLL.USER_EXISTS);
+			//			System.out.println(CodesResultatBLL.USER_EXISTS);
 		}
 
 		if (emailExists == true) {
 			be.ajouterErreur(CodesResultatBLL.EMAIL_EXISTS);
-			System.out.println(CodesResultatBLL.EMAIL_EXISTS);
+			//			System.out.println(CodesResultatBLL.EMAIL_EXISTS);
 		}
 
 		User currentUser = new User(user, name, firstName, email, phone, street, postCode, city, passwordEncrypted);
@@ -60,22 +60,22 @@ public class UserManager {
 			String postCode, String city, String passwordEncrypted, String userNameSession, String userEmailSession, int id) throws BusinessException {
 
 		BusinessException be = new BusinessException();
-		
+
 		boolean userExists = false;
 		boolean emailExists = false;
-		
+
 		// Test if username updated
 		if(userNameSession.equals(user)) {
-		} 
+		}
 		else { // if username updated test if new username OK
 			userExists = checkUser(user);
-			
+
 			if (userExists == true) {
 				be.ajouterErreur(CodesResultatBLL.USER_EXISTS);
-				System.out.println(CodesResultatBLL.USER_EXISTS);
+				//				System.out.println(CodesResultatBLL.USER_EXISTS);
 			}
 		}
-		
+
 		// Test if email updated
 		if (userEmailSession.equals(email)) {
 		}
@@ -84,10 +84,10 @@ public class UserManager {
 
 			if (emailExists == true) {
 				be.ajouterErreur(CodesResultatBLL.EMAIL_EXISTS);
-				System.out.println(CodesResultatBLL.EMAIL_EXISTS);
+				//				System.out.println(CodesResultatBLL.EMAIL_EXISTS);
 			}
 		}
-		
+
 		User profileUpdated = new User(id, user, name, firstName, email, phone, street, postCode, city, passwordEncrypted);
 		this.validateUser(profileUpdated, be);
 
@@ -152,7 +152,7 @@ public class UserManager {
 
 	public void updatePointsUser(int sessionId, Integer myOffer) throws BusinessException {
 		this.userDao.updatePoints(sessionId, myOffer);
-		
+
 	}
 
 }

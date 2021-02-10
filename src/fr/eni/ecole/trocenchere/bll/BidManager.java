@@ -9,7 +9,6 @@ import fr.eni.ecole.trocenchere.dal.DAO;
 import fr.eni.ecole.trocenchere.dal.DAOFactory;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
 import fr.eni.ecole.trocenchere.gestion.erreurs.CodesResultatBLL;
-import fr.eni.ecole.trocenchere.utils.DalUtils;
 
 public class BidManager {
 
@@ -24,12 +23,12 @@ public class BidManager {
 		BusinessException be = new BusinessException();
 
 		LocalDateTime date = LocalDateTime.now();
-		
+
 		//check the bidder has enough points
 		boolean checkPointTest = checkPoints(sessionId, myOffer);
 		if (!checkPointTest) {
 			be.ajouterErreur(CodesResultatBLL.MY_OFFER_INF_MY_POINTS);
-			System.out.println(CodesResultatBLL.MY_OFFER_INF_MY_POINTS);
+			//			System.out.println(CodesResultatBLL.MY_OFFER_INF_MY_POINTS);
 			throw be;
 		} else {
 			//check if there is already a winning bid
@@ -42,10 +41,10 @@ public class BidManager {
 				updateBid(sessionId, articleId, myOffer, currentOffer, date);
 			}
 		}
-		
+
 		//withdraw points on the bidder account
 		debitUserPoints(sessionId, myOffer);
-		
+
 		//check if there is already a winning bid
 		//selectArticleMaxBid(articleId);
 
@@ -80,10 +79,10 @@ public class BidManager {
 			//credit previous bidder's point with his own bid amount
 			this.bidDao.raisePoints(bidderId, currentBid);
 		}
-		
+
 	}
 
-	
+
 	private void debitUserPoints(int sessionId, Integer myOffer) throws BusinessException  {
 		UserManager um = new UserManager();
 		um.updatePointsUser(sessionId, myOffer);
@@ -102,7 +101,7 @@ public class BidManager {
 
 		if (myOffer < startingBid) {
 			be.ajouterErreur(CodesResultatBLL.MY_OFFER_SUP_STARTING_BID);
-			System.out.println(CodesResultatBLL.MY_OFFER_SUP_STARTING_BID);
+			//			System.out.println(CodesResultatBLL.MY_OFFER_SUP_STARTING_BID);
 		}
 
 		if (be.hasErreurs()) {
@@ -119,7 +118,7 @@ public class BidManager {
 		// if there is already some bids for this article
 		if (myOffer < currentOffer) {
 			be.ajouterErreur(CodesResultatBLL.MY_OFFER_SUP_CURRENT_OFFER);
-			System.out.println(CodesResultatBLL.MY_OFFER_SUP_CURRENT_OFFER);
+			//			System.out.println(CodesResultatBLL.MY_OFFER_SUP_CURRENT_OFFER);
 		}
 
 		if (be.hasErreurs()) {

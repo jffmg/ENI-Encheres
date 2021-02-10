@@ -264,7 +264,7 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			throw businessException;
 		}
-		System.out.println(articlesSelected);
+		//		System.out.println(articlesSelected);
 
 		return articlesSelected;
 	}

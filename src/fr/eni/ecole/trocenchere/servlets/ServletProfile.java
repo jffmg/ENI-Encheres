@@ -22,25 +22,26 @@ public class ServletProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static List<Integer> listeCodesErreur = new ArrayList<>();
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		String profileName = request.getParameter("profile");
-		
+
 		//System.out.println("je passe dans la ServletProfile - doGet / profilename : " +profileName);
-		
+
 		// User - link to data base
 		UserManager userManager = new UserManager();
 		User profile=null;
-		
+
 		try {
 			profile = userManager.selectUser(profileName);
 		}
 		catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
 		}
-		
+
 		request.getServletContext().setAttribute("profile", profile);
-		//System.out.println("Ville du profile : " + profile.getCity());
+		// System.out.println("Ville du profil : " + profile.getCity());
 
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Profile.jsp");
 		rd.forward(request, response);
@@ -48,6 +49,7 @@ public class ServletProfile extends HttpServlet {
 	}
 
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//System.out.println("je passe dans la ServletProfile - doPost");
 		doGet(request, response);

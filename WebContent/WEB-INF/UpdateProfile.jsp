@@ -51,25 +51,25 @@
 			<p class="labelProfil"> Email : </p>
 			<p><input class="inputText" type="email" name="email" value="${profile.getEmail()}" size=35/> <p>
 
-			<p class="labelProfil"> Téléphone </p>
+			<p class="labelProfil"> Téléphone : </p>
 			<p><input class="inputText" type="text" name="phone" value="${profile.getPhone()}" size=35/> <p>
 			
 			<p class="labelProfil"> Rue : </p>
 			<p><input class="inputText" type="text" name="street" value="${profile.getStreet()}" size=35/> <p>
 
-			<p class="labelProfil"> Code Postal : </p>
+			<p class="labelProfil"> Code postal : </p>
 			<p><input class="inputText" type="text" name="postCode" value="${profile.getPostCode()}" size=35/> <p>
 
 			<p class="labelProfil"> Ville : </p>
 			<p><input class="inputText" type="text" name="city" value="${profile.getCity()}" size=35/> <p>
 			
-			<p class="labelProfil"> Nouveau mot de passe*: </p>
+			<p class="labelProfil"> Nouveau mot de passe* : </p>
 			<p><input class="inputText" id="newPassword" type="password" name="newPassword" size=35 onkeyup="checkFunction()" required/> <p>
 			
-			<p class="labelProfil"> Confirmation mot de passe*: </p>
+			<p class="labelProfil"> Confirmation mot de passe* : </p>
 			<p><input class="inputText" id="confirmPassword" type="password" name="confirmPassword" size=35 onkeyup="checkFunction()" required/> <p>
 			
-			<p class="asterisque">* Vous devez définir un nouveau mot de passe pour pouvoir valider les modifications de votre profil.
+			<p class="asterisque">*Vous devez définir un nouveau mot de passe pour pouvoir valider les modifications de votre profil.
 			Il peut être identique à votre mot de passe actuel.</p>
 			
 			<p class="labelProfil"></p>

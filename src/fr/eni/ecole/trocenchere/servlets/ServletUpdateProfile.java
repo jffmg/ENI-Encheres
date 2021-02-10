@@ -1,8 +1,6 @@
 package fr.eni.ecole.trocenchere.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,22 +28,22 @@ public class ServletUpdateProfile extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		String profileName = request.getParameter("profile");
-		
-		System.out.println("je passe dans la ServletUpdateProfile - doGet / profile name : " + profileName );
-		
+
+//		System.out.println("je passe dans la ServletUpdateProfile - doGet / profile name : " + profileName );
+
 		// User - link to data base
 		UserManager userManager = new UserManager();
 		User profile=null;
-		
+
 		try {
 			profile = userManager.selectUser(profileName);
 		}
 		catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
 		}
-		
+
 		request.getServletContext().setAttribute("profile", profile);
 		//System.out.println("Ville du profile : " + profile.getCity());
 
@@ -53,34 +51,34 @@ public class ServletUpdateProfile extends HttpServlet {
 		rd.forward(request, response);
 
 	}
-	
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		String profileName = request.getParameter("profile");
-		
+
 		//System.out.println("je passe dans la ServletUpdateProfile - doPost / profile name : " + profileName );
-		
+
 		// User - link to data base
 		UserManager userManager = new UserManager();
 		User profile=null;
-		
+
 		try {
 			profile = userManager.selectUser(profileName);
 		}
 		catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
 		}
-				
+
 		//get session data
 		String sessionUser = profile.getUser();
 		String sessionEmail = profile.getEmail();
 		int sessionID = profile.getIdUser();
-		
+
 		// 1 - get the parameters
 		String user = request.getParameter("userName");
 		String name = request.getParameter("name");
@@ -91,7 +89,7 @@ public class ServletUpdateProfile extends HttpServlet {
 		String postCode = request.getParameter("postCode");
 		String city = request.getParameter("city");
 		String password = request.getParameter("newPassword");
-		
+
 
 		// 2 - encrypt password
 		String passwordEncrypted = PasswordUtils.encrypt(password);
@@ -102,26 +100,26 @@ public class ServletUpdateProfile extends HttpServlet {
 			// try update and set the new profile
 			//Update user
 			um.updateUser(user, name, firstName, email, phone, street, postCode, city, passwordEncrypted, sessionUser, sessionEmail, sessionID);
-			
+
 			//Update profile
 			profile = um.selectUser(user);
-			
+
 			request.getSession().setAttribute("user", user);
-			
+
 			profileName = profile.getUser();
-			
+
 			//System.out.println("je dois avoir modifier le profil");
-			
+
 		} catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
-			
+
 			//System.out.println("erreur lors de la saisie du formulaire");
 		}
-		
+
 		//Dispatch
-			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Profile?profile=" + profileName);
-			rd.forward(request, response);
-		
+		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Profile?profile=" + profileName);
+		rd.forward(request, response);
+
 	}
 
 }

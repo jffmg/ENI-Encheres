@@ -56,7 +56,7 @@
 							
 							<input type="radio"
 								name="buyOrSell" id="buy1" value="buy1" onClick="checkBoxes()">
-								Mes Achats
+								Mes achats
 							</label> <br> <br>
 							 
 							<input type="radio" name="buy2"

@@ -269,7 +269,7 @@ public class DalUtils {
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 		formatter = DateTimeFormatter.ofPattern("dd/MM/yyy à HH:mm");
 		dateString = date.format(formatter);
-		//		System.out.println(dateString);
+		// System.out.println(dateString);
 
 		return dateString;
 	}
