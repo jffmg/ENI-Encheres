@@ -51,6 +51,7 @@ public class ServletSellArticle extends HttpServlet {
 		//System.out.println("message: " + request.getSession().getAttribute("message"));
 
 		manageArticle(request, articleID);
+		managePickUp(request, articleID);
 
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/SellArticle.jsp");
 		rd.forward(request, response);
@@ -124,8 +125,10 @@ public class ServletSellArticle extends HttpServlet {
 		// create Article
 		try {
 			ArticleManager am = new ArticleManager();
+
+			System.out.println("articleId: " + articleId);
 			
-			if (articleId == null) {
+			if (articleId == null || "".equals(articleId)) {
 				am.sellArticle(idSeller, articleName, articleDesc, articleCat, saleStartBid, startDate, endDate,
 					pickUpStreet, pickUpPostCode, pickUpCity);
 			}

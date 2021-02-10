@@ -172,7 +172,7 @@ public class DalUtils {
 	public static PickUp pickUpBuilder(ResultSet rs) throws SQLException {
 		PickUp pickUp = new PickUp();
 		pickUp.setStreet(rs.getString("rue"));
-		pickUp.setPostCode(rs.getString("poste_code"));
+		pickUp.setPostCode(rs.getString("code_postal"));
 		pickUp.setCity(rs.getString("ville"));
 		return pickUp;
 	}
@@ -227,7 +227,7 @@ public class DalUtils {
 			case "ameublement":
 				categoryInt = 2;
 				break;
-			case "vatement":
+			case "vetement":
 				categoryInt = 3;
 				break;
 			case "sport & loisirs":

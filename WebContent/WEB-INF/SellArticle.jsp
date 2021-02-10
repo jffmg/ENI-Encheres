@@ -99,17 +99,17 @@
 				<p class="labelPickUpinfo">
 					<label for="street">Rue :</label>
 				</p>
-				<input class="inputPickUpinfo" type="text" name="street" value="${profile.getStreet()}"/><br>
+				<input class="inputPickUpinfo" type="text" name="street" value="${pickUp != null ? pickUp.getStreet() : profile.getStreet()}"/><br>
 
 				<p class="labelPickUpinfo">
 					<label for="postCode">Code postal :</label>
 				</p>
-				<input class="inputPickUpinfo" type="text" name="postCode" value="${profile.getPostCode()}"/><br>
+				<input class="inputPickUpinfo" type="text" name="postCode" value="${pickUp != null ? pickUp.getPostCode() : profile.getPostCode()}"/><br>
 
 				<p class="labelPickUpinfo">
 					<label for="city">Ville :</label>		
 				</p>
-				<input class="inputPickUpinfo" type="text" name="city" value="${profile.getCity()}"/><br>
+				<input class="inputPickUpinfo" type="text" name="city" value="${pickUp != null ? pickUp.getCity() : profile.getCity()}"/><br>
 			</fieldset>
 			
 		</div>
