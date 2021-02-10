@@ -82,7 +82,7 @@ public class ServletConnectedHome extends HttpServlet {
 			ArticleManager am = new ArticleManager();
 
 			keyWord = request.getParameter("keyWord");
-			System.out.println(keyWord);
+			//System.out.println(keyWord);
 
 			HttpSession session = request.getSession();
 			String userName = (String) session.getAttribute("user");

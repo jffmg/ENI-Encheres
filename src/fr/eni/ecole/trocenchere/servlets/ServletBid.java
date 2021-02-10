@@ -36,7 +36,7 @@ public class ServletBid extends HttpServlet {
 		String profileName = request.getParameter("profile");
 		String articleID = request.getParameter("articleID");
 		
-		System.out.println("je passe dans la ServletBid - doGet / profile name : " + profileName + " articleID : " + articleID);
+		//System.out.println("je passe dans la ServletBid - doGet / profile name : " + profileName + " articleID : " + articleID);
 		
 		// User - link to data base
 		UserManager userManager = new UserManager();
@@ -95,7 +95,7 @@ public class ServletBid extends HttpServlet {
 		String profileName = request.getParameter("profile");
 		String articleID = request.getParameter("articleID");
 		request.getServletContext().setAttribute("articleID", articleID);
-		System.out.println("je passe dans la ServletUpdateProfile - doPost / profile name : " + profileName + " articleID : " + articleID );
+		//System.out.println("je passe dans la ServletUpdateProfile - doPost / profile name : " + profileName + " articleID : " + articleID );
 		
 		// User - link to data base
 		UserManager userManager = new UserManager();
@@ -115,7 +115,7 @@ public class ServletBid extends HttpServlet {
 		Integer currentOffer = Integer.parseInt(request.getParameter("currentOffer"));
 		Integer startingBid = Integer.parseInt(request.getParameter("startingBid"));
 		Integer articleIdInteger = Integer.parseInt(articleID);
-		System.out.println("Article Integer : " + articleIdInteger);
+		//System.out.println("Article Integer : " + articleIdInteger);
 		
 		BidManager bm = new BidManager();
 		
@@ -123,18 +123,18 @@ public class ServletBid extends HttpServlet {
 			bm.updateMaxBid(sessionID, articleIdInteger, myOffer, currentOffer, startingBid);
 		} catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
-			System.out.println("erreur lors de la saisie de l'offre");
+			//System.out.println("erreur lors de la saisie de l'offre");
 			hasError=true;
 		}
 		//Dispatch
 		if (hasError) {
-			request.getServletContext().setAttribute("listeCodesErreur", listeCodesErreur);
-			System.out.println("ERROR => doit afficher message sur jsp");
+			request.setAttribute("listeCodesErreur", listeCodesErreur);
+			//System.out.println("ERROR => doit afficher message sur jsp");
 		}
 		else {
 			String message = "Votre enchère a bien été ajoutée";
-			request.getServletContext().setAttribute("message", message);
-			System.out.println("OK => doit afficher message sur jsp");
+			request.setAttribute("message", message);
+			//System.out.println("OK => doit afficher message sur jsp");
 		}
 		
 		this.doGet(request, response);

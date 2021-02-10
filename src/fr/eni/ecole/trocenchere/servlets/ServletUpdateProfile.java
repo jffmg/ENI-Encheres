@@ -63,7 +63,7 @@ public class ServletUpdateProfile extends HttpServlet {
 		
 		String profileName = request.getParameter("profile");
 		
-		System.out.println("je passe dans la ServletUpdateProfile - doPost / profile name : " + profileName );
+		//System.out.println("je passe dans la ServletUpdateProfile - doPost / profile name : " + profileName );
 		
 		// User - link to data base
 		UserManager userManager = new UserManager();
@@ -110,12 +110,12 @@ public class ServletUpdateProfile extends HttpServlet {
 			
 			profileName = profile.getUser();
 			
-			System.out.println("je dois avoir modifier le profil");
+			//System.out.println("je dois avoir modifier le profil");
 			
 		} catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
 			
-			System.out.println("erreur lors de la saisie du formulaire");
+			//System.out.println("erreur lors de la saisie du formulaire");
 		}
 		
 		//Dispatch

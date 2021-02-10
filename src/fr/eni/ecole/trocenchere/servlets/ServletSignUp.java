@@ -59,7 +59,7 @@ public class ServletSignUp extends HttpServlet {
 			userManager.addUser(user, name, firstName, email, phone, street, postCode, city, passwordEncrypted);
 		} catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
-			System.out.println("erreur lors de la saisie du formulaire");
+			//System.out.println("erreur lors de la saisie du formulaire");
 			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/SignUpForm.jsp");
 			rd.forward(request, response);
 			e.printStackTrace();
@@ -70,7 +70,7 @@ public class ServletSignUp extends HttpServlet {
 		// Save user for the session
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user);
-		System.out.println("saisie du formulaire OK");
+		//System.out.println("saisie du formulaire OK");
 
 		//Redirect to Home
 		request.getServletContext().getRequestDispatcher("/Connected/Home?foo=get").forward(request, response);

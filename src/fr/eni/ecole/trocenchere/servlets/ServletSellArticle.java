@@ -37,13 +37,13 @@ public class ServletSellArticle extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		System.out.println("doget - servlet sellArticle");
+		//System.out.println("doget - servlet sellArticle");
 
 		manageProfile(request);
 
 		String articleID = request.getParameter("articleID");
 		
-		System.out.println("je passe dans la ServletSellArticle - doget / articleID : " + articleID);
+		//System.out.println("je passe dans la ServletSellArticle - doget / articleID : " + articleID);
 		
 		//System.out.println("message: " + request.getParameter("message"));
 		//System.out.println("message: " + request.getServletContext().getAttribute("message"));
@@ -67,7 +67,7 @@ public class ServletSellArticle extends HttpServlet {
 		
 		boolean hasError = false;
 		
-		System.out.println("dopost - servlet sellArticle");
+		//System.out.println("dopost - servlet sellArticle");
 
 		String profileName = request.getParameter("profile");
 		LocalDateTime startDate = null;
@@ -126,7 +126,7 @@ public class ServletSellArticle extends HttpServlet {
 		try {
 			ArticleManager am = new ArticleManager();
 
-			System.out.println("articleId: " + articleId);
+			//System.out.println("articleId: " + articleId);
 			
 			if (articleId == null || "".equals(articleId)) {
 				am.sellArticle(idSeller, articleName, articleDesc, articleCat, saleStartBid, startDate, endDate,
@@ -138,20 +138,20 @@ public class ServletSellArticle extends HttpServlet {
 			}
 		} catch (BusinessException e) {
 			ServletUtils.handleBusinessException(e, request);
-			System.out.println("erreur lors de la saisie du formulaire");
+			//System.out.println("erreur lors de la saisie du formulaire");
 			e.printStackTrace();
 			hasError=true;
 		}
 		
 		if (hasError) {
-			request.getServletContext().setAttribute("listeCodesErreur", listeCodesErreur);
+			request.setAttribute("listeCodesErreur", listeCodesErreur);
 		}
 		else {
 			String message = "Votre vente a bien été ajoutée";
 			if (articleId != null) {
 				message = "Votre vente a bien été mise à jour";
 			}
-			request.getServletContext().setAttribute("message", message);
+			request.setAttribute("message", message);
 		}
 		
 		if (articleId == null) {

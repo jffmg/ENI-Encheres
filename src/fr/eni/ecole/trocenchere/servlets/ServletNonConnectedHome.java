@@ -37,7 +37,7 @@ public class ServletNonConnectedHome extends HttpServlet {
 		// check: if user is connected, dispatch to ConnectedHome
 		HttpSession session = request.getSession();
 		String userName = (String) session.getAttribute("user");
-		System.out.println("Session of " + userName);
+		//System.out.println("Session of " + userName);
 		if (userName != null) {
 			this.getServletContext().getRequestDispatcher("/Connected/Home").forward(request, response);
 		} else {
@@ -73,7 +73,7 @@ public class ServletNonConnectedHome extends HttpServlet {
 		String keyWord = null;
 
 		keyWord = request.getParameter("keyWord");
-		System.out.println(keyWord);
+		//System.out.println(keyWord);
 		
 
 		// displaying articles
