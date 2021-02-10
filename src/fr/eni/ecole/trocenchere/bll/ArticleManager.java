@@ -57,9 +57,8 @@ public class ArticleManager {
 		int idCategory = DalUtils.categoryStringToInteger(articleCat);
 
 		// check the end of sale date
-		boolean datesAreOkay = false;
-		datesAreOkay = checkDates(saleEndDate, saleStartDate);
-		if (datesAreOkay == false) {
+		boolean	datesAreOkay = checkDates(saleEndDate, saleStartDate);
+		if (!datesAreOkay) {
 			be.ajouterErreur(CodesResultatBLL.SALE_END_DATE);
 			System.out.println(CodesResultatBLL.SALE_END_DATE);
 		}
@@ -87,9 +86,9 @@ public class ArticleManager {
 	}
 	private boolean checkDates(LocalDateTime saleEndDate, LocalDateTime saleStartDate) {
 		boolean datesAreOkay = true;
-		boolean isSaleEndDateBeforeActualDate = LocalDateTime.now().isBefore(saleEndDate);
-		boolean isSaleStartDateBeforeEndDate = saleStartDate.isBefore(saleEndDate);
-		if (!isSaleEndDateBeforeActualDate || !isSaleStartDateBeforeEndDate) {
+		boolean isSaleEndDateBeforeActualDate = saleEndDate.isBefore(LocalDateTime.now());
+		boolean isSaleEndDateBeforeStartDate = saleEndDate.isBefore(saleStartDate);
+		if (isSaleEndDateBeforeActualDate || isSaleEndDateBeforeStartDate) {
 			datesAreOkay = false;
 		}
 

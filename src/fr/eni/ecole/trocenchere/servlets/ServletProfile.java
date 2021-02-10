@@ -1,8 +1,6 @@
 package fr.eni.ecole.trocenchere.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,7 +18,6 @@ import fr.eni.ecole.trocenchere.utils.ServletUtils;
 @WebServlet("/Profile")
 public class ServletProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static List<Integer> listeCodesErreur = new ArrayList<>();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

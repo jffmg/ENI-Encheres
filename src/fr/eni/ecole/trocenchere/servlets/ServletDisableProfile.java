@@ -1,7 +1,6 @@
 package fr.eni.ecole.trocenchere.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,7 +18,6 @@ import fr.eni.ecole.trocenchere.utils.ServletUtils;
 @WebServlet("/Connected/DisableProfile")
 public class ServletDisableProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static 	List<Integer> listeCodesErreur=new ArrayList<>();
 
 	@Override
 	public void init() throws ServletException {

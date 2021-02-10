@@ -1,11 +1,8 @@
 package fr.eni.ecole.trocenchere.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +21,6 @@ import fr.eni.ecole.trocenchere.utils.ServletUtils;
 @WebServlet("/SignUp")
 public class ServletSignUp extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	List<Integer> listeCodesErreur=new ArrayList<>();
 
 
 	@Override
