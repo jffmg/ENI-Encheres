@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import fr.eni.ecole.trocenchere.bo.Article;
+import fr.eni.ecole.trocenchere.bo.Bid;
 import fr.eni.ecole.trocenchere.bo.PickUp;
 import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
@@ -46,6 +47,9 @@ public interface DAO {
 	public abstract PickUp selectPickUp(String articleID) throws BusinessException;
 
 	public abstract void updatePoints(int sessionId, Integer myOffer) throws BusinessException;
+	public abstract Bid selectBidByArticleAndAmount(int articleId, int currentBid) throws BusinessException;
+	public abstract User selectUserById(int bidderId) throws BusinessException;
+	public abstract void raisePoints(int bidderId, int currentBid) throws BusinessException;
 
 
 

@@ -2,6 +2,9 @@ package fr.eni.ecole.trocenchere.bll;
 
 import java.time.LocalDateTime;
 
+import fr.eni.ecole.trocenchere.bo.Article;
+import fr.eni.ecole.trocenchere.bo.Bid;
+import fr.eni.ecole.trocenchere.bo.User;
 import fr.eni.ecole.trocenchere.dal.DAO;
 import fr.eni.ecole.trocenchere.dal.DAOFactory;
 import fr.eni.ecole.trocenchere.gestion.erreurs.BusinessException;
@@ -29,6 +32,8 @@ public class BidManager {
 			System.out.println(CodesResultatBLL.MY_OFFER_INF_MY_POINTS);
 			throw be;
 		} else {
+			//check if there is already a winning bid
+			selectArticleMaxBid(articleId);
 			// check if a bid already exists for this article and this user
 			boolean isBidinBase = this.bidDao.checkbidExist(sessionId, articleId);
 			if (isBidinBase == false) {
@@ -40,6 +45,9 @@ public class BidManager {
 		
 		//withdraw points on the bidder account
 		debitUserPoints(sessionId, myOffer);
+		
+		//check if there is already a winning bid
+		//selectArticleMaxBid(articleId);
 
 		// check the points of the bider
 		/*
@@ -58,6 +66,24 @@ public class BidManager {
 		 */
 	}
 
+	private void selectArticleMaxBid(int articleId) throws BusinessException {
+		String articleIdString = String.valueOf(articleId);
+		Article article = this.bidDao.selectArticle(articleIdString);
+		int currentBid = article.getSalePrice();
+		int bidderId;
+		User previousBidder = new User();
+		if (currentBid != 0) {
+			//select concerned bid and bid's owner
+			Bid previousBid = this.bidDao.selectBidByArticleAndAmount(articleId, currentBid);
+			bidderId = previousBid.getUserId();
+			previousBidder = this.bidDao.selectUserById(bidderId);
+			//credit previous bidder's point with his own bid amount
+			this.bidDao.raisePoints(bidderId, currentBid);
+		}
+		
+	}
+
+	
 	private void debitUserPoints(int sessionId, Integer myOffer) throws BusinessException  {
 		UserManager um = new UserManager();
 		um.updatePointsUser(sessionId, myOffer);
