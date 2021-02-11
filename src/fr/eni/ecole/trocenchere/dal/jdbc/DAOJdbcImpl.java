@@ -758,4 +758,26 @@ public class DAOJdbcImpl implements DAO {
 
 	}
 
+	@Override
+	public User selectMaxBidder(int articleID) throws BusinessException {
+		User maxBidder = new User(); 
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_MAX_BID);
+			pstmt.setInt(1, articleID);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				maxBidder = DalUtils.buildUser(rs);
+			}
+		} catch (SQLException e) {
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
+			e.printStackTrace();
+		}
+		
+		return maxBidder;
+	}
+
 }

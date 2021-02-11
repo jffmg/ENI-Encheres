@@ -74,7 +74,7 @@ public class ArticleManager {
 		}
 
 		PickUp pickUp = new PickUp(pickUpStreet, pickUpPostCode, pickUpCity);
-		Article articleToSell = new Article (articleName, articleDesc, saleStartDate, saleEndDate, saleStartBid,status, idCategory, userId);
+		Article articleToSell = new Article (articleName, articleDesc, saleStartDate, saleEndDate, saleStartBid, status, idCategory, userId);
 
 		if (!be.hasErreurs()) {
 			this.articleDao.createSellNewArticle(userId, articleToSell, pickUp);

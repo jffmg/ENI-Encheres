@@ -39,8 +39,8 @@ public class FilterConnected implements Filter {
 
 			chain.doFilter( request, response );
 			return;
-		}
-
+		}	
+		
 		// get session info
 		HttpSession session = ((HttpServletRequest) request).getSession();
 		String userName = (String) session.getAttribute("user");
