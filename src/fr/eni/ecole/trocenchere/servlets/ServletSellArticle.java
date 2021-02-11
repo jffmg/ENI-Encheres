@@ -142,8 +142,11 @@ public class ServletSellArticle extends HttpServlet {
 		}
 
 		if (!hasError) {
-			String message = "Votre vente a bien été ajoutée";
-			if (articleId != null) {
+			String message;
+			if ("".equals(articleId)) {
+				message = "Votre vente a bien été ajoutée";
+			}
+			else {
 				message = "Votre vente a bien été mise à jour";
 			}
 			request.setAttribute("message", message);
