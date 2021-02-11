@@ -77,8 +77,15 @@ public class ServletBid extends HttpServlet {
 		if(now.isBefore(startDate)) {
 			hasAuctionStarted = false;
 		}
+		
+		// Parameter : test is auction is finished or not yet
+		boolean isAuctionFinished = true;
+		if(now.isBefore(endDate)) {
+			isAuctionFinished = false;
+		}
 
 		request.getServletContext().setAttribute("hasAuctionStarted", hasAuctionStarted);
+		request.getServletContext().setAttribute("isAuctionFinished", isAuctionFinished);
 
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/WEB-INF/Bid.jsp");
 		rd.forward(request, response);
