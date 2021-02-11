@@ -86,8 +86,8 @@ public class ArticleManager {
 	}
 	private boolean checkDates(LocalDateTime saleEndDate, LocalDateTime saleStartDate) {
 		boolean datesAreOkay = true;
-		boolean isSaleEndDateBeforeActualDate = saleEndDate.isBefore(LocalDateTime.now());
-		boolean isSaleEndDateBeforeStartDate = saleEndDate.isBefore(saleStartDate);
+		boolean isSaleEndDateBeforeActualDate = LocalDateTime.now().isBefore(saleEndDate);
+		boolean isSaleEndDateBeforeStartDate = saleStartDate.isBefore(saleEndDate);
 		if (isSaleEndDateBeforeActualDate || isSaleEndDateBeforeStartDate) {
 			datesAreOkay = false;
 		}
