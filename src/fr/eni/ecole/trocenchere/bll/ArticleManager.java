@@ -86,8 +86,8 @@ public class ArticleManager {
 	}
 	private boolean checkDates(LocalDateTime saleEndDate, LocalDateTime saleStartDate) {
 		boolean datesAreOkay = true;
-		boolean isSaleEndDateBeforeActualDate = LocalDateTime.now().isBefore(saleEndDate);
-		boolean isSaleEndDateBeforeStartDate = saleStartDate.isBefore(saleEndDate);
+		boolean isSaleEndDateBeforeActualDate = saleEndDate.isBefore(LocalDateTime.now());
+		boolean isSaleEndDateBeforeStartDate = saleEndDate.isBefore(saleStartDate);
 		if (isSaleEndDateBeforeActualDate || isSaleEndDateBeforeStartDate) {
 			datesAreOkay = false;
 		}
@@ -106,8 +106,18 @@ public class ArticleManager {
 	public void updateArticle(String articleId, int idSeller, String articleName, String articleDesc, String articleCat,
 			Integer saleStartBid, LocalDateTime startDate, LocalDateTime endDate, String pickUpStreet,
 			String pickUpPostCode, String pickUpCity) throws BusinessException{
+		
+		BusinessException be = new BusinessException();
 
 		int idCategory = DalUtils.categoryStringToInteger(articleCat);
+
+		// check the end of sale date
+		boolean	datesAreOkay = checkDates(endDate, startDate);
+		if (!datesAreOkay) {
+			
+			be.ajouterErreur(CodesResultatBLL.SALE_END_DATE);
+			//			System.out.println(CodesResultatBLL.SALE_END_DATE);
+		}
 
 		String status = null;
 		if (startDate.isBefore(LocalDateTime.now())){
@@ -122,7 +132,13 @@ public class ArticleManager {
 
 		articleToSell.setIdArticle(Integer.parseInt(articleId));
 
-		this.articleDao.updateArticle(articleToSell, pickUp);
+		if (!be.hasErreurs()) {
+			this.articleDao.updateArticle(articleToSell, pickUp);
+		}
+
+		if (be.hasErreurs()) {
+			throw be;
+		}
 	}
 
 }
