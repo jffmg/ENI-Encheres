@@ -1,5 +1,7 @@
 package fr.eni.ecole.trocenchere.events;
 
+import java.time.LocalTime;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -61,11 +63,12 @@ public class ListenerEncheres implements ServletContextListener {
 							e.printStackTrace();
 						}
 						//						System.out.println("... le traitement asynchrone a été exécuté " + cpt + " fois...");
+						System.out.println(LocalTime.now());
 						Thread.sleep(60000);
 					} catch (InterruptedException e) {
-						e.printStackTrace();
+						Thread.currentThread().interrupt();
+						break;
 					}
-
 				}
 			}
 		});
