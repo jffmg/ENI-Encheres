@@ -102,35 +102,36 @@ public class UserManager {
 	// User validation before insertion in database
 	private void validateUser(User currentUser, BusinessException be) {
 
-		if (currentUser.getUser() == null || currentUser.getUser() == "" || currentUser.getUser().length() > 30) {
+		if (currentUser.getUser() == null || currentUser.getUser().equals("") || currentUser.getUser().length() > 30) {
 			be.ajouterErreur(CodesResultatBLL.USER_ERROR);
 		}
-		if (currentUser.getName() == null || currentUser.getName() == "" || currentUser.getName().length() > 30) {
+		if (currentUser.getName() == null || currentUser.getName().equals("") || currentUser.getName().length() > 30) {
 			be.ajouterErreur(CodesResultatBLL.NAME_ERROR);
 		}
-		if (currentUser.getFirstName() == null || currentUser.getFirstName() == ""
+		if (currentUser.getFirstName() == null || currentUser.getFirstName().equals("")
 				|| currentUser.getFirstName().length() > 30) {
 			be.ajouterErreur(CodesResultatBLL.FIRSTNAME_ERROR);
 		}
-		if (currentUser.getEmail() == null || currentUser.getEmail() == "" || currentUser.getEmail().length() > 20
+		if (currentUser.getEmail() == null || currentUser.getEmail().equals("") || currentUser.getEmail().length() > 20
 				|| !currentUser.getEmail().contains("@")) {
 			be.ajouterErreur(CodesResultatBLL.EMAIL_ERROR);
 		}
-		if (currentUser.getPhone() == null || currentUser.getPhone() == "" || currentUser.getPhone().length() > 15
+		if (currentUser.getPhone() == null || currentUser.getPhone().equals("") || currentUser.getPhone().length() > 15
 				|| currentUser.getPhone().contains("[a-zA-Z]")) {
 			be.ajouterErreur(CodesResultatBLL.PHONE_ERROR);
 		}
-		if (currentUser.getStreet() == null || currentUser.getStreet() == "" || currentUser.getStreet().length() > 30) {
+		if (currentUser.getStreet() == null || currentUser.getStreet().equals("")
+				|| currentUser.getStreet().length() > 30) {
 			be.ajouterErreur(CodesResultatBLL.STREET_ERROR);
 		}
-		if (currentUser.getPostCode() == null || currentUser.getPostCode() == ""
+		if (currentUser.getPostCode() == null || currentUser.getPostCode().equals("")
 				|| currentUser.getPostCode().length() > 10 || currentUser.getPostCode().contains("[a-zA-Z]")) {
 			be.ajouterErreur(CodesResultatBLL.POSTCODE_ERROR);
 		}
-		if (currentUser.getCity() == null || currentUser.getCity() == "" || currentUser.getCity().length() > 30) {
+		if (currentUser.getCity() == null || currentUser.getCity().equals("") || currentUser.getCity().length() > 30) {
 			be.ajouterErreur(CodesResultatBLL.CITY_ERROR);
 		}
-		if (currentUser.getPasswordEncrypted() == null || currentUser.getPasswordEncrypted() == ""
+		if (currentUser.getPasswordEncrypted() == null || currentUser.getPasswordEncrypted().equals("")
 				|| currentUser.getPasswordEncrypted().length() > 30) {
 			be.ajouterErreur(CodesResultatBLL.PASSWORD_ERROR);
 		}
