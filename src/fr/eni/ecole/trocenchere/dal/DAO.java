@@ -42,6 +42,7 @@ public interface DAO {
 	public abstract boolean checkbidExist(int sessionId, int articleId) throws BusinessException;
 	public abstract Article updateArticle(Article articleToSell, PickUp pickUp) throws BusinessException;
 
+	public abstract User selectMaxBidder(int articleID) throws BusinessException;
 	
 	// PickUp DAO methods
 	public abstract PickUp selectPickUp(String articleID) throws BusinessException;

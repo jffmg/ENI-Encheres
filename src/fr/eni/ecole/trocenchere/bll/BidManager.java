@@ -127,5 +127,11 @@ public class BidManager {
 			this.bidDao.updateBid(sessionId, articleId, myOffer, date);
 		}
 	}
+	
+	public User selectMaxBidder(int articleId) throws BusinessException{
+		User maxBidder = this.bidDao.selectMaxBidder(articleId);
+		return maxBidder;
+		
+	}
 
 }
