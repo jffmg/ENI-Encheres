@@ -86,9 +86,16 @@ public class ArticleManager {
 	}
 	private boolean checkDates(LocalDateTime saleEndDate, LocalDateTime saleStartDate) {
 		boolean datesAreOkay = true;
+<<<<<<< HEAD
 		boolean isSaleEndDateBeforeActualDate = saleEndDate.isBefore(LocalDateTime.now());
 		boolean isSaleEndDateBeforeStartDate = saleEndDate.isBefore(saleStartDate);
 		if (isSaleEndDateBeforeActualDate || isSaleEndDateBeforeStartDate) {
+=======
+		boolean isActualDateBeforeSaleEndDate = LocalDateTime.now().isBefore(saleEndDate);
+		boolean isSaleStartDateBeforeSaleEndDate = saleStartDate.isBefore(saleEndDate);
+		boolean isActualDateBeforeSaleStartDate = LocalDateTime.now().isBefore(saleStartDate);
+		if (!isActualDateBeforeSaleEndDate || !isSaleStartDateBeforeSaleEndDate || ! isActualDateBeforeSaleStartDate) {
+>>>>>>> branch 'master' of https://github.com/LeroyErwan/ENI-Encheres
 			datesAreOkay = false;
 		}
 
