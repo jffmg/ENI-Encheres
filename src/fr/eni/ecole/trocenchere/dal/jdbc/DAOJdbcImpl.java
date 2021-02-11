@@ -45,6 +45,21 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return user;
 	}
@@ -66,6 +81,21 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return user;
 	}
@@ -85,6 +115,14 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 	}
@@ -114,6 +152,14 @@ public class DAOJdbcImpl implements DAO {
 				businessException.ajouterErreur(CodesResultatDAL.DISABLE_USER_ECHEC);
 				e.printStackTrace();
 				throw businessException;
+			} finally {
+				if (prepStmt != null) {
+					try {
+						prepStmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		}
 	}
@@ -138,6 +184,21 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 	}
@@ -156,6 +217,14 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJECT_ECHEC);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -177,6 +246,21 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return points;
 	}
@@ -205,6 +289,21 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -228,6 +327,21 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -265,7 +379,15 @@ public class DAOJdbcImpl implements DAO {
 			throw businessException;
 		}
 		//		System.out.println(articlesSelected);
-
+		finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		return articlesSelected;
 	}
 
@@ -286,6 +408,21 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return article;
 	}
@@ -443,7 +580,15 @@ public class DAOJdbcImpl implements DAO {
 			throw businessException;
 		}
 		//		System.out.println(articlesSelected);
-
+		finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		return articlesSelected;
 	}
 
@@ -481,15 +626,31 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return articleToSell;
 	}
 
 	@Override
 	public Article updateArticle(Article articleToSell, PickUp pickUp) throws BusinessException {
+		PreparedStatement prepStmt = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
-			PreparedStatement prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_UPDATE_ARTICLE);
+			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_UPDATE_ARTICLE);
 
 			DalUtils.prepareStatementUpdateArticle(prepStmt, articleToSell);
 
@@ -500,18 +661,27 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJECT_ECHEC);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 		int articleId = articleToSell.getIdArticle();
-		updatePickUp(articleId,pickUp);
+		updatePickUp(articleId, pickUp);
 
 		return articleToSell;
 	}
 
 	public void updatePickUp(int articleId, PickUp pickUp) throws BusinessException {
+		PreparedStatement prepStmt = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
-			PreparedStatement prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_UPDATE_PICKUP);
+			prepStmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_UPDATE_PICKUP);
 
 			DalUtils.prepareStatementUpdatePickUp(prepStmt, articleId, pickUp);
 
@@ -522,6 +692,14 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJECT_ECHEC);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -543,6 +721,21 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return test;
 	}
@@ -564,6 +757,21 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return pickUp;
 	}
@@ -580,6 +788,21 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.DELETE_ARTICLE_ECHEC);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -601,6 +824,14 @@ public class DAOJdbcImpl implements DAO {
 			BusinessException businessException = new BusinessException();
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (callStmt != null) {
+				try {
+					callStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -623,6 +854,14 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJECT_ECHEC);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 		updateSellPrice(articleId, myOffer);
@@ -641,6 +880,14 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJECT_ECHEC);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -659,6 +906,14 @@ public class DAOJdbcImpl implements DAO {
 			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJECT_ECHEC);
 			e.printStackTrace();
 			throw businessException;
+		} finally {
+			if (prepStmt != null) {
+				try {
+					prepStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 		updateSellPrice(articleId, myOffer);
@@ -685,6 +940,21 @@ public class DAOJdbcImpl implements DAO {
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 		return bidExists;
@@ -704,6 +974,14 @@ public class DAOJdbcImpl implements DAO {
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
 			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 	}
@@ -736,6 +1014,21 @@ public class DAOJdbcImpl implements DAO {
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return bid;
 	}
@@ -754,14 +1047,23 @@ public class DAOJdbcImpl implements DAO {
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
 			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+			}
 		}
 
 	}
 
 	@Override
 	public User selectMaxBidder(int articleID) throws BusinessException {
-		User maxBidder = new User(); 
-		
+		User maxBidder = new User();
+
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
@@ -775,8 +1077,23 @@ public class DAOJdbcImpl implements DAO {
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.READ_ERROR);
 			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-		
+
 		return maxBidder;
 	}
 
