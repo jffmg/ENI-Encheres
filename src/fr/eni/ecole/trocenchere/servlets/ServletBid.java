@@ -83,7 +83,13 @@ public class ServletBid extends HttpServlet {
 		if(now.isBefore(endDate)) {
 			isAuctionFinished = false;
 		}
+		
+		// parameter bestBider
+		BidManager bm = new BidManager();
+		User bestBider = new User();
+		bestbider = selectMaxBider();
 
+		request.getServletContext().setAttribute("bestBider", bestBider);
 		request.getServletContext().setAttribute("hasAuctionStarted", hasAuctionStarted);
 		request.getServletContext().setAttribute("isAuctionFinished", isAuctionFinished);
 

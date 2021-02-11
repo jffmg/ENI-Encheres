@@ -48,6 +48,7 @@ public class FilterConnected implements Filter {
 
 		// Filter
 		if (userName == null) {
+			request.setAttribute("categories", "");
 			httpRequest.getRequestDispatcher("/Home").forward(request, response);
 		}
 		else {

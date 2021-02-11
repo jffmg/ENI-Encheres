@@ -23,7 +23,7 @@
   
    <!-- invalider automatiquement la session apres 5 mn inactivite -->
   <session-config>
-  	<session-timeout>5</session-timeout>
+  	<session-timeout>1</session-timeout>
   </session-config>
  
 </web-app>

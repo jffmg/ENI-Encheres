@@ -65,6 +65,9 @@
 				<p class="labelProfil">Meilleure offre :</p>
 				<p class= "infoProfil">${currentArticle.getSalePrice()} point(s)</p>
 				
+				<p class="labelProfil">Meilleure enchéreur :</p>
+				<p class= "infoProfil">${bestBider!=null ? bestBider.getUser() : ""}</p>
+				
 				<p class="labelProfil">Mise à prix :</p>
 				<p class= "infoProfil">${currentArticle.getStartingBid()} point(s)</p>
 				
