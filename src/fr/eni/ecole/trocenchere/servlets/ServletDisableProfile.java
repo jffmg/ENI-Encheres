@@ -59,7 +59,7 @@ public class ServletDisableProfile extends HttpServlet {
 		}
 		else {
 			// if not OK dispatch to profile
-			this.getServletContext().getRequestDispatcher("/Connected/Profile?profile=" + userName).forward(request, response);
+			this.getServletContext().getRequestDispatcher("/Profile?profile=" + userName).forward(request, response);
 		}
 	}
 
