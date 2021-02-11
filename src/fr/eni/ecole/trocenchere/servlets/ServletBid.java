@@ -34,6 +34,7 @@ public class ServletBid extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String profileName = request.getParameter("profile");
 		String articleID = request.getParameter("articleID");
+		Integer articleIDInt = Integer.parseInt(articleID);
 
 		//System.out.println("je passe dans la ServletBid - doGet / profile name : " + profileName + " articleID : " + articleID);
 
@@ -87,7 +88,11 @@ public class ServletBid extends HttpServlet {
 		// parameter bestBider
 		BidManager bm = new BidManager();
 		User bestBider = new User();
-		bestbider = selectMaxBider();
+		try {
+			bestBider = bm.selectMaxBidder(articleIDInt);
+		} catch (BusinessException e) {
+			ServletUtils.handleBusinessException(e, request);
+		}
 
 		request.getServletContext().setAttribute("bestBider", bestBider);
 		request.getServletContext().setAttribute("hasAuctionStarted", hasAuctionStarted);
