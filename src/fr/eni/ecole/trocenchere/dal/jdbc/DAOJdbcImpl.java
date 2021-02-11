@@ -447,7 +447,7 @@ public class DAOJdbcImpl implements DAO {
 				switch (checkBox) {
 				case "myBids":
 					if (categorySelected == 0) {
-						if (keyword == null || keyword == "") {
+						if (keyword == null || keyword.equalsIgnoreCase("")) {
 							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES);
 							pstmt = DalUtils.prepareStatement1Param(user, pstmt, userID);
 						} else {
@@ -455,7 +455,7 @@ public class DAOJdbcImpl implements DAO {
 							pstmt = DalUtils.prepareStatement2Params(user, pstmt, userID, keyword);
 						}
 					} else {
-						if (keyword == "" || keyword == null) {
+						if (keyword.equalsIgnoreCase("") || keyword == null) {
 							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_BIDS_ARTICLES_BY_CATEGORY);
 							pstmt = DalUtils.prepareStatement2Params(user, pstmt, userID, categorySelected);
 						} else {
@@ -467,7 +467,7 @@ public class DAOJdbcImpl implements DAO {
 					break;
 				case "myWonBids":
 					if (categorySelected == 0) {
-						if (keyword == null || keyword == "") {
+						if (keyword == null || keyword.equalsIgnoreCase("")) {
 							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES);
 							pstmt = DalUtils.prepareStatement1Param(user, pstmt, userID);
 						} else {
@@ -475,7 +475,7 @@ public class DAOJdbcImpl implements DAO {
 							pstmt = DalUtils.prepareStatement2Params(user, pstmt, userID, keyword);
 						}
 					} else {
-						if (keyword == "" || keyword == null) {
+						if (keyword.equalsIgnoreCase("") || keyword == null) {
 							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_WON_BIDS_ARTICLES_BY_CATEGORY);
 							pstmt = DalUtils.prepareStatement2Params(user, pstmt, userID, categorySelected);
 						} else {
@@ -496,7 +496,7 @@ public class DAOJdbcImpl implements DAO {
 				case "notStartedSales":
 					stateArticle = "CR";
 					if (categorySelected == 0) {
-						if (keyword == null || keyword == "") {
+						if (keyword == null || keyword.equalsIgnoreCase("")) {
 							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES);
 							pstmt = DalUtils.prepareStatement2Params(user, pstmt, userName, stateArticle);
 						} else {
@@ -504,7 +504,7 @@ public class DAOJdbcImpl implements DAO {
 							pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle, keyword);
 						}
 					} else {
-						if (keyword == "" || keyword == null) {
+						if (keyword.equalsIgnoreCase("") || keyword == null) {
 							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_CATEGORY);
 							pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle,
 									categorySelected);
@@ -519,7 +519,7 @@ public class DAOJdbcImpl implements DAO {
 				case "endedSales":
 					stateArticle = "VD";
 					if (categorySelected == 0) {
-						if (keyword == null || keyword == "") {
+						if (keyword == null || keyword.equalsIgnoreCase("")) {
 							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES);
 							pstmt = DalUtils.prepareStatement2Params(user, pstmt, userName, stateArticle);
 						} else {
@@ -527,7 +527,7 @@ public class DAOJdbcImpl implements DAO {
 							pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle, keyword);
 						}
 					} else {
-						if (keyword == "" || keyword == null) {
+						if (keyword.equalsIgnoreCase("") || keyword == null) {
 							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_CATEGORY);
 							pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle,
 									categorySelected);
@@ -542,7 +542,7 @@ public class DAOJdbcImpl implements DAO {
 				default:
 					stateArticle = "EC";
 					if (categorySelected == 0) {
-						if (keyword == null || keyword == "") {
+						if (keyword == null || keyword.equalsIgnoreCase("")) {
 							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES);
 							pstmt = DalUtils.prepareStatement2Params(user, pstmt, userName, stateArticle);
 						} else {
@@ -550,7 +550,7 @@ public class DAOJdbcImpl implements DAO {
 							pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle, keyword);
 						}
 					} else {
-						if (keyword == "" || keyword == null) {
+						if (keyword.equalsIgnoreCase("") || keyword == null) {
 							pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_USER_SALES_BY_CATEGORY);
 							pstmt = DalUtils.prepareStatement3Params(user, pstmt, userName, stateArticle,
 									categorySelected);
