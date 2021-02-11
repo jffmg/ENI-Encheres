@@ -118,7 +118,10 @@ public class SQL_REQUESTS_Utils {
 	public static final String SQL_SELECT_BID_BY_ARTICLE_AND_AMOUNT = "SELECT * FROM encheres WHERE no_article = ? AND montant_enchere = ?;";
 	public static final String SQL_SELECT_USER_BY_ID = "SELECT * FROM utilisateurs WHERE no_utilisateur = ?;";
 	
-	public static final String SQL_SELECT_USER_MAX_BID = "SELECT * FROM articles_vendus as a INNER JOIN enchere as e ON a.no_article = e.no_article INNER JOIN utilisateurs as u ON e.no_utilisateur = u.no_utilisateur WHERE e.montant_enchere = a.prix_vente AND a.no_article = ?;";
+	public static final String SQL_SELECT_USER_MAX_BID = "SELECT * FROM articles_vendus as a \r\n"
+			+ "INNER JOIN ENCHERES as e ON a.no_article = e.no_article \r\n"
+			+ "INNER JOIN utilisateurs as u ON e.no_utilisateur = u.no_utilisateur \r\n"
+			+ "WHERE e.montant_enchere = a.prix_vente AND a.no_article = ?;";
 
 
 }
