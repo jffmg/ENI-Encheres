@@ -130,14 +130,14 @@ public class DalUtils {
 	public static PreparedStatement basicDisplay(String keyword, int category, PreparedStatement pstmt, Connection cnx) throws SQLException {
 
 		if (category == 0) {
-			if (keyword == null || keyword == "") {
+			if (keyword == null || keyword.equals("")) {
 				pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_ALL_EC_ARTICLES);
 			} else {
 				pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_EC_ARTICLES_BY_KEYWORD);
 				pstmt.setString(1, keyword);
 			}
 		} else {
-			if (keyword == "" || keyword == null) {
+			if (keyword.equals("") || keyword == null) {
 				pstmt = cnx.prepareStatement(SQL_REQUESTS_Utils.SQL_SELECT_EC_ARTICLES_BY_CATEGORY);
 				pstmt.setInt(1, category);
 			} else {

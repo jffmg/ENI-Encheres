@@ -51,9 +51,8 @@
 								<input class="inputText" type="email" name="email" placeholder="adresse@exemple.fr" required="required">
 							</li>
 							<li>
-								<label class="labelSignForm" for="phone">Téléphone : </label>
-								<input class="inputText" type="tel" name="phone" placeholder="0123456789">
-<!-- 								pattern="|0[1-9]([0-9]{2}){4}" -->
+								<label class="labelSignForm" for="phone">Téléphone* : </label>
+								<input class="inputText" type="tel" name="phone" pattern="|0[1-9]([0-9]{2}){4}" placeholder="0123456789">
 							</li>
 							<li>
 								<label class="labelSignForm" for="street">Adresse* : </label>

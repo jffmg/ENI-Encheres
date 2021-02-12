@@ -52,7 +52,7 @@
 			<p><input class="inputText" type="email" name="email" value="${profile.getEmail()}" size=35/> <p>
 
 			<p class="labelProfil"> Téléphone : </p>
-			<p><input class="inputText" type="text" name="phone" value="${profile.getPhone()}" size=35/> <p>
+			<p><input class="inputText" type="text" name="phone" pattern="|0[1-9]([0-9]{2}){4}" value="${profile.getPhone()}" size=35/> <p>
 			
 			<p class="labelProfil"> Rue : </p>
 			<p><input class="inputText" type="text" name="street" value="${profile.getStreet()}" size=35/> <p>
